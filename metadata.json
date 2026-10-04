@@ -1,0 +1,6 @@
+{
+  "name": "Vortex Tools - Free 3D Privacy Utilities",
+  "description": "High-speed, zero-retention online utilities featuring disposable temporary email, safe URL shortener with link inspection, QR code generator, password builder, and text tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
