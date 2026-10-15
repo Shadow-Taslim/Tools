@@ -50,19 +50,16 @@ Built with **React**, **TypeScript**, **Tailwind CSS**, **Three.js**, and an **E
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## 🛠️ Architecture & Tech Stack (MERN)
 
-| Layer | Technology |
+QuickNest is built on the **MERN** stack (**M**ongoDB, **E**xpress, **R**eact, **N**ode.js):
+
+| MERN Layer | Technology & Role |
 |---|---|
-| **Frontend Framework** | React 18 (Functional Components, Custom Hooks) |
-| **Language** | TypeScript (Strict type checking) |
-| **Styling** | Tailwind CSS with custom glassmorphism and theme palettes |
-| **3D Rendering** | Three.js (WebGL shaders, procedural geometries) |
-| **Icons** | Lucide React |
-| **Backend Server** | Node.js with Express |
-| **Real-time Engine** | Server-Sent Events (SSE) + Node `EventEmitter` |
-| **Data Storage** | In-memory cache-aside store with 10s background TTL sweeper |
-| **Build & Bundler** | Vite 6 |
+| **M — Database** | **MongoDB & Mongoose** (Schemas, Native TTL Indexes for 10-minute auto-expiry, and resilient hybrid memory fallback) |
+| **E — Backend** | **Express 4 & Node.js** (REST API, input sanitization, malware heuristic engine, SSRF defense) |
+| **R — Frontend** | **React 18** (Vite SPA, responsive Tailwind CSS v4, Lucide React, Three.js 3D spatial shaders) |
+| **N — Runtime** | **Node.js** (v18+, Server-Sent Events SSE real-time streaming, CSPRNG crypto) |
 
 ---
 

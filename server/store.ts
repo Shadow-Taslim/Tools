@@ -1,5 +1,9 @@
 import crypto from 'node:crypto';
 import { EventEmitter } from 'node:events';
+import { isMongoConnected } from './db/connection.ts';
+import { InboxModel } from './models/Inbox.ts';
+import { MessageModel } from './models/Message.ts';
+import { ShortLinkModel } from './models/ShortLink.ts';
 
 /**
  * In-memory & production-ready data store for Vortex Tools.
@@ -138,6 +142,19 @@ class Store {
     if (!this.inboxMessages.has(address)) {
       this.inboxMessages.set(address, []);
     }
+
+    // Persist to MongoDB via Mongoose
+    if (isMongoConnected()) {
+      InboxModel.create({
+        address: inbox.address,
+        token: inbox.token,
+        createdAt: new Date(inbox.createdAt),
+        expiresAt: new Date(inbox.expiresAt),
+        lastActiveAt: new Date(inbox.lastActiveAt),
+        isBlocked: inbox.isBlocked
+      }).catch((err: any) => console.error('MongoDB Inbox persist error:', err.message));
+    }
+
     return inbox;
   }
 
@@ -162,6 +179,15 @@ class Store {
     const newExpiry = Math.min(inbox.expiresAt + additionalMinutes * 60 * 1000, maxExpiry);
     inbox.expiresAt = newExpiry;
     inbox.lastActiveAt = Date.now();
+
+    // Update in MongoDB
+    if (isMongoConnected()) {
+      InboxModel.updateOne(
+        { address: normalized },
+        { $set: { expiresAt: new Date(newExpiry), lastActiveAt: new Date() } }
+      ).catch((err: any) => console.error('MongoDB Inbox extend error:', err.message));
+    }
+
     return inbox;
   }
 
@@ -184,6 +210,17 @@ class Store {
         this.messages.delete(id);
       }
     }
+
+    // Delete in MongoDB
+    if (isMongoConnected()) {
+      InboxModel.deleteOne({ address: normalized }).catch((err: any) =>
+        console.error('MongoDB Inbox delete error:', err.message)
+      );
+      MessageModel.deleteMany({ inboxAddress: normalized }).catch((err: any) =>
+        console.error('MongoDB Message delete error:', err.message)
+      );
+    }
+
     return exists;
   }
 
@@ -228,6 +265,23 @@ class Store {
 
     // Push instant notification to any live connection for this inbox
     this.eventBus.emit(`msg:${normalizedInbox}`, fullMessage);
+
+    // Persist to MongoDB via Mongoose
+    if (isMongoConnected()) {
+      MessageModel.create({
+        messageId: fullMessage.id,
+        inboxAddress: fullMessage.inboxAddress,
+        fromAddress: fullMessage.fromAddress,
+        fromName: fullMessage.fromName,
+        subject: fullMessage.subject,
+        bodyText: fullMessage.bodyText,
+        bodyHtml: fullMessage.bodyHtml,
+        receivedAt: new Date(fullMessage.receivedAt),
+        sizeBytes: fullMessage.sizeBytes,
+        headers: fullMessage.headers || {},
+        attachments: fullMessage.attachments || []
+      }).catch((err: any) => console.error('MongoDB Message persist error:', err.message));
+    }
 
     return fullMessage;
   }
@@ -288,6 +342,24 @@ class Store {
     };
 
     this.shortLinks.set(code, link);
+
+    // Persist to MongoDB via Mongoose
+    if (isMongoConnected()) {
+      ShortLinkModel.create({
+        code: link.code,
+        originalUrl: link.originalUrl,
+        title: link.title,
+        domain: link.domain,
+        isMalicious: link.isMalicious,
+        maliciousReasons: link.maliciousReasons,
+        clickCount: link.clickCount,
+        createdAt: new Date(link.createdAt),
+        expiresAt: link.expiresAt ? new Date(link.expiresAt) : null,
+        allowDirectRedirect: link.allowDirectRedirect,
+        reportsCount: link.reportsCount
+      }).catch((err: any) => console.error('MongoDB ShortLink persist error:', err.message));
+    }
+
     return link;
   }
 
@@ -297,6 +369,9 @@ class Store {
 
     if (link.expiresAt && Date.now() > link.expiresAt) {
       this.shortLinks.delete(code);
+      if (isMongoConnected()) {
+        ShortLinkModel.deleteOne({ code }).catch(() => {});
+      }
       return null;
     }
     return link;
@@ -308,6 +383,11 @@ class Store {
 
     link.clickCount++;
     link.lastAccessedAt = Date.now();
+
+    if (isMongoConnected()) {
+      ShortLinkModel.updateOne({ code }, { $inc: { clickCount: 1 } }).catch(() => {});
+    }
+
     return link;
   }
 
@@ -323,6 +403,16 @@ class Store {
       }
     }
 
+    if (isMongoConnected()) {
+      ShortLinkModel.updateOne(
+        { code },
+        {
+          $inc: { reportsCount: 1 },
+          ...(link.reportsCount >= 3 ? { isMalicious: true } : {})
+        }
+      ).catch(() => {});
+    }
+
     this.reports.push({
       id: 'rep_' + Math.random().toString(36).substring(2, 11),
       code,
@@ -333,6 +423,56 @@ class Store {
     });
 
     return true;
+  }
+
+  /**
+   * Synchronize active non-expired records from MongoDB on startup
+   */
+  public async syncFromMongo(): Promise<void> {
+    if (!isMongoConnected()) return;
+    try {
+      const now = new Date();
+      const inboxes = await InboxModel.find({ expiresAt: { $gt: now } }).lean();
+      for (const ib of inboxes) {
+        const address = ib.address.toLowerCase();
+        this.inboxes.set(address, {
+          id: 'ibx_' + (ib._id ? ib._id.toString() : address),
+          address,
+          token: ib.token,
+          createdAt: new Date(ib.createdAt).getTime(),
+          expiresAt: new Date(ib.expiresAt).getTime(),
+          lastActiveAt: new Date(ib.lastActiveAt).getTime(),
+          isBlocked: ib.isBlocked || false
+        });
+        if (!this.inboxMessages.has(address)) {
+          this.inboxMessages.set(address, []);
+        }
+      }
+
+      const links = await ShortLinkModel.find({
+        $or: [{ expiresAt: null }, { expiresAt: { $gt: now } }]
+      }).lean();
+      for (const l of links) {
+        this.shortLinks.set(l.code, {
+          id: 'lnk_' + (l._id ? l._id.toString() : l.code),
+          code: l.code,
+          originalUrl: l.originalUrl,
+          title: l.title || '',
+          domain: l.domain || '',
+          isMalicious: l.isMalicious || false,
+          maliciousReasons: l.maliciousReasons || [],
+          clickCount: l.clickCount || 0,
+          createdAt: new Date(l.createdAt).getTime(),
+          expiresAt: l.expiresAt ? new Date(l.expiresAt).getTime() : null,
+          allowDirectRedirect: l.allowDirectRedirect !== false,
+          reportsCount: l.reportsCount || 0,
+          lastAccessedAt: null
+        });
+      }
+      console.log(`🍃 [MongoDB] Synchronized ${inboxes.length} active inboxes and ${links.length} short links from MongoDB.`);
+    } catch (err: any) {
+      console.error('Failed to sync from MongoDB:', err.message);
+    }
   }
 
   // --- Rate Limiting (Token Bucket) ---

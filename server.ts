@@ -3,6 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import emailRoutes from './server/routes/email.ts';
 import shortenerRoutes from './server/routes/shortener.ts';
 import { store } from './server/store.ts';
+import { connectMongoDB, isMongoConnected } from './server/db/connection.ts';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -13,6 +14,10 @@ async function startServer() {
   const app = express();
   const PORT = Number(process.env.PORT) || 3000;
   const isProd = process.env.NODE_ENV === 'production';
+
+  // Connect to MongoDB via Mongoose (MERN Stack)
+  await connectMongoDB();
+  await store.syncFromMongo();
 
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -66,10 +71,13 @@ async function startServer() {
     res.redirect(302, link.originalUrl);
   });
 
-  // Health and metrics endpoint
+  // Health and metrics endpoint (MERN Stack)
   app.get('/api/stats', (_req, res) => {
     res.json({
       status: 'operational',
+      stack: 'MERN (MongoDB, Express, React, Node.js)',
+      database: isMongoConnected() ? 'MongoDB (Connected via Mongoose)' : 'MongoDB (Resilient in-memory fallback active)',
+      isMongoConnected: isMongoConnected(),
       uptime: process.uptime(),
       ...store.getSystemMetrics()
     });

@@ -4,8 +4,8 @@ import { evaluateUrlSafety } from '../malware-checker.ts';
 
 const router = Router();
 
-// Create shortened URL
-router.post('/shorten', (req: Request, res: Response) => {
+// Create shortened URL (supports both POST /api/shorten and POST /api/shorten/shorten)
+router.post(['/', '/shorten'], (req: Request, res: Response) => {
   const clientIp = (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress || '127.0.0.1';
 
   // Strict rate limit for link creation: 15 per minute per IP
