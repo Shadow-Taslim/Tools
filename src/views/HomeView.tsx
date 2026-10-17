@@ -69,6 +69,15 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
       action: 'Shorten Links'
     },
     {
+      id: 'security-checker' as ActiveTool,
+      title: 'Health & Security Checker',
+      description: 'Audit website HTTP headers (HSTS, CSP, X-Frame-Options), SSL/TLS certificates, and response latency with Next.js & Cloudflare remediation.',
+      icon: ShieldCheck,
+      accent: 'text-cyan-400',
+      badge: 'Next.js Feature',
+      action: 'Audit Website'
+    },
+    {
       id: 'qr-code' as ActiveTool,
       title: 'High-Density QR Generator',
       description: 'Generate customizable, high-resolution QR codes for URLs, WiFi credentials, vCards, and text with zero tracking.',

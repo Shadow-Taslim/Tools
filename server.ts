@@ -4,6 +4,7 @@ import emailRoutes from './server/routes/email.ts';
 import shortenerRoutes from './server/routes/shortener.ts';
 import { store } from './server/store.ts';
 import { connectMongoDB, isMongoConnected } from './server/db/connection.ts';
+import { scanWebsiteSecurity } from './server/security-scanner.ts';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -33,6 +34,21 @@ async function startServer() {
   // API Routes
   app.use('/api/email', emailRoutes);
   app.use('/api/shorten', shortenerRoutes);
+
+  // Website Health & Security Checker API
+  app.post('/api/checker', async (req, res) => {
+    const { url } = req.body || {};
+    if (!url || typeof url !== 'string') {
+      return res.status(400).json({ error: 'Please provide a valid URL to analyze.' });
+    }
+
+    try {
+      const result = await scanWebsiteSecurity(url);
+      res.json(result);
+    } catch (err: any) {
+      res.status(400).json({ error: err.message || 'Failed to scan target website.' });
+    }
+  });
 
   // Short link redirect endpoint: /s/:code
   app.get('/s/:code', (req, res) => {

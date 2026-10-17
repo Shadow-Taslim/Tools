@@ -14,6 +14,7 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
   const navItems: { id: ActiveTool; label: string; icon: typeof Mail }[] = [
     { id: 'temp-mail', label: 'Temp Mail', icon: Mail },
     { id: 'url-shortener', label: 'URL Shortener', icon: Link2 },
+    { id: 'security-checker', label: 'Security Checker', icon: ShieldCheck },
     { id: 'qr-code', label: 'QR Generator', icon: QrCode },
     { id: 'password-generator', label: 'Passwords', icon: KeyRound },
     { id: 'word-counter', label: 'Word Counter', icon: FileText },

@@ -32,6 +32,12 @@ const TOOL_META_CONFIG: Record<ActiveTool, (previewCode?: string) => MetaData> =
     path: '/url-shortener',
     keywords: 'url shortener, link shortener, safe link, phishing protection, malware scanner, secure url redirect'
   }),
+  'security-checker': () => ({
+    title: 'Website Health & Security Checker - Headers & SSL Audit | QuickNest',
+    description: 'Inspect website HTTP security headers (HSTS, CSP, X-Frame-Options), SSL/TLS certificates, and response latency with Next.js & Cloudflare remediation.',
+    path: '/security-checker',
+    keywords: 'security checker, http headers audit, hsts check, csp analyzer, website health, nextjs security, cloudflare security'
+  }),
   'qr-code': () => ({
     title: 'QR Code Generator - Custom URL, WiFi, vCard & Text Codes | QuickNest',
     description: 'Generate high-density, custom QR codes for websites, WiFi networks, contact cards, emails, and plain text. Download crisp high-resolution PNGs instantly.',

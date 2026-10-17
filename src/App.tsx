@@ -15,6 +15,7 @@ import SEOManager from './components/SEOManager.tsx';
 import HomeView from './views/HomeView.tsx';
 import TempMailView from './views/TempMailView.tsx';
 import ShortenerView from './views/ShortenerView.tsx';
+import SecurityCheckerView from './views/SecurityCheckerView.tsx';
 import PreviewView from './views/PreviewView.tsx';
 import QrCodeView from './views/QrCodeView.tsx';
 import PasswordGeneratorView from './views/PasswordGeneratorView.tsx';
@@ -43,6 +44,8 @@ export default function App() {
         setActiveTool('temp-mail');
       } else if (path === '/url-shortener') {
         setActiveTool('url-shortener');
+      } else if (path === '/security-checker' || path === '/checker') {
+        setActiveTool('security-checker');
       } else if (path === '/qr-code') {
         setActiveTool('qr-code');
       } else if (path === '/password-generator') {
@@ -154,6 +157,10 @@ export default function App() {
             onShowToast={showToast}
             onNavigateToPreview={(code) => navigateTo('preview', code)}
           />
+        )}
+
+        {activeTool === 'security-checker' && (
+          <SecurityCheckerView onShowToast={showToast} />
         )}
 
         {activeTool === 'preview' && (

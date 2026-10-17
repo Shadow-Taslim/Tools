@@ -2,6 +2,7 @@ export type ActiveTool =
   | 'home'
   | 'temp-mail'
   | 'url-shortener'
+  | 'security-checker'
   | 'qr-code'
   | 'password-generator'
   | 'word-counter'
@@ -11,6 +12,40 @@ export type ActiveTool =
   | 'privacy'
   | 'terms'
   | 'contact';
+
+export interface HeaderAuditItem {
+  header: string;
+  status: 'pass' | 'warn' | 'fail';
+  value: string | null;
+  importance: 'critical' | 'high' | 'medium' | 'low';
+  title: string;
+  description: string;
+  recommendation: string;
+  fixSnippet: {
+    nextjs: string;
+    nginx: string;
+    cloudflare: string;
+  };
+}
+
+export interface SecurityCheckResult {
+  targetUrl: string;
+  finalUrl: string;
+  statusCode: number;
+  responseTimeMs: number;
+  grade: 'A+' | 'A' | 'B' | 'C' | 'D' | 'F';
+  score: number;
+  ssl: {
+    valid: boolean;
+    protocol?: string;
+    issuer?: string;
+  };
+  headers: HeaderAuditItem[];
+  passedCount: number;
+  warnCount: number;
+  failCount: number;
+  checkedAt: number;
+}
 
 export interface TempInbox {
   id: string;

@@ -278,45 +278,62 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 <input
                   type="text"
                   readOnly
-                  value={inbox ? inbox.address : 'Generating address...'}
-                  className="bg-transparent text-slate-100 font-mono text-sm sm:text-base w-full focus:outline-none select-all"
+                  value={
+                    !inbox
+                      ? 'No active inbox'
+                      : remainingSeconds <= 0
+                      ? `${inbox.address} (Expired)`
+                      : inbox.address
+                  }
+                  className={`bg-transparent font-mono text-sm sm:text-base w-full focus:outline-none select-all ${
+                    remainingSeconds <= 0 || !inbox ? 'text-slate-500 line-through' : 'text-slate-100'
+                  }`}
                 />
               </div>
 
               <div className="flex items-center gap-2">
-                <button
-                  onClick={copyAddress}
-                  disabled={!inbox || isLoading}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-3 bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-950 text-xs sm:text-sm font-semibold rounded-xl shadow-lg shadow-cyan-500/20 transition-all cursor-pointer whitespace-nowrap"
-                  title="Copy email address"
-                >
-                  {copied ? <Check className="w-4 h-4 text-slate-950" /> : <Copy className="w-4 h-4" />}
-                  <span>{copied ? 'Copied!' : 'Copy Address'}</span>
-                </button>
+                {/* Active state: Copy Address button (Visible while time has NOT finished) */}
+                {remainingSeconds > 0 && inbox && (
+                  <button
+                    onClick={copyAddress}
+                    disabled={!inbox || isLoading}
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-3 bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-950 text-xs sm:text-sm font-semibold rounded-xl shadow-lg shadow-cyan-500/20 transition-all cursor-pointer whitespace-nowrap"
+                    title="Copy email address"
+                  >
+                    {copied ? <Check className="w-4 h-4 text-slate-950" /> : <Copy className="w-4 h-4" />}
+                    <span>{copied ? 'Copied!' : 'Copy Address'}</span>
+                  </button>
+                )}
 
-                <button
-                  onClick={() => inbox && fetchMessages(inbox.address)}
-                  disabled={!inbox || isRefreshing}
-                  className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl transition-colors cursor-pointer"
-                  title="Refresh inbox"
-                  aria-label="Refresh inbox"
-                >
-                  <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin text-cyan-400' : ''}`} />
-                </button>
+                {/* Expired state: Retry Icon Button (ONLY shown when expiring time is finished) */}
+                {(remainingSeconds <= 0 || !inbox) && (
+                  <button
+                    onClick={() => createNewInbox()}
+                    disabled={isLoading}
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-3 bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 text-xs sm:text-sm font-bold rounded-xl shadow-lg shadow-amber-500/20 transition-all cursor-pointer whitespace-nowrap"
+                    title="Expiring time finished - Click to Retry and get a new email"
+                  >
+                    <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+                    <span>Retry / New Address</span>
+                  </button>
+                )}
 
-                <button
-                  onClick={() => setShowCustomize(!showCustomize)}
-                  className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl transition-colors cursor-pointer"
-                  title="Change address username"
-                  aria-label="Change address"
-                >
-                  <Code className="w-4 h-4 text-slate-400" />
-                </button>
+                {/* Customize handle (only visible while active) */}
+                {remainingSeconds > 0 && inbox && (
+                  <button
+                    onClick={() => setShowCustomize(!showCustomize)}
+                    className="p-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl transition-colors cursor-pointer"
+                    title="Change address username"
+                    aria-label="Change address"
+                  >
+                    <Code className="w-4 h-4 text-slate-400" />
+                  </button>
+                )}
               </div>
             </div>
 
             {/* Custom handle input drawer */}
-            {showCustomize && (
+            {showCustomize && remainingSeconds > 0 && inbox && (
               <div className="pt-2 flex items-center gap-2 animate-in fade-in slide-in-from-top-2">
                 <input
                   type="text"
@@ -338,8 +355,8 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
             <div className="flex flex-wrap items-center gap-2 pt-2">
               <button
                 onClick={() => extendTimer(10)}
-                disabled={!inbox}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700/60 transition-colors cursor-pointer"
+                disabled={!inbox || remainingSeconds <= 0}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700/60 transition-colors cursor-pointer disabled:opacity-50"
               >
                 <PlusCircle className="w-3.5 h-3.5 text-cyan-400" />
                 <span>+10 Minutes</span>
@@ -347,8 +364,8 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
 
               <button
                 onClick={() => extendTimer(30)}
-                disabled={!inbox}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700/60 transition-colors cursor-pointer"
+                disabled={!inbox || remainingSeconds <= 0}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700/60 transition-colors cursor-pointer disabled:opacity-50"
               >
                 <PlusCircle className="w-3.5 h-3.5 text-violet-400" />
                 <span>+30 Minutes</span>
@@ -359,14 +376,14 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 disabled={isLoading}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700/60 transition-colors cursor-pointer"
               >
-                <RefreshCw className="w-3.5 h-3.5 text-sky-400" />
+                <PlusCircle className="w-3.5 h-3.5 text-sky-400" />
                 <span>New Address</span>
               </button>
 
               <button
                 onClick={deleteInboxNow}
-                disabled={!inbox}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-950/30 hover:bg-rose-950/60 text-rose-300 text-xs font-medium rounded-lg border border-rose-900/40 transition-colors cursor-pointer ml-auto"
+                disabled={!inbox || remainingSeconds <= 0}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-950/30 hover:bg-rose-950/60 text-rose-300 text-xs font-medium rounded-lg border border-rose-900/40 transition-colors cursor-pointer ml-auto disabled:opacity-50"
               >
                 <Trash2 className="w-3.5 h-3.5 text-rose-400" />
                 <span>Delete Now</span>
@@ -401,10 +418,12 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 />
               </svg>
               <div className="absolute flex flex-col items-center">
-                <span className="text-2xl font-bold font-mono text-white tracking-tight tabular-nums">
-                  {formatTime(remainingSeconds)}
+                <span className={`text-2xl font-bold font-mono tracking-tight tabular-nums ${remainingSeconds <= 0 ? 'text-rose-400' : 'text-white'}`}>
+                  {remainingSeconds <= 0 ? '00:00' : formatTime(remainingSeconds)}
                 </span>
-                <span className="text-[10px] text-slate-400 uppercase tracking-widest mt-0.5">Expires in</span>
+                <span className={`text-[10px] uppercase tracking-widest mt-0.5 ${remainingSeconds <= 0 ? 'text-rose-400 font-bold' : 'text-slate-400'}`}>
+                  {remainingSeconds <= 0 ? 'Expired' : 'Expires in'}
+                </span>
               </div>
             </div>
 
@@ -550,13 +569,20 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 {messages.length}
               </span>
             </div>
-            <button
-              onClick={() => inbox && fetchMessages(inbox.address)}
-              className="text-xs text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-1 cursor-pointer"
-            >
-              <RefreshCw className={`w-3 h-3 ${isRefreshing ? 'animate-spin' : ''}`} />
-              <span>Refresh</span>
-            </button>
+            {remainingSeconds > 0 && inbox ? (
+              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Live Stream</span>
+              </div>
+            ) : (
+              <button
+                onClick={() => createNewInbox()}
+                className="text-xs text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 cursor-pointer font-medium"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>Retry Session</span>
+              </button>
+            )}
           </div>
 
           {messages.length === 0 ? (
