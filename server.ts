@@ -12,12 +12,20 @@ const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
-  const PORT = Number(process.env.PORT) || 3000;
+  
+  // Dev server must run on port 3000 (container nginx reverse proxy listens on 8080 and forwards to 3000)
+  const portArgIndex = process.argv.indexOf('--port');
+  const cliPort = portArgIndex !== -1 && process.argv[portArgIndex + 1] ? Number(process.argv[portArgIndex + 1]) : null;
+  const PORT = cliPort || 3000;
   const isProd = process.env.NODE_ENV === 'production';
 
-  // Connect to MongoDB via Mongoose (MERN Stack)
-  await connectMongoDB();
-  await store.syncFromMongo();
+  // Connect to MongoDB via Mongoose (MERN Stack) with non-blocking error handling
+  try {
+    await connectMongoDB();
+    await store.syncFromMongo();
+  } catch (err: any) {
+    console.warn('MongoDB initialization fallback:', err?.message || err);
+  }
 
   app.use(express.json({ limit: '10mb' }));
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -96,9 +104,19 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
+  const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`QuickNest Server running on port ${PORT}`);
+  });
+
+  server.on('error', (err: any) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`Port ${PORT} is already in use.`);
+    } else {
+      console.error('Server listen error:', err);
+    }
   });
 }
 
-startServer();
+startServer().catch((err) => {
+  console.error('Fatal error during startServer:', err);
+});
