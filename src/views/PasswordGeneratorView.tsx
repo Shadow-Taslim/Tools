@@ -3,6 +3,7 @@ import {
   KeyRound, Copy, Check, RefreshCw, Shield, 
   Sparkles, Layers, Sliders 
 } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext.tsx';
 
 interface PasswordGeneratorViewProps {
   onShowToast: (text: string, type?: 'success' | 'error' | 'info') => void;
@@ -17,6 +18,7 @@ const DICEWARE_WORDS = [
 ];
 
 export default function PasswordGeneratorView({ onShowToast }: PasswordGeneratorViewProps) {
+  const { t } = useLanguage();
   const [mode, setMode] = useState<'random' | 'passphrase'>('random');
   const [length, setLength] = useState<number>(24);
   const [passphraseWords, setPassphraseWords] = useState<number>(4);
@@ -165,10 +167,10 @@ export default function PasswordGeneratorView({ onShowToast }: PasswordGenerator
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          Cryptographic Password Suite
+          {t('password.title', 'Cryptographic Password Suite')}
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Client-side Web Cryptography API generation. Zero transmissions, maximum computational entropy, and resistance to brute-force dictionary attacks.
+          {t('password.subtitle', 'Client-side Web Cryptography API generation. Zero transmissions, maximum computational entropy, and resistance to brute-force dictionary attacks.')}
         </p>
       </div>
 

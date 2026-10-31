@@ -1,11 +1,13 @@
 import { useState, useMemo } from 'react';
 import { Type, Copy, Download, Check, Sparkles } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext.tsx';
 
 interface TextCaseViewProps {
   onShowToast: (text: string, type?: 'success' | 'error' | 'info') => void;
 }
 
 export default function TextCaseView({ onShowToast }: TextCaseViewProps) {
+  const { t } = useLanguage();
   const [input, setInput] = useState('hyperlink security & disposable temporary email service');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
@@ -86,10 +88,10 @@ export default function TextCaseView({ onShowToast }: TextCaseViewProps) {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          Text Case Converter
+          {t('textCase.title', 'Case Converter & Formatter')}
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Instant simultaneous transformation across title case, camelCase, snake_case, kebab-case, and programming formats.
+          {t('textCase.subtitle', 'Instant transformation between UPPERCASE, lowercase, Title Case, camelCase, snake_case, and kebab-case.')}
         </p>
       </div>
 

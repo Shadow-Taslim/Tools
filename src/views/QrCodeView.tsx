@@ -4,6 +4,7 @@ import {
   QrCode as QrIcon, Download, Copy, Check, Wifi, 
   Globe, Type, User, Mail, Sparkles, RefreshCw 
 } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext.tsx';
 
 interface QrCodeViewProps {
   onShowToast: (text: string, type?: 'success' | 'error' | 'info') => void;
@@ -12,6 +13,7 @@ interface QrCodeViewProps {
 type QrMode = 'url' | 'text' | 'wifi' | 'vcard' | 'email';
 
 export default function QrCodeView({ onShowToast }: QrCodeViewProps) {
+  const { t } = useLanguage();
   const [mode, setMode] = useState<QrMode>('url');
   
   // Inputs
@@ -113,10 +115,10 @@ export default function QrCodeView({ onShowToast }: QrCodeViewProps) {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          High-Density QR Generator
+          {t('qrcode.title', 'High-Density QR Code Generator')}
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Create customized, high-resolution QR codes for websites, WiFi networks, contact cards, and texts with zero account and zero tracking.
+          {t('qrcode.subtitle', 'Generate customizable, high-resolution QR codes for websites, WiFi networks, and plain text with zero tracking.')}
         </p>
       </div>
 

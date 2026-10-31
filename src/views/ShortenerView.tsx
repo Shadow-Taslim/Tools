@@ -6,6 +6,7 @@ import {
   Sparkles, Clock, Globe
 } from 'lucide-react';
 import QRCode from 'qrcode';
+import { useLanguage } from '../i18n/LanguageContext.tsx';
 
 interface ShortenerViewProps {
   onShowToast: (text: string, type?: 'success' | 'error' | 'info') => void;
@@ -13,6 +14,7 @@ interface ShortenerViewProps {
 }
 
 export default function ShortenerView({ onShowToast, onNavigateToPreview }: ShortenerViewProps) {
+  const { t } = useLanguage();
   const [longUrl, setLongUrl] = useState('');
   const [customAlias, setCustomAlias] = useState('');
   const [allowDirectRedirect, setAllowDirectRedirect] = useState(true);
@@ -137,10 +139,10 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          Secure URL Shortener
+          {t('shortener.title', 'Secure URL Shortener')}
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Compress lengthy links with automated malware scanning, customizable destination preview, rate limiting, and instantaneous community abuse mitigation.
+          {t('shortener.subtitle', 'Compress lengthy links with automated malware scanning, customizable destination preview, rate limiting, and instantaneous community abuse mitigation.')}
         </p>
       </div>
 
@@ -149,7 +151,7 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
         <form onSubmit={handleShorten} className="space-y-6">
           <div className="space-y-2">
             <label htmlFor="long-url-input" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Target Long URL
+              {t('shortener.targetUrl', 'Target Long URL')}
             </label>
             <div className="relative flex items-center bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-3.5 focus-within:border-cyan-400 focus-within:ring-1 focus-within:ring-cyan-400 transition-all shadow-inner">
               <Link2 className="w-5 h-5 text-cyan-400 shrink-0 mr-3" />
@@ -169,7 +171,7 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
             <div className="space-y-1.5">
               <label htmlFor="custom-alias-input" className="block text-xs font-medium text-slate-400">
-                Custom Alias (Optional)
+                {t('shortener.customAlias', 'Custom Alias (Optional)')}
               </label>
               <div className="flex items-center bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs font-mono">
                 <span className="text-slate-500 mr-1">quicknest.to/s/</span>
@@ -186,7 +188,7 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
 
             <div className="space-y-1.5">
               <label htmlFor="retention-period-select" className="block text-xs font-medium text-slate-400">
-                Retention Lifecycle
+                {t('shortener.retention', 'Retention Lifecycle')}
               </label>
               <select
                 id="retention-period-select"
@@ -225,7 +227,7 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
                   : 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
               }`}
             >
-              {allowDirectRedirect ? 'Direct Redirect (Active)' : 'Require Safety Preview'}
+              {allowDirectRedirect ? t('shortener.directRedirect', 'Direct Redirect (Active)') : t('shortener.requirePreview', 'Require Safety Preview')}
             </button>
           </div>
 
@@ -235,11 +237,11 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
             className="w-full py-3.5 px-6 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-cyan-500/20 transition-all cursor-pointer flex items-center justify-center gap-2"
           >
             {isLoading ? (
-              <span>Scanning Safety & Compressing...</span>
+              <span>{t('shortener.scanning', 'Scanning Safety & Compressing...')}</span>
             ) : (
               <>
                 <Sparkles className="w-4 h-4" />
-                <span>Shorten Link</span>
+                <span>{t('shortener.shortenBtn', 'Shorten Link')}</span>
               </>
             )}
           </button>
@@ -250,7 +252,7 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
           <div className="mt-8 pt-8 border-t border-slate-800 space-y-6 animate-in fade-in slide-in-from-bottom-2">
             <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400">
               <ShieldCheck className="w-4 h-4" />
-              <span>Link Verified Safe & Ready to Share</span>
+              <span>{t('shortener.verifiedSafe', 'Link Verified Safe & Ready to Share')}</span>
             </div>
 
             <div className="p-4 sm:p-5 rounded-xl bg-slate-950 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">

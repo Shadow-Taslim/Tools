@@ -12,6 +12,8 @@ import Toast, { ToastMessage } from './components/Toast.tsx';
 import SchemaMarkup from './components/SchemaMarkup.tsx';
 import SEOManager from './components/SEOManager.tsx';
 
+import { LanguageProvider } from './i18n/LanguageContext.tsx';
+
 import HomeView from './views/HomeView.tsx';
 import TempMailView from './views/TempMailView.tsx';
 import ShortenerView from './views/ShortenerView.tsx';
@@ -26,7 +28,7 @@ import PrivacyView from './views/PrivacyView.tsx';
 import TermsView from './views/TermsView.tsx';
 import ContactView from './views/ContactView.tsx';
 
-export default function App() {
+function AppContent() {
   const [activeTool, setActiveTool] = useState<ActiveTool>('home');
   const [previewCode, setPreviewCode] = useState<string>('');
   const [currentInbox, setCurrentInbox] = useState<TempInbox | null>(null);
@@ -210,5 +212,13 @@ export default function App() {
       {/* Universal Footer */}
       <Footer onSelectTool={navigateTo} />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
   );
 }

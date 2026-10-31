@@ -5,6 +5,7 @@ import {
   ExternalLink, Copy, Check, Search, Terminal, 
   Layers, Lock, Sparkles, Activity, Globe, Info, Code2
 } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext.tsx';
 
 interface SecurityCheckerViewProps {
   onShowToast: (text: string, type?: 'success' | 'error' | 'info') => void;
@@ -18,6 +19,7 @@ const POPULAR_PRESETS = [
 ];
 
 export default function SecurityCheckerView({ onShowToast }: SecurityCheckerViewProps) {
+  const { t } = useLanguage();
   const [urlInput, setUrlInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<SecurityCheckResult | null>(null);
@@ -90,13 +92,13 @@ export default function SecurityCheckerView({ onShowToast }: SecurityCheckerView
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/60 text-cyan-400 text-xs font-semibold">
           <ShieldCheck className="w-3.5 h-3.5" />
-          <span>Next.js App Router & Cloudflare Ready</span>
+          <span>{t('checker.badge', 'Next.js App Router & Cloudflare Ready')}</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          Website Health & Security Checker
+          {t('checker.title', 'Website Health & Security Checker')}
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Comprehensive HTTP security header auditor, SSL/TLS protocol validator, and latency inspector with zero server telemetry.
+          {t('checker.subtitle', 'Comprehensive HTTP security header auditor, SSL/TLS protocol validator, and latency inspector with zero server telemetry.')}
         </p>
       </div>
 
@@ -105,7 +107,7 @@ export default function SecurityCheckerView({ onShowToast }: SecurityCheckerView
         <form onSubmit={(e) => { e.preventDefault(); handleScan(); }} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="security-url-input" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Target Domain or URL
+              {t('checker.targetInput', 'Target Domain or URL')}
             </label>
             <div className="relative flex items-center bg-slate-950 border border-slate-700/80 rounded-xl px-4 py-3.5 focus-within:border-cyan-400 focus-within:ring-1 focus-within:ring-cyan-400 transition-all shadow-inner">
               <Globe className="w-5 h-5 text-cyan-400 shrink-0 mr-3" />
@@ -126,12 +128,12 @@ export default function SecurityCheckerView({ onShowToast }: SecurityCheckerView
                 {isLoading ? (
                   <>
                     <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
-                    <span>Auditing...</span>
+                    <span>{t('checker.auditing', 'Auditing...')}</span>
                   </>
                 ) : (
                   <>
                     <Search className="w-4 h-4" />
-                    <span>Analyze Security</span>
+                    <span>{t('checker.analyzeBtn', 'Analyze Security')}</span>
                   </>
                 )}
               </button>
@@ -140,7 +142,7 @@ export default function SecurityCheckerView({ onShowToast }: SecurityCheckerView
 
           {/* Preset Buttons */}
           <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
-            <span className="text-slate-500">Quick Test:</span>
+            <span className="text-slate-500">{t('checker.quickTest', 'Quick Test:')}</span>
             {POPULAR_PRESETS.map((preset) => (
               <button
                 key={preset}
@@ -222,7 +224,7 @@ export async function POST(req: Request) {
             {/* Grade Card */}
             <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between shadow-xl">
               <div className="space-y-1">
-                <span className="text-xs text-slate-400 font-medium">Security Grade</span>
+                <span className="text-xs text-slate-400 font-medium">{t('checker.securityGrade', 'Security Grade')}</span>
                 <div className="text-xs text-slate-500 font-mono">OWASP Score: {result.score}/100</div>
               </div>
               <div className={`w-16 h-16 rounded-2xl border-2 flex items-center justify-center font-black text-2xl font-mono shadow-inner ${getGradeColor(result.grade)}`}>
@@ -233,7 +235,7 @@ export async function POST(req: Request) {
             {/* Protocol & SSL */}
             <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2 shadow-xl">
               <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
-                <span>Encryption Protocol</span>
+                <span>{t('checker.protocol', 'Encryption Protocol')}</span>
                 <Lock className="w-4 h-4 text-cyan-400" />
               </div>
               <div className="text-base font-bold text-white font-mono flex items-center gap-1.5">
@@ -250,7 +252,7 @@ export async function POST(req: Request) {
             {/* Latency / TTFB */}
             <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2 shadow-xl">
               <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
-                <span>Response Latency</span>
+                <span>{t('checker.latency', 'Response Latency')}</span>
                 <Activity className="w-4 h-4 text-sky-400" />
               </div>
               <div className="text-base font-bold text-white font-mono flex items-center gap-1.5 tabular-nums">
@@ -264,7 +266,7 @@ export async function POST(req: Request) {
             {/* Header Compliance Ratio */}
             <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2 shadow-xl">
               <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
-                <span>Audited Directives</span>
+                <span>{t('checker.directives', 'Audited Directives')}</span>
                 <Layers className="w-4 h-4 text-violet-400" />
               </div>
               <div className="flex items-center gap-2 text-xs font-mono font-bold">
@@ -288,7 +290,7 @@ export async function POST(req: Request) {
               <div>
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
                   <ShieldCheck className="w-5 h-5 text-cyan-400" />
-                  <span>Security Header Directives Inspection</span>
+                  <span>{t('checker.headerInspection', 'Security Header Directives Inspection')}</span>
                 </h3>
                 <p className="text-xs text-slate-400">
                   Detailed evaluation of the 6 core browser defense headers.

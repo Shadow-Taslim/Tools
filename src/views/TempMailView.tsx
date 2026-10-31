@@ -5,6 +5,7 @@ import {
   Send, ExternalLink, Shield, Check, AlertTriangle, 
   ChevronRight, Inbox, Terminal, Code, Paperclip
 } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext.tsx';
 
 interface TempMailViewProps {
   currentInbox: TempInbox | null;
@@ -13,6 +14,7 @@ interface TempMailViewProps {
 }
 
 export default function TempMailView({ currentInbox, onInboxCreated, onShowToast }: TempMailViewProps) {
+  const { t } = useLanguage();
   const [inbox, setInbox] = useState<TempInbox | null>(currentInbox);
   const [messages, setMessages] = useState<EmailMessage[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<EmailMessage | null>(null);
@@ -250,10 +252,10 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
       {/* Header section */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          Disposable 10-Minute Email
+          {t('tempMail.title', 'Disposable 10-Minute Email')}
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Zero sign-up temporary address to receive activation codes, prevent spam, and bypass registrations. Expired data is permanently erased.
+          {t('tempMail.subtitle', 'Zero sign-up temporary address to receive activation codes, prevent spam, and bypass registrations. Expired data is permanently erased.')}
         </p>
       </div>
 
@@ -264,10 +266,10 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
           {/* Address and Actions */}
           <div className="w-full lg:w-2/3 space-y-4">
             <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
-              <span>Your Active Temporary Address</span>
+              <span>{t('tempMail.activeAddress', 'Your Active Temporary Address')}</span>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span className="text-emerald-400">Listening for incoming mail</span>
+                <span className="text-emerald-400">{t('tempMail.listening', 'Listening for incoming mail')}</span>
               </div>
             </div>
 
@@ -298,10 +300,10 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                     onClick={copyAddress}
                     disabled={!inbox || isLoading}
                     className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-3 bg-cyan-500 hover:bg-cyan-400 active:bg-cyan-600 text-slate-950 text-xs sm:text-sm font-semibold rounded-xl shadow-lg shadow-cyan-500/20 transition-all cursor-pointer whitespace-nowrap"
-                    title="Copy email address"
+                    title={t('tempMail.copyAddress', 'Copy Address')}
                   >
                     {copied ? <Check className="w-4 h-4 text-slate-950" /> : <Copy className="w-4 h-4" />}
-                    <span>{copied ? 'Copied!' : 'Copy Address'}</span>
+                    <span>{copied ? t('common.copied', 'Copied!') : t('tempMail.copyAddress', 'Copy Address')}</span>
                   </button>
                 )}
 
@@ -314,7 +316,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                     title="Expiring time finished - Click to Retry and get a new email"
                   >
                     <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-                    <span>Retry / New Address</span>
+                    <span>{t('tempMail.retryNew', 'Retry / New Address')}</span>
                   </button>
                 )}
 
@@ -346,7 +348,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                   onClick={() => createNewInbox(customHandle)}
                   className="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-xs font-medium text-white rounded-lg cursor-pointer whitespace-nowrap"
                 >
-                  Apply Custom Address
+                  {t('tempMail.applyCustom', 'Apply Custom Address')}
                 </button>
               </div>
             )}
@@ -359,7 +361,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700/60 transition-colors cursor-pointer disabled:opacity-50"
               >
                 <PlusCircle className="w-3.5 h-3.5 text-cyan-400" />
-                <span>+10 Minutes</span>
+                <span>{t('tempMail.plus10Min', '+10 Minutes')}</span>
               </button>
 
               <button
@@ -368,7 +370,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700/60 transition-colors cursor-pointer disabled:opacity-50"
               >
                 <PlusCircle className="w-3.5 h-3.5 text-violet-400" />
-                <span>+30 Minutes</span>
+                <span>{t('tempMail.plus30Min', '+30 Minutes')}</span>
               </button>
 
               <button
@@ -377,7 +379,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-xs font-medium rounded-lg border border-slate-700/60 transition-colors cursor-pointer"
               >
                 <PlusCircle className="w-3.5 h-3.5 text-sky-400" />
-                <span>New Address</span>
+                <span>{t('common.newAddress', 'New Address')}</span>
               </button>
 
               <button
@@ -386,7 +388,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-950/30 hover:bg-rose-950/60 text-rose-300 text-xs font-medium rounded-lg border border-rose-900/40 transition-colors cursor-pointer ml-auto disabled:opacity-50"
               >
                 <Trash2 className="w-3.5 h-3.5 text-rose-400" />
-                <span>Delete Now</span>
+                <span>{t('common.deleteNow', 'Delete Now')}</span>
               </button>
             </div>
           </div>
@@ -433,7 +435,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 className="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center gap-1 cursor-pointer"
               >
                 <Send className="w-3 h-3" />
-                <span>Send Test Mail</span>
+                <span>{t('tempMail.sendTestMail', 'Send Test Mail')}</span>
               </button>
               <span className="text-slate-600">·</span>
               <button
@@ -441,7 +443,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 className="text-slate-400 hover:text-slate-200 inline-flex items-center gap-1 cursor-pointer"
               >
                 <Terminal className="w-3 h-3" />
-                <span>Webhook API</span>
+                <span>{t('tempMail.webhookApi', 'Webhook API')}</span>
               </button>
             </div>
           </div>
@@ -564,7 +566,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
           <div className="flex items-center justify-between px-2 py-1">
             <div className="flex items-center gap-2">
               <Inbox className="w-4 h-4 text-cyan-400" />
-              <h2 className="text-sm font-semibold text-slate-200">Inbox Messages</h2>
+              <h2 className="text-sm font-semibold text-slate-200">{t('tempMail.inboxMessages', 'Inbox Messages')}</h2>
               <span className="text-xs font-mono bg-slate-800 text-cyan-400 px-2 py-0.5 rounded-full tabular-nums">
                 {messages.length}
               </span>
@@ -572,7 +574,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
             {remainingSeconds > 0 && inbox ? (
               <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Live Stream</span>
+                <span>{t('tempMail.liveStream', 'Live Stream')}</span>
               </div>
             ) : (
               <button
@@ -580,7 +582,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
                 className="text-xs text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 cursor-pointer font-medium"
               >
                 <RefreshCw className="w-3 h-3" />
-                <span>Retry Session</span>
+                <span>{t('tempMail.retrySession', 'Retry Session')}</span>
               </button>
             )}
           </div>
@@ -590,9 +592,9 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
               <div className="w-12 h-12 rounded-full bg-slate-800/80 mx-auto flex items-center justify-center text-slate-500">
                 <Clock className="w-6 h-6 animate-pulse text-cyan-400/80" />
               </div>
-              <p className="text-sm font-medium text-slate-300">Awaiting incoming mail...</p>
+              <p className="text-sm font-medium text-slate-300">{t('tempMail.awaitingMail', 'Awaiting incoming mail...')}</p>
               <p className="text-xs text-slate-500 max-w-xs mx-auto">
-                Any emails sent to <span className="font-mono text-slate-400">{inbox?.address}</span> will appear here automatically every 4 seconds.
+                {t('tempMail.awaitingSub', 'Any emails sent to this address appear here automatically.')}
               </p>
               <button
                 onClick={() => setShowSendTest(true)}

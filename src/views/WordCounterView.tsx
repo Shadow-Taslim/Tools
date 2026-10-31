@@ -3,12 +3,14 @@ import {
   FileText, Copy, Trash2, Clock, 
   BarChart, Sparkles, Check, AlignLeft 
 } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext.tsx';
 
 interface WordCounterViewProps {
   onShowToast: (text: string, type?: 'success' | 'error' | 'info') => void;
 }
 
 export default function WordCounterView({ onShowToast }: WordCounterViewProps) {
+  const { t } = useLanguage();
   const [text, setText] = useState<string>(
     'QuickNest provides zero-knowledge online utilities built with real-time 3D spatial computing. Generate disposable 10-minute temporary email inboxes, inspect shortened destination URLs, generate high-density QR codes, and create high-entropy passwords with zero account requirements.'
   );
@@ -99,24 +101,24 @@ export default function WordCounterView({ onShowToast }: WordCounterViewProps) {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-          Real-Time Word & Telemetry Counter
+          {t('wordCounter.title', 'Word & Telemetry Counter')}
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Analyze textual metrics, character density, speaking cadences, and keyword frequencies in real-time.
+          {t('wordCounter.subtitle', 'Real-time word, character, speaking cadence, and reading duration statistics.')}
         </p>
       </div>
 
       {/* Metrics Stat Ribbon */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-          <span className="text-[11px] text-slate-400 uppercase tracking-wider block">Words</span>
+          <span className="text-[11px] text-slate-400 uppercase tracking-wider block">{t('wordCounter.words', 'Words')}</span>
           <span className="text-2xl font-bold font-mono text-cyan-400 tabular-nums">
             {stats.words}
           </span>
         </div>
 
         <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-          <span className="text-[11px] text-slate-400 uppercase tracking-wider block">Characters</span>
+          <span className="text-[11px] text-slate-400 uppercase tracking-wider block">{t('wordCounter.characters', 'Characters')}</span>
           <span className="text-2xl font-bold font-mono text-white tabular-nums">
             {stats.charsWithSpaces}
           </span>
@@ -130,7 +132,7 @@ export default function WordCounterView({ onShowToast }: WordCounterViewProps) {
         </div>
 
         <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-          <span className="text-[11px] text-slate-400 uppercase tracking-wider block">Sentences</span>
+          <span className="text-[11px] text-slate-400 uppercase tracking-wider block">{t('wordCounter.sentences', 'Sentences')}</span>
           <span className="text-2xl font-bold font-mono text-white tabular-nums">
             {stats.sentences}
           </span>
@@ -144,7 +146,7 @@ export default function WordCounterView({ onShowToast }: WordCounterViewProps) {
         </div>
 
         <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-          <span className="text-[11px] text-slate-400 uppercase tracking-wider block">Reading Time</span>
+          <span className="text-[11px] text-slate-400 uppercase tracking-wider block">{t('wordCounter.readingTime', 'Reading Time')}</span>
           <span className="text-2xl font-bold font-mono text-emerald-400 tabular-nums">
             {stats.readingTimeMinutes}m
           </span>

@@ -5,6 +5,7 @@ import {
   ArrowRight, ShieldCheck, Clock, Zap, Sparkles, 
   ChevronRight, ExternalLink, RefreshCw, Terminal, Layers
 } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext.tsx';
 
 interface HomeViewProps {
   onSelectTool: (tool: ActiveTool) => void;
@@ -14,6 +15,7 @@ interface HomeViewProps {
 }
 
 export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onShowToast }: HomeViewProps) {
+  const { t } = useLanguage();
   const [quickUrl, setQuickUrl] = useState('');
   const [quickShortened, setQuickShortened] = useState<string | null>(null);
   const [isQuickShortening, setIsQuickShortening] = useState(false);
@@ -32,7 +34,7 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
       const data = await res.json();
       if (res.ok && data.shortUrl) {
         setQuickShortened(data.shortUrl);
-        onShowToast('Short link generated!', 'success');
+        onShowToast(t('common.copied', 'Short link generated!'), 'success');
       } else {
         onShowToast(data.error || 'Failed to shorten URL', 'error');
       }
@@ -46,72 +48,72 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
   const copyShortened = () => {
     if (!quickShortened) return;
     navigator.clipboard.writeText(quickShortened);
-    onShowToast('Copied to clipboard!', 'success');
+    onShowToast(t('common.copied', 'Copied to clipboard!'), 'success');
   };
 
   const toolsList = [
     {
       id: 'temp-mail' as ActiveTool,
-      title: 'Disposable 10-Minute Email',
-      description: 'Generate temporary disposable addresses with live countdown timers, automated message deletion, and production inbound webhooks.',
+      title: t('tempMail.title', 'Disposable 10-Minute Email'),
+      description: t('tempMail.subtitle', 'Generate temporary disposable addresses with live countdown timers, automated message deletion, and production inbound webhooks.'),
       icon: Mail,
       accent: 'text-cyan-400',
-      badge: 'Core Utility',
-      action: 'Open Inbox'
+      badge: t('nav.tempMail', 'Temp Mail'),
+      action: t('common.preview', 'Open Inbox')
     },
     {
       id: 'url-shortener' as ActiveTool,
-      title: 'Safe URL Shortener',
-      description: 'Compress URLs with heuristic malware inspection, custom aliases, QR export, destination preview, and abuse reporting.',
+      title: t('shortener.title', 'Safe URL Shortener'),
+      description: t('shortener.subtitle', 'Compress URLs with heuristic malware inspection, custom aliases, QR export, destination preview, and abuse reporting.'),
       icon: Link2,
       accent: 'text-sky-400',
-      badge: 'Core Utility',
-      action: 'Shorten Links'
+      badge: t('nav.urlShortener', 'URL Shortener'),
+      action: t('shortener.shortenBtn', 'Shorten Links')
     },
     {
       id: 'security-checker' as ActiveTool,
-      title: 'Health & Security Checker',
-      description: 'Audit website HTTP headers (HSTS, CSP, X-Frame-Options), SSL/TLS certificates, and response latency with Next.js & Cloudflare remediation.',
+      title: t('checker.title', 'Health & Security Checker'),
+      description: t('checker.subtitle', 'Audit website HTTP headers (HSTS, CSP, X-Frame-Options), SSL/TLS certificates, and response latency with Next.js & Cloudflare remediation.'),
       icon: ShieldCheck,
       accent: 'text-cyan-400',
-      badge: 'Next.js Feature',
-      action: 'Audit Website'
+      badge: t('checker.badge', 'Next.js Feature'),
+      action: t('checker.analyzeBtn', 'Audit Website')
     },
     {
       id: 'qr-code' as ActiveTool,
-      title: 'High-Density QR Generator',
-      description: 'Generate customizable, high-resolution QR codes for URLs, WiFi credentials, vCards, and text with zero tracking.',
+      title: t('qrcode.title', 'High-Density QR Generator'),
+      description: t('qrcode.subtitle', 'Generate customizable, high-resolution QR codes for URLs, WiFi credentials, vCards, and text with zero tracking.'),
       icon: QrCode,
       accent: 'text-emerald-400',
-      badge: 'Zero Tracking',
-      action: 'Create QR'
+      badge: t('nav.qrCode', 'QR Generator'),
+      action: t('qrcode.downloadPng', 'Create QR')
     },
     {
       id: 'password-generator' as ActiveTool,
-      title: 'Cryptographic Password Suite',
-      description: 'Generate high-entropy passphrases or NIST-compliant character sequences using client-side WebCrypto CSPRNG.',
+      title: t('password.title', 'Cryptographic Password Suite'),
+      description: t('password.subtitle', 'Generate high-entropy passphrases or NIST-compliant character sequences using client-side WebCrypto CSPRNG.'),
       icon: KeyRound,
       accent: 'text-violet-400',
-      badge: 'Client-Side',
-      action: 'Generate Key'
+      badge: t('nav.passwords', 'Passwords'),
+      action: t('password.generateBtn', 'Generate Key')
     },
     {
       id: 'word-counter' as ActiveTool,
-      title: 'Word & Telemetry Counter',
-      description: 'Real-time word, character, speaking cadence, and keyword frequency analyzer with HTML stripping utilities.',
+      title: t('wordCounter.title', 'Word & Telemetry Counter'),
+      description: t('wordCounter.subtitle', 'Real-time word, character, speaking cadence, and keyword frequency analyzer with HTML stripping utilities.'),
       icon: FileText,
       accent: 'text-amber-400',
-      badge: 'Real-Time',
-      action: 'Analyze Text'
+      badge: t('nav.wordCounter', 'Word Counter'),
+      action: t('common.preview', 'Analyze Text')
     },
     {
       id: 'text-case' as ActiveTool,
-      title: 'Case Converter & Formatter',
-      description: 'Instant transformation between camelCase, PascalCase, snake_case, kebab-case, title case, and uppercase.',
+      title: t('textCase.title', 'Case Converter & Formatter'),
+      description: t('textCase.subtitle', 'Instant transformation between camelCase, PascalCase, snake_case, kebab-case, title case, and uppercase.'),
       icon: Type,
       accent: 'text-rose-400',
-      badge: 'Instant Transform',
-      action: 'Convert Case'
+      badge: t('nav.textCase', 'Case Converter'),
+      action: t('common.apply', 'Convert Case')
     }
   ];
 
@@ -122,15 +124,15 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-mono text-cyan-300 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span>Zero-Retention Online Utility Suite</span>
+            <span>{t('home.badge', 'Zero-Retention Online Utility Suite')}</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
-            High-Speed Privacy Tools in <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-violet-400 bg-clip-text text-transparent">3D Space</span>
+            {t('home.heroTitle', 'Privacy-First Developer Utilities & Ephemeral Inboxes')}
           </h1>
 
           <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Disposable temporary email inboxes, malicious-link-filtered URL shortener, high-density QR generator, and cryptographic password tools with zero account friction.
+            {t('home.heroSubtitle', 'Disposable temporary email inboxes, malicious-link-filtered URL shortener, high-density QR generator, and cryptographic password tools with zero account friction.')}
           </p>
 
           {/* Quick Action Widget Bar */}
@@ -140,7 +142,7 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
               className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-bold text-sm rounded-xl shadow-lg shadow-cyan-500/25 transition-all cursor-pointer flex items-center justify-center gap-2"
             >
               <Mail className="w-4 h-4" />
-              <span>Launch 10-Minute Mail</span>
+              <span>{t('nav.quickInboxBtn', 'Launch 10-Minute Mail')}</span>
             </button>
 
             <button
@@ -148,7 +150,7 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
               className="w-full sm:w-auto px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold text-sm rounded-xl border border-slate-700/80 transition-all cursor-pointer flex items-center justify-center gap-2"
             >
               <Link2 className="w-4 h-4 text-cyan-400" />
-              <span>Shorten a URL</span>
+              <span>{t('nav.urlShortener', 'Shorten a URL')}</span>
             </button>
           </div>
         </div>
