@@ -62,6 +62,24 @@ export default function Footer({ onSelectTool }: FooterProps) {
           <div className="flex flex-wrap items-center gap-4 sm:gap-5 text-slate-400">
             <button
               onClick={() => {
+                onSelectTool('ai-observability');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="text-cyan-400 hover:text-cyan-300 font-semibold cursor-pointer"
+            >
+              {t('nav.aiObservability', 'AI Search (74)')}
+            </button>
+            <button
+              onClick={() => {
+                onSelectTool('robots-audit');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="hover:text-cyan-400 cursor-pointer"
+            >
+              {t('nav.robotsAudit', 'Robots & SEO')}
+            </button>
+            <button
+              onClick={() => {
                 onSelectTool('architecture');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}

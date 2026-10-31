@@ -3,6 +3,8 @@ export type ActiveTool =
   | 'temp-mail'
   | 'url-shortener'
   | 'security-checker'
+  | 'robots-audit'
+  | 'ai-observability'
   | 'qr-code'
   | 'password-generator'
   | 'word-counter'
@@ -12,6 +14,68 @@ export type ActiveTool =
   | 'privacy'
   | 'terms'
   | 'contact';
+
+export interface AiSearchEngineMetric {
+  id: string;
+  name: string;
+  icon: string;
+  mentions: number;
+  citedPages: number;
+  visibilityScore: number;
+  shareOfVoice: number;
+  status: 'active' | 'crawling' | 'high-intent';
+  primaryUserAgent: string;
+}
+
+export interface AiCrawlerAuditItem {
+  name: string;
+  userAgent: string;
+  provider: string;
+  status: 'allowed' | 'restricted' | 'blocked';
+  llmsAccess: boolean;
+  httpStatus: number;
+  latencyMs: number;
+  notes: string;
+}
+
+export interface AiObservabilityStats {
+  domain: string;
+  aiVisibilityScore: number;
+  previousVisibilityScore: number;
+  totalMentions: number;
+  previousMentions: number;
+  totalCitedPages: number;
+  previousCitedPages: number;
+  authorityScore: number;
+  organicKeywords: number;
+  llmsTxtStatus: 'valid' | 'missing' | 'error';
+  llmsFullTxtStatus: 'valid' | 'missing' | 'error';
+  crawlers: AiCrawlerAuditItem[];
+  engines: AiSearchEngineMetric[];
+  geoFactors: {
+    title: string;
+    score: number;
+    description: string;
+    status: 'optimal' | 'good' | 'warning';
+  }[];
+  lastAudited: string;
+}
+
+export interface AiCitationSimulationResult {
+  query: string;
+  engine: string;
+  confidence: number;
+  answerHtml: string;
+  citations: {
+    id: number;
+    title: string;
+    url: string;
+    snippet: string;
+    relevance: number;
+  }[];
+  keyEntities: string[];
+}
+
 
 export interface HeaderAuditItem {
   header: string;

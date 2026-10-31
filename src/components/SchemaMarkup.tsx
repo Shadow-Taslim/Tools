@@ -15,6 +15,9 @@ export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps)
       'home': 'High-speed, zero-retention online utilities featuring disposable temporary email, safe URL shortener with link inspection, QR code generator, password builder, and text tools.',
       'temp-mail': 'Disposable 10-minute temporary email service with automated message deletion, live countdown timer, and secure inbound webhook routing.',
       'url-shortener': 'Secure URL shortener with automated malware checking, heuristic phishing protection, community abuse mitigation, and link preview inspection.',
+      'security-checker': 'Website health and HTTP security headers auditor with SSL validation and Next.js / Cloudflare edge remediation.',
+      'robots-audit': 'Robots.txt syntax validator, SEO indexing risk detector, and real-time RFC 9309 crawler path simulator.',
+      'ai-observability': 'AI Search Observability and Generative Engine Optimization (GEO) dashboard monitoring domain visibility, citations, and LLM crawler access across ChatGPT, Gemini, Perplexity, and Google AI Overviews.',
       'qr-code': 'High-density multi-format QR code generator supporting URLs, WiFi credentials, vCards, text, and email payloads with customizable error correction.',
       'password-generator': 'Cryptographic high-entropy password suite generating secure alphanumeric passwords and memorable Diceware passphrases locally via Web Cryptography API.',
       'word-counter': 'Real-time text analytics tool calculating word counts, character density, sentence counts, reading time, and keyword frequency.',
@@ -30,12 +33,12 @@ export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps)
       '@type': 'WebApplication',
       '@id': `${origin}/#webapp`,
       'name': 'QuickNest',
-      'alternateName': 'QuickNest Privacy Utilities',
+      'alternateName': 'QuickNest Ephemeral Privacy & AI Observability Utilities',
       'url': currentUrl,
       'applicationCategory': 'UtilitiesApplication',
       'operatingSystem': 'All',
       'browserRequirements': 'Requires JavaScript. Requires HTML5.',
-      'softwareVersion': '1.0.0',
+      'softwareVersion': '2.1.0',
       'description': activeDescription,
       'offers': {
         '@type': 'Offer',
@@ -44,8 +47,10 @@ export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps)
         'availability': 'https://schema.org/InStock'
       },
       'featureList': [
+        'AI Search Observability & Generative Engine Optimization (GEO) Suite',
         'Disposable 10-Minute Temporary Email with Real-Time Inbound Routing',
         'Malware and Phishing Filtered URL Shortener with Destination Preview',
+        'RFC 9309 Robots.txt and AI Bot Crawler Validator',
         'Multi-Format QR Code Generator (URL, WiFi, vCard, Email, Text)',
         'Client-Side Cryptographic Password Generator with Entropy Calculation',
         'Real-Time Word, Character, and Reading Time Statistics Counter',
@@ -55,7 +60,11 @@ export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps)
       'creator': {
         '@type': 'Organization',
         'name': 'QuickNest',
-        'url': origin
+        'url': origin,
+        'sameAs': [
+          'https://quicknest.org/llms.txt',
+          'https://quicknest.org/llms-full.txt'
+        ]
       }
     };
 

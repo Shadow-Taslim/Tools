@@ -1,0 +1,166 @@
+# ==========================================
+# QuickNest - Production Robots.txt Specification
+# Zero-Retention Ephemeral Privacy & Developer Utilities
+# Optimized for Search Engines & Generative AI Search Observability
+# ==========================================
+
+# Standard Search Crawlers (Googlebot, Bingbot, Applebot, DuckDuckBot, Baiduspider)
+User-agent: *
+Allow: /
+Allow: /temp-mail
+Allow: /url-shortener
+Allow: /security-checker
+Allow: /robots-audit
+Allow: /ai-observability
+Allow: /qr-code
+Allow: /password-generator
+Allow: /word-counter
+Allow: /text-case
+Allow: /architecture
+Allow: /privacy
+Allow: /terms
+Allow: /contact
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+# Disallow private API endpoints, temporary inboxes, tokens, and rate-limited backend routes
+Disallow: /api/
+Disallow: /api/email/
+Disallow: /api/shorten/
+Disallow: /api/checker/
+Disallow: /api/robots/
+Disallow: /api/ai-observability/
+Disallow: /api/stats
+
+# Disallow short redirection endpoints and unvetted third-party preview destinations
+Disallow: /s/
+Disallow: /preview/
+
+# ==========================================
+# Generative AI Crawlers & Search Engine Directives
+# Optimized for ChatGPT Search, Google AI Overviews, Gemini, Claude, Perplexity & Apple
+# ==========================================
+
+# OpenAI ChatGPT Search & Training Bots
+User-agent: GPTBot
+Allow: /
+Allow: /temp-mail
+Allow: /url-shortener
+Allow: /security-checker
+Allow: /robots-audit
+Allow: /ai-observability
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+# Google AI Overviews, Gemini & Extended Crawlers
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+User-agent: GoogleOther
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+# Anthropic Claude & Claude-Web
+User-agent: ClaudeBot
+Allow: /
+Allow: /temp-mail
+Allow: /url-shortener
+Allow: /security-checker
+Allow: /robots-audit
+Allow: /ai-observability
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+User-agent: anthropic-ai
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+User-agent: Claude-Web
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+# Perplexity AI Real-Time Search Crawler
+User-agent: PerplexityBot
+Allow: /
+Allow: /temp-mail
+Allow: /url-shortener
+Allow: /security-checker
+Allow: /robots-audit
+Allow: /ai-observability
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+# Apple Intelligence & Apple Search
+User-agent: Applebot
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+User-agent: Applebot-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+# Common Crawl & Other AI Indexers
+User-agent: CCBot
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+User-agent: Bytespider
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+User-agent: Meta-ExternalAgent
+Allow: /
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /s/
+Disallow: /preview/
+
+# ==========================================
+# Sitemaps & LLM Context Discovery Standards
+# ==========================================
+Sitemap: https://quicknest.org/sitemap.xml
+# LLM Context Index: https://quicknest.org/llms.txt
+# Comprehensive LLM Specification: https://quicknest.org/llms-full.txt

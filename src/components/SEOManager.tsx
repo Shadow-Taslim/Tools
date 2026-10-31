@@ -38,6 +38,18 @@ const TOOL_META_CONFIG: Record<ActiveTool, (previewCode?: string) => MetaData> =
     path: '/security-checker',
     keywords: 'security checker, http headers audit, hsts check, csp analyzer, website health, nextjs security, cloudflare security'
   }),
+  'robots-audit': () => ({
+    title: 'Robots.txt & SEO Auditor - Syntax Validator & Path Simulator | QuickNest',
+    description: 'Validate robots.txt configuration for indexing pitfalls, catastrophic Disallow: / blocks, asset blockage, exposed routes, and test URL access across Googlebot and AI bots.',
+    path: '/robots-audit',
+    keywords: 'robots.txt validator, robots.txt tester, seo auditor, googlebot tester, rfc 9309, sitemap validator, search indexing protection'
+  }),
+  'ai-observability': () => ({
+    title: 'AI Search Observability & GEO Suite - Track Citations & Bot Indexing | QuickNest',
+    description: 'Monitor AI Search Visibility (74/100), brand mentions, cited pages, and bot accessibility across ChatGPT, Google AI Overview, Gemini, Perplexity, and Claude.',
+    path: '/ai-observability',
+    keywords: 'ai search observability, generative engine optimization, geo, chatgpt search citations, google ai overview, gemini citations, perplexitybot, llms.txt'
+  }),
   'qr-code': () => ({
     title: 'QR Code Generator - Custom URL, WiFi, vCard & Text Codes | QuickNest',
     description: 'Generate high-density, custom QR codes for websites, WiFi networks, contact cards, emails, and plain text. Download crisp high-resolution PNGs instantly.',

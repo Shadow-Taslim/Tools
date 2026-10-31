@@ -10,6 +10,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.tempMail': 'Temp Mail',
     'nav.urlShortener': 'URL Shortener',
     'nav.securityChecker': 'Security Checker',
+    'nav.robotsAudit': 'Robots & SEO',
     'nav.qrCode': 'QR Generator',
     'nav.passwords': 'Passwords',
     'nav.wordCounter': 'Word Counter',
@@ -41,7 +42,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': 'Language',
 
     // Home
-    'home.badge': 'MERN + Next.js Hybrid Architecture',
+    'home.badge': 'Zero-Retention Online Utility Suite',
     'home.heroTitle': 'Privacy-First Developer Utilities & Ephemeral Inboxes',
     'home.heroSubtitle': 'Zero registration, zero logging, and zero tracking. Lightning-fast disposable 10-minute emails, threat-checked URL shortener, website security auditor, and cryptographic privacy suites.',
     'home.quickShortenPlaceholder': 'Quick shorten URL (e.g. https://github.com/example/repo)',
@@ -103,6 +104,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'checker.directives': 'Audited Directives',
     'checker.headerInspection': 'Security Header Directives Inspection',
 
+    // Robots & SEO
+    'robotsAudit.title': 'Robots.txt & SEO Auditor',
+    'robotsAudit.subtitle': 'Detect indexing pitfalls, catastrophic Disallow: / blocks, blocked CSS/JS assets, exposed private routes, and test bot access in real-time.',
+    'robotsAudit.badge': 'SEO Defense',
+    'robotsAudit.actionBtn': 'Audit Robots.txt',
+
     // QR Code
     'qrcode.title': 'High-Density QR Code Generator',
     'qrcode.subtitle': 'Generate customizable, high-resolution QR codes for websites, WiFi networks, and plain text with zero tracking.',
@@ -144,6 +151,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.tempMail': 'Correo Temporal',
     'nav.urlShortener': 'Acortador URL',
     'nav.securityChecker': 'Verificador Seguridad',
+    'nav.robotsAudit': 'Robots y SEO',
     'nav.qrCode': 'Generador QR',
     'nav.passwords': 'Contraseñas',
     'nav.wordCounter': 'Contador Palabras',
@@ -175,7 +183,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': 'Idioma',
 
     // Home
-    'home.badge': 'Arquitectura Híbrida MERN + Next.js',
+    'home.badge': 'Herramientas de Privacidad Sin Retención',
     'home.heroTitle': 'Herramientas de Privacidad y Correos Efímeros',
     'home.heroSubtitle': 'Sin registros, sin registros de actividad y sin rastreadores. Correos temporales ultrarrápidos de 10 minutos, acortador seguro de enlaces y auditor de seguridad web.',
     'home.quickShortenPlaceholder': 'Acortar URL rápida (ej. https://github.com/ejemplo/repo)',
@@ -236,6 +244,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'checker.latency': 'Latencia de Respuesta',
     'checker.directives': 'Directivas Auditadas',
     'checker.headerInspection': 'Inspección de Cabeceras de Seguridad',
+
+    // Robots & SEO
+    'robotsAudit.title': 'Auditor de Robots.txt y SEO',
+    'robotsAudit.subtitle': 'Detecte errores de indexación, bloqueos de Disallow: /, recursos bloqueados y pruebe bots en tiempo real.',
+    'robotsAudit.badge': 'Defensa SEO',
+    'robotsAudit.actionBtn': 'Auditar Robots.txt',
 
     // QR Code
     'qrcode.title': 'Generador de Código QR de Alta Densidad',
@@ -309,7 +323,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': 'Langue',
 
     // Home
-    'home.badge': 'Architecture Hybride MERN + Next.js',
+    'home.badge': 'Suite d\'Utilitaires Sans Rétention',
     'home.heroTitle': 'Utilitaires de Confidentialité et Boîtes Éphémères',
     'home.heroSubtitle': 'Zéro inscription, zéro journalisation, zéro traceur. Emails jetables de 10 minutes ultra-rapides, raccourcisseur d\'URL sécurisé et audit de sécurité web.',
     'home.quickShortenPlaceholder': 'Raccourcir une URL (ex: https://github.com/exemple)',
@@ -443,7 +457,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': 'Sprache',
 
     // Home
-    'home.badge': 'MERN + Next.js Hybrid-Architektur',
+    'home.badge': 'Zero-Retention Online-Dienstprogramme',
     'home.heroTitle': 'Datenschutz-Tools & Temporäre E-Mail-Postfächer',
     'home.heroSubtitle': 'Ohne Anmeldung, ohne Protokollierung und ohne Tracker. Blitzschnelle 10-Minuten-Wegwerf-E-Mails, sicherer URL-Kürzer und Website-Sicherheits-Auditor.',
     'home.quickShortenPlaceholder': 'Schnelle URL kürzen (z. B. https://github.com/beispiel)',
@@ -577,7 +591,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': 'ভাষা (Language)',
 
     // Home
-    'home.badge': 'MERN + Next.js হাইব্রিড আর্কিটেকচার',
+    'home.badge': 'জিরো-রিটেনশন অনলাইন ইউটিলিটি স্যুট',
     'home.heroTitle': 'গোপনীয়তা-বান্ধব ডেভেলপার টুলস ও অস্থায়ী ইমেল',
     'home.heroSubtitle': 'কোনো সাইন-আপ নেই, কোনো লগ নেই এবং কোনো ট্র্যাকিং নেই। সুপারফাস্ট ১০-মিনিটের ডিসপোজেবল ইমেল, নিরাপদ ইউআরএল শর্টনার ও ওয়েবসাইট সিকিউরিটি চেকার।',
     'home.quickShortenPlaceholder': 'দ্রুত লিঙ্ক ছোট করুন (যেমন: https://github.com/repo)',
@@ -711,7 +725,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': '言語 (Language)',
 
     // Home
-    'home.badge': 'MERN + Next.js ハイブリッド構成',
+    'home.badge': 'ゼロ保持オンラインユーティリティ',
     'home.heroTitle': 'プライバシー重視の開発者ツール＆使い捨てメール',
     'home.heroSubtitle': '登録不要、ログ記録ゼロ、トラッキング一切なし。10分で消える安全な使い捨てメール、フィッシング検査付きURL短縮、Webサイトセキュリティ診断。',
     'home.quickShortenPlaceholder': '短縮したいURLを入力 (例: https://github.com/example)',
@@ -845,7 +859,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': '语言 (Language)',
 
     // Home
-    'home.badge': 'MERN + Next.js 混合架构',
+    'home.badge': '零数据保留在线实用工具套件',
     'home.heroTitle': '零日志隐私工具箱与即时临时邮箱',
     'home.heroSubtitle': '无需注册，零日志记录，零广告跟踪。极速10分钟临时邮箱、防钓鱼短网址生成、网站安全标头检测与密码学加密套件。',
     'home.quickShortenPlaceholder': '快速缩短链接 (如 https://github.com/example/repo)',
@@ -979,7 +993,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': 'اللغة',
 
     // Home
-    'home.badge': 'هيكلية هجينة MERN + Next.js',
+    'home.badge': 'مجموعة أدوات حماية الخصوصية بدون احتفاظ بالبيانات',
     'home.heroTitle': 'أدوات الخصوصية وصناديق البريد المؤقتة',
     'home.heroSubtitle': 'بدون تسجيل، بدون تتبع، وبدون حفظ بيانات. بريد مهمل فائق السرعة لمدة 10 دقائق، اختصار روابط آمن، وفحص أمان المواقع.',
     'home.quickShortenPlaceholder': 'اختصار رابط سريع (مثال: https://github.com/repo)',
@@ -1113,7 +1127,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': 'Idioma',
 
     // Home
-    'home.badge': 'Arquitetura Híbrida MERN + Next.js',
+    'home.badge': 'Conjunto de Utilitários Sem Retenção',
     'home.heroTitle': 'Utilitários de Privacidade e E-mails Descartáveis',
     'home.heroSubtitle': 'Sem cadastro, sem registros e sem rastreadores. E-mails descartáveis de 10 minutos ultrarrápidos, encurtador de URLs seguro e auditoria web.',
     'home.quickShortenPlaceholder': 'Encurtar URL rápida (ex: https://github.com/exemplo)',
@@ -1247,7 +1261,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.language': 'Язык',
 
     // Home
-    'home.badge': 'Гибридная Архитектура MERN + Next.js',
+    'home.badge': 'Инструменты без сохранения данных',
     'home.heroTitle': 'Инструменты Приватности и Одноразовая Почта',
     'home.heroSubtitle': 'Без регистрации, без логов и без трекеров. Сверхбыстрая 10-минутная почта, безопасное сокращение ссылок и аудит безопасности сайтов.',
     'home.quickShortenPlaceholder': 'Быстро сократить ссылку (напр. https://github.com/example)',

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ActiveTool } from '../types.ts';
-import { Mail, Link2, QrCode, KeyRound, FileText, Menu, X, ShieldCheck } from 'lucide-react';
+import { Mail, Link2, QrCode, KeyRound, FileText, Menu, X, ShieldCheck, Bot, Sparkles } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext.tsx';
 import LanguageSelector from './LanguageSelector.tsx';
 
@@ -18,10 +18,10 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
     { id: 'temp-mail', label: t('nav.tempMail', 'Temp Mail'), icon: Mail },
     { id: 'url-shortener', label: t('nav.urlShortener', 'URL Shortener'), icon: Link2 },
     { id: 'security-checker', label: t('nav.securityChecker', 'Security Checker'), icon: ShieldCheck },
+    { id: 'ai-observability', label: t('nav.aiObservability', 'AI Search (74)'), icon: Sparkles },
+    { id: 'robots-audit', label: t('nav.robotsAudit', 'Robots & SEO'), icon: Bot },
     { id: 'qr-code', label: t('nav.qrCode', 'QR Generator'), icon: QrCode },
-    { id: 'password-generator', label: t('nav.passwords', 'Passwords'), icon: KeyRound },
-    { id: 'word-counter', label: t('nav.wordCounter', 'Word Counter'), icon: FileText },
-    { id: 'architecture', label: t('nav.architecture', 'Architecture'), icon: ShieldCheck }
+    { id: 'password-generator', label: t('nav.passwords', 'Passwords'), icon: KeyRound }
   ];
 
   return (

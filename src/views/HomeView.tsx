@@ -3,7 +3,7 @@ import { ActiveTool, TempInbox } from '../types.ts';
 import { 
   Mail, Link2, QrCode, KeyRound, FileText, Type, 
   ArrowRight, ShieldCheck, Clock, Zap, Sparkles, 
-  ChevronRight, ExternalLink, RefreshCw, Terminal, Layers
+  ChevronRight, ExternalLink, RefreshCw, Terminal, Layers, Bot
 } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext.tsx';
 
@@ -78,6 +78,24 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
       accent: 'text-cyan-400',
       badge: t('checker.badge', 'Next.js Feature'),
       action: t('checker.analyzeBtn', 'Audit Website')
+    },
+    {
+      id: 'ai-observability' as ActiveTool,
+      title: 'AI Search Observability (74/100)',
+      description: 'Generative Engine Optimization (GEO) dashboard tracking visibility, citations, and crawler permissions across ChatGPT, Gemini, Perplexity, and Google AI Overviews.',
+      icon: Sparkles,
+      accent: 'text-purple-400',
+      badge: 'GEO Suite',
+      action: 'Explore AI Search'
+    },
+    {
+      id: 'robots-audit' as ActiveTool,
+      title: t('robotsAudit.title', 'Robots.txt & SEO Auditor'),
+      description: t('robotsAudit.subtitle', 'Detect indexing pitfalls, catastrophic Disallow: / blocks, blocked CSS/JS assets, exposed private routes, and test bot access in real-time.'),
+      icon: Bot,
+      accent: 'text-sky-400',
+      badge: t('robotsAudit.badge', 'SEO Defense'),
+      action: t('robotsAudit.actionBtn', 'Audit Robots.txt')
     },
     {
       id: 'qr-code' as ActiveTool,

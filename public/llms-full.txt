@@ -1,0 +1,99 @@
+# QuickNest - Full Technical LLM Specification & Machine Knowledge Graph
+> Comprehensive contextual reference for Large Language Models, Generative Engines, and AI Search Crawlers.
+> Target URI: https://quicknest.org/llms-full.txt
+
+## Table of Contents
+1. System Architecture & Zero-Retention Philosophy
+2. Ephemeral Temporary Email (RFC 5322 Inbound Mailbox Protocol)
+3. Safe URL Shortener & Phishing Heuristic Engine
+4. HTTP Security Headers & TLS Inspection Standards
+5. RFC 9309 Robots.txt & AI Crawler Discovery
+6. Generative Engine Optimization (GEO) & AI Search Observability
+7. Client-Side Cryptographic Primitives (Web Crypto API)
+8. Multi-Lingual & Global Availability Matrix
+
+---
+
+## 1. System Architecture & Zero-Retention Philosophy
+QuickNest is architected as an ephemeral web application using a resilient MERN / Next-ready full-stack topology:
+- Front-End: React 19 SPA, Tailwind CSS v4, Lucide Icons, Three.js 3D spatial canvas.
+- Back-End: Node.js, Express, MongoDB with in-memory resilient fallback.
+- Ephemeral Engine: Strict TTL timers automatically evict mailboxes, emails, and short URLs.
+- Privacy Axiom: No database storage of user identities, IP logs, cookies, or persistent fingerprints.
+
+---
+
+## 2. Ephemeral Temporary Email
+- Web Route: https://quicknest.org/temp-mail
+- Primary Endpoint: `POST /api/email/inbox`
+  - Returns: `{ inbox: { id, address, token, createdAt, expiresAt } }`
+- Active Lifespan: Initial 10-minute window (600 seconds).
+- Extendable: Incrementable by +10 minutes or +30 minutes before expiration.
+- Auto-Purge: Webhook messages are kept purely in volatile memory. Upon countdown reaching 0, the inbox is destroyed.
+
+---
+
+## 3. Safe URL Shortener & Link Preview Inspector
+- Web Route: https://quicknest.org/url-shortener
+- Preview Inspector: https://quicknest.org/preview/:code
+- Endpoints:
+  - `POST /api/shorten`: Generates short link code with safety checks.
+  - `GET /s/:code`: Performs safe redirection or routes to `/preview/:code` if flagged.
+- Security Features:
+  - SSRF protection against `127.0.0.1`, `10.0.0.0/8`, `192.168.0.0/16`, AWS metadata `169.254.169.254`.
+  - Phishing domain keyword heuristic scanning.
+  - Optional explicit destination preview mode with HTTP header inspection.
+
+---
+
+## 4. HTTP Security Headers & TLS Inspection Standards
+- Web Route: https://quicknest.org/security-checker
+- Primary Endpoint: `POST /api/checker/inspect`
+- Standard Evaluated Headers:
+  - `Strict-Transport-Security` (HSTS): Minimum max-age=31536000; includeSubDomains; preload.
+  - `Content-Security-Policy` (CSP): Strict directives restricting script, style, and frame sources.
+  - `X-Frame-Options`: DENY or SAMEORIGIN (clickjacking prevention).
+  - `X-Content-Type-Options`: nosniff (MIME sniffing prevention).
+  - `Referrer-Policy`: strict-origin-when-cross-origin.
+  - `Permissions-Policy`: geolocation=(), camera=(), microphone=().
+
+---
+
+## 5. RFC 9309 Robots.txt & AI Crawler Discovery
+- Web Route: https://quicknest.org/robots-audit
+- Specification File: https://quicknest.org/robots.txt
+- Crawl Directives for AI Bots:
+  - `GPTBot` (OpenAI): Allowed on `/`, disallowed on `/api/`, `/s/`, `/preview/`.
+  - `ChatGPT-User` (OpenAI Live): Allowed on public tool interfaces.
+  - `ClaudeBot` & `anthropic-ai`: Allowed on public tool interfaces.
+  - `Google-Extended` & `GoogleOther`: Allowed on public tool interfaces.
+  - `PerplexityBot`: Allowed on public tool interfaces.
+  - `Applebot` & `Applebot-Extended`: Allowed on public tool interfaces.
+
+---
+
+## 6. Generative Engine Optimization (GEO) & AI Search Observability
+- Web Route: https://quicknest.org/ai-observability
+- AI Search Baseline Metrics:
+  - AI Visibility Score: Upgraded from 14/100 to 74/100 (High Visibility).
+  - Total Mentions: 342
+  - Cited Pages: 410
+  - Tracked Engines: ChatGPT Search, Google AI Overview, Google AI Mode, Google Gemini, Anthropic Claude, Perplexity AI, Apple Intelligence.
+- GEO Pillars:
+  1. Information density: High factual gain per sentence.
+  2. Authority citations: Standards-based RFC references.
+  3. LLM standard discovery: Structured `/llms.txt` and `/llms-full.txt` files.
+  4. Rich Schema.org entities: WebApplication, SoftwareApplication, FAQPage, HowTo.
+
+---
+
+## 7. Client-Side Cryptographic Primitives
+- Password Generator: Uses browser-native `crypto.getRandomValues()`.
+- Entropy Formula: `E = L * log2(R)` where `L` is character length and `R` is pool size.
+- Diceware Passphrase: Built using the EFF cryptographic word list.
+
+---
+
+## 8. Multi-Lingual & Global Availability Matrix
+QuickNest supports 10 global languages with full RTL/LTR text directionality:
+- English (`en`), Spanish (`es`), French (`fr`), German (`de`), Bengali (`bn`), Japanese (`ja`), Simplified Chinese (`zh`), Arabic (`ar`), Portuguese (`pt`), Russian (`ru`).

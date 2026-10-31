@@ -27,6 +27,9 @@ import ArchitectureView from './views/ArchitectureView.tsx';
 import PrivacyView from './views/PrivacyView.tsx';
 import TermsView from './views/TermsView.tsx';
 import ContactView from './views/ContactView.tsx';
+import RobotsAuditView from './views/RobotsAuditView.tsx';
+import AiObservabilityView from './views/AiObservabilityView.tsx';
+
 
 function AppContent() {
   const [activeTool, setActiveTool] = useState<ActiveTool>('home');
@@ -48,6 +51,10 @@ function AppContent() {
         setActiveTool('url-shortener');
       } else if (path === '/security-checker' || path === '/checker') {
         setActiveTool('security-checker');
+      } else if (path === '/robots-audit' || path === '/robots' || path === '/robots-txt') {
+        setActiveTool('robots-audit');
+      } else if (path === '/ai-observability' || path === '/ai-search' || path === '/geo') {
+        setActiveTool('ai-observability');
       } else if (path === '/qr-code') {
         setActiveTool('qr-code');
       } else if (path === '/password-generator') {
@@ -163,6 +170,14 @@ function AppContent() {
 
         {activeTool === 'security-checker' && (
           <SecurityCheckerView onShowToast={showToast} />
+        )}
+
+        {activeTool === 'robots-audit' && (
+          <RobotsAuditView onShowToast={showToast} />
+        )}
+
+        {activeTool === 'ai-observability' && (
+          <AiObservabilityView onShowToast={showToast} onNavigate={(path) => navigateTo(path as ActiveTool)} />
         )}
 
         {activeTool === 'preview' && (
