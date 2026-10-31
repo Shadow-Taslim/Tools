@@ -146,7 +146,7 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
-            {t('home.heroTitle', 'Privacy-First Developer Utilities & Ephemeral Inboxes')}
+            {t('home.heroTitle', 'Free Privacy & Developer Tools')}
           </h1>
 
           <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
@@ -155,21 +155,29 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
 
           {/* Quick Action Widget Bar */}
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <button
-              onClick={() => onSelectTool('temp-mail')}
+            <a
+              href="/temp-mail"
+              onClick={(event) => {
+                event.preventDefault();
+                onSelectTool('temp-mail');
+              }}
               className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-bold text-sm rounded-xl shadow-lg shadow-cyan-500/25 transition-all cursor-pointer flex items-center justify-center gap-2"
             >
               <Mail className="w-4 h-4" />
               <span>{t('nav.quickInboxBtn', 'Launch 10-Minute Mail')}</span>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onSelectTool('url-shortener')}
+            <a
+              href="/url-shortener"
+              onClick={(event) => {
+                event.preventDefault();
+                onSelectTool('url-shortener');
+              }}
               className="w-full sm:w-auto px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold text-sm rounded-xl border border-slate-700/80 transition-all cursor-pointer flex items-center justify-center gap-2"
             >
               <Link2 className="w-4 h-4 text-cyan-400" />
               <span>{t('nav.urlShortener', 'Shorten a URL')}</span>
-            </button>
+            </a>
           </div>
         </div>
 
@@ -291,8 +299,10 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
                 </div>
 
                 <div className="pt-6 mt-2 border-t border-slate-800/80">
-                  <button
-                    onClick={() => {
+                  <a
+                    href={`/${tool.id}`}
+                    onClick={(event) => {
+                      event.preventDefault();
                       onSelectTool(tool.id);
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
@@ -300,7 +310,7 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
                   >
                     <span>{tool.action}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </button>
+                  </a>
                 </div>
               </div>
             );

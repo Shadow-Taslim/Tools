@@ -7,8 +7,10 @@ interface SchemaMarkupProps {
 
 export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps) {
   useEffect(() => {
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://quicknest.org';
-    const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://quicknest.org';
+    const origin = 'https://quicknest.ai.studio';
+    const currentUrl = typeof window !== 'undefined'
+      ? `${origin}${window.location.pathname}`
+      : `${origin}/`;
 
     // Tool specific feature description
     const toolDescriptions: Record<string, string> = {
@@ -62,8 +64,8 @@ export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps)
         'name': 'QuickNest',
         'url': origin,
         'sameAs': [
-          'https://quicknest.org/llms.txt',
-          'https://quicknest.org/llms-full.txt'
+          'https://quicknest.ai.studio/llms.txt',
+          'https://quicknest.ai.studio/llms-full.txt'
         ]
       }
     };

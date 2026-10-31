@@ -1,85 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://quicknest.org/</loc>
+    <loc>https://quicknest.ai.studio/</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/temp-mail</loc>
+    <loc>https://quicknest.ai.studio/temp-mail</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/url-shortener</loc>
+    <loc>https://quicknest.ai.studio/url-shortener</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/security-checker</loc>
+    <loc>https://quicknest.ai.studio/security-checker</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/robots-audit</loc>
+    <loc>https://quicknest.ai.studio/robots-audit</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/ai-observability</loc>
+    <loc>https://quicknest.ai.studio/ai-observability</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/qr-code</loc>
+    <loc>https://quicknest.ai.studio/qr-code</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/password-generator</loc>
+    <loc>https://quicknest.ai.studio/password-generator</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/word-counter</loc>
+    <loc>https://quicknest.ai.studio/word-counter</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/text-case</loc>
+    <loc>https://quicknest.ai.studio/text-case</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/architecture</loc>
+    <loc>https://quicknest.ai.studio/architecture</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/privacy</loc>
+    <loc>https://quicknest.ai.studio/privacy</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/terms</loc>
+    <loc>https://quicknest.ai.studio/terms</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://quicknest.org/contact</loc>
+    <loc>https://quicknest.ai.studio/contact</loc>
     <lastmod>2026-10-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

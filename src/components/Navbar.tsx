@@ -29,8 +29,10 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         
         {/* Zone 1: Single text element brand wordmark */}
-        <button
-          onClick={() => {
+        <a
+          href="/"
+          onClick={(event) => {
+            event.preventDefault();
             onSelectTool('home');
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
@@ -38,16 +40,20 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
         >
           <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]"></span>
           <span>{t('nav.brand', 'QuickNest')}</span>
-        </button>
+        </a>
 
         {/* Zone 2: 4-6 clean text navigation links */}
         <nav className="hidden xl:flex items-center gap-5 text-sm font-medium text-slate-400">
           {navItems.map((item) => {
             const isActive = activeTool === item.id;
             return (
-              <button
+              <a
                 key={item.id}
-                onClick={() => onSelectTool(item.id)}
+                href={`/${item.id}`}
+                onClick={(event) => {
+                  event.preventDefault();
+                  onSelectTool(item.id);
+                }}
                 className={`transition-colors whitespace-nowrap cursor-pointer py-1 border-b-2 ${
                   isActive
                     ? 'text-cyan-400 border-cyan-400 font-semibold'
@@ -55,7 +61,7 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
                 }`}
               >
                 {item.label}
-              </button>
+              </a>
             );
           })}
         </nav>
@@ -87,21 +93,25 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="xl:hidden border-b border-slate-800 bg-slate-950/95 px-4 pt-2 pb-4 space-y-1">
-          <button
-            onClick={() => {
+          <a
+            href="/"
+            onClick={(event) => {
+              event.preventDefault();
               onSelectTool('home');
               setMobileMenuOpen(false);
             }}
-            className={`w-full text-left px-3 py-2 text-sm font-medium rounded-md ${
+            className={`block w-full text-left px-3 py-2 text-sm font-medium rounded-md ${
               activeTool === 'home' ? 'text-cyan-400 bg-slate-900' : 'text-slate-300 hover:bg-slate-900'
             }`}
           >
             {t('nav.home', 'Home Overview')}
-          </button>
+          </a>
           {navItems.map((item) => (
-            <button
+            <a
               key={item.id}
-              onClick={() => {
+              href={`/${item.id}`}
+              onClick={(event) => {
+                event.preventDefault();
                 onSelectTool(item.id);
                 setMobileMenuOpen(false);
               }}
@@ -111,7 +121,7 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
             >
               <item.icon className="w-4 h-4 text-slate-400" />
               <span>{item.label}</span>
-            </button>
+            </a>
           ))}
           <div className="pt-2">
             <button

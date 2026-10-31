@@ -15,8 +15,8 @@ interface MetaData {
 
 const TOOL_META_CONFIG: Record<ActiveTool, (previewCode?: string) => MetaData> = {
   home: () => ({
-    title: 'QuickNest - Free 3D Privacy Utilities & Developer Tools',
-    description: 'QuickNest: High-speed, zero-retention online utilities featuring disposable temporary email, safe URL shortener with link inspection, QR code generator, password builder, and text tools.',
+    title: 'Free Privacy & Developer Tools | QuickNest',
+    description: 'Free privacy-first tools for temporary email, secure URL shortening, QR codes, passwords, word counting, and text conversion.',
     path: '/',
     keywords: 'privacy tools, disposable email, temp mail, url shortener, qr code generator, password generator, text case converter, word counter'
   }),
@@ -138,7 +138,7 @@ export default function SEOManager({ activeTool, previewCode }: SEOManagerProps)
       element.setAttribute('href', href);
     };
 
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://quicknest.org';
+    const origin = 'https://quicknest.ai.studio';
     const canonicalUrl = `${origin}${meta.path}`;
 
     // 2. Standard Meta Tags

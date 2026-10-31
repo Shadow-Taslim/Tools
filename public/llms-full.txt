@@ -1,6 +1,6 @@
 # QuickNest - Full Technical LLM Specification & Machine Knowledge Graph
 > Comprehensive contextual reference for Large Language Models, Generative Engines, and AI Search Crawlers.
-> Target URI: https://quicknest.org/llms-full.txt
+> Target URI: https://quicknest.ai.studio/llms-full.txt
 
 ## Table of Contents
 1. System Architecture & Zero-Retention Philosophy
@@ -24,7 +24,7 @@ QuickNest is architected as an ephemeral web application using a resilient MERN 
 ---
 
 ## 2. Ephemeral Temporary Email
-- Web Route: https://quicknest.org/temp-mail
+- Web Route: https://quicknest.ai.studio/temp-mail
 - Primary Endpoint: `POST /api/email/inbox`
   - Returns: `{ inbox: { id, address, token, createdAt, expiresAt } }`
 - Active Lifespan: Initial 10-minute window (600 seconds).
@@ -34,8 +34,8 @@ QuickNest is architected as an ephemeral web application using a resilient MERN 
 ---
 
 ## 3. Safe URL Shortener & Link Preview Inspector
-- Web Route: https://quicknest.org/url-shortener
-- Preview Inspector: https://quicknest.org/preview/:code
+- Web Route: https://quicknest.ai.studio/url-shortener
+- Preview Inspector: https://quicknest.ai.studio/preview/:code
 - Endpoints:
   - `POST /api/shorten`: Generates short link code with safety checks.
   - `GET /s/:code`: Performs safe redirection or routes to `/preview/:code` if flagged.
@@ -47,7 +47,7 @@ QuickNest is architected as an ephemeral web application using a resilient MERN 
 ---
 
 ## 4. HTTP Security Headers & TLS Inspection Standards
-- Web Route: https://quicknest.org/security-checker
+- Web Route: https://quicknest.ai.studio/security-checker
 - Primary Endpoint: `POST /api/checker/inspect`
 - Standard Evaluated Headers:
   - `Strict-Transport-Security` (HSTS): Minimum max-age=31536000; includeSubDomains; preload.
@@ -60,8 +60,8 @@ QuickNest is architected as an ephemeral web application using a resilient MERN 
 ---
 
 ## 5. RFC 9309 Robots.txt & AI Crawler Discovery
-- Web Route: https://quicknest.org/robots-audit
-- Specification File: https://quicknest.org/robots.txt
+- Web Route: https://quicknest.ai.studio/robots-audit
+- Specification File: https://quicknest.ai.studio/robots.txt
 - Crawl Directives for AI Bots:
   - `GPTBot` (OpenAI): Allowed on `/`, disallowed on `/api/`, `/s/`, `/preview/`.
   - `ChatGPT-User` (OpenAI Live): Allowed on public tool interfaces.
@@ -73,7 +73,7 @@ QuickNest is architected as an ephemeral web application using a resilient MERN 
 ---
 
 ## 6. Generative Engine Optimization (GEO) & AI Search Observability
-- Web Route: https://quicknest.org/ai-observability
+- Web Route: https://quicknest.ai.studio/ai-observability
 - AI Search Baseline Metrics:
   - AI Visibility Score: Upgraded from 14/100 to 74/100 (High Visibility).
   - Total Mentions: 342

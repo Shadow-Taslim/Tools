@@ -161,6 +161,6 @@ Disallow: /preview/
 # ==========================================
 # Sitemaps & LLM Context Discovery Standards
 # ==========================================
-Sitemap: https://quicknest.org/sitemap.xml
-# LLM Context Index: https://quicknest.org/llms.txt
-# Comprehensive LLM Specification: https://quicknest.org/llms-full.txt
+Sitemap: https://quicknest.ai.studio/sitemap.xml
+# LLM Context Index: https://quicknest.ai.studio/llms.txt
+# Comprehensive LLM Specification: https://quicknest.ai.studio/llms-full.txt
