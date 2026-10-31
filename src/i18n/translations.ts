@@ -43,7 +43,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Home
     'home.badge': 'Zero-Retention Online Utility Suite',
-    'home.heroTitle': 'Privacy-First Developer Utilities & Ephemeral Inboxes',
+    'home.heroTitle': 'Free Privacy & Developer Tools',
     'home.heroSubtitle': 'Zero registration, zero logging, and zero tracking. Lightning-fast disposable 10-minute emails, threat-checked URL shortener, website security auditor, and cryptographic privacy suites.',
     'home.quickShortenPlaceholder': 'Quick shorten URL (e.g. https://github.com/example/repo)',
     'home.quickShortenBtn': 'Shorten',
