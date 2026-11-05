@@ -16,21 +16,29 @@ const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
-  const isProd = process.env.NODE_ENV === 'production';
-  app.set('trust proxy', 1);
 
-  // Compress HTML, JavaScript, CSS, XML, and other text responses.
-  app.use(compression());
+  // 1. Enable HTTP Content Compression (Gzip & Deflate) for all HTML/JSON/Assets
+  app.use(compression({
+    level: 6,
+    threshold: 0,
+    filter: (req, res) => {
+      if (req.headers['x-no-compression']) return false;
+      return compression.filter(req, res);
+    }
+  }));
 
-  // Consolidate the www host with the canonical non-www domain.
+  // 2. 301 Canonical & Subdomain Normalization (e.g., redirect www to non-www)
   app.use((req, res, next) => {
-    if (req.hostname.toLowerCase() === 'www.quicknest.ai.studio') {
-      return res.redirect(301, `https://quicknest.ai.studio${req.originalUrl}`);
+    const host = req.headers.host || '';
+    if (host.startsWith('www.')) {
+      const cleanHost = host.replace(/^www\./, '');
+      const proto = req.headers['x-forwarded-proto'] || req.protocol || 'https';
+      return res.redirect(301, `${proto}://${cleanHost}${req.originalUrl}`);
     }
-    if (isProd) {
-      res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-      res.setHeader('X-Content-Type-Options', 'nosniff');
-    }
+
+    // Set canonical link header on responses
+    const cleanPath = req.path === '/' ? '' : req.path;
+    res.setHeader('Link', `<https://quicknest.org${cleanPath}>; rel="canonical"`);
     next();
   });
   
@@ -38,6 +46,7 @@ async function startServer() {
   const portArgIndex = process.argv.indexOf('--port');
   const cliPort = portArgIndex !== -1 && process.argv[portArgIndex + 1] ? Number(process.argv[portArgIndex + 1]) : null;
   const PORT = cliPort || 3000;
+  const isProd = process.env.NODE_ENV === 'production';
 
   // Connect to MongoDB via Mongoose (MERN Stack) with non-blocking error handling
   try {
@@ -85,7 +94,7 @@ async function startServer() {
 
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=86400');
-    res.send(`User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /s/\nDisallow: /preview/\nSitemap: https://quicknest.ai.studio/sitemap.xml\n`);
+    res.send(`User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /s/\nDisallow: /preview/\nSitemap: https://quicknest.org/sitemap.xml\n`);
   });
 
   // Sitemap.xml Handler
@@ -104,7 +113,7 @@ async function startServer() {
 
     res.setHeader('Content-Type', 'application/xml; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=86400');
-    res.send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://quicknest.ai.studio/</loc></url></urlset>`);
+    res.send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://quicknest.org/</loc></url></urlset>`);
   });
 
   // llms.txt Handler (Machine-readable AI Context Specification)
@@ -122,7 +131,7 @@ async function startServer() {
     }
 
     res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
-    res.send(`# QuickNest\nZero-retention online utilities.\nhttps://quicknest.ai.studio\n`);
+    res.send(`# QuickNest\nZero-retention online utilities.\nhttps://quicknest.org\n`);
   });
 
   // llms-full.txt Handler (Comprehensive Technical Context for LLMs)
@@ -140,7 +149,7 @@ async function startServer() {
     }
 
     res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
-    res.send(`# QuickNest Comprehensive Context\nhttps://quicknest.ai.studio\n`);
+    res.send(`# QuickNest Comprehensive Context\nhttps://quicknest.org\n`);
   });
 
   // Robots.txt Audit API: Audit any custom content or remote website
@@ -435,14 +444,14 @@ async function startServer() {
           {
             id: 1,
             title: 'QuickNest Temp Mail - 10-Minute Disposable Email',
-            url: 'https://quicknest.ai.studio/temp-mail',
+            url: 'https://quicknest.org/temp-mail',
             snippet: 'Generate anonymous disposable 10-minute temporary email inboxes with zero data retention and automated cryptographic message purging.',
             relevance: 98
           },
           {
             id: 2,
             title: 'QuickNest Architecture & Security Specifications',
-            url: 'https://quicknest.ai.studio/architecture',
+            url: 'https://quicknest.org/architecture',
             snippet: 'Zero-retention temporary mail infrastructure utilizing in-memory TTL caching and strict data minimization principles.',
             relevance: 92
           }
@@ -454,21 +463,21 @@ async function startServer() {
           {
             id: 1,
             title: 'QuickNest Robots.txt & SEO Auditor',
-            url: 'https://quicknest.ai.studio/robots-audit',
+            url: 'https://quicknest.org/robots-audit',
             snippet: 'Validate robots.txt syntax, diagnose search engine indexing risks, and simulate RFC 9309 crawler path access in real time.',
             relevance: 99
           },
           {
             id: 2,
             title: 'AI Search Observability & GEO Studio',
-            url: 'https://quicknest.ai.studio/ai-observability',
+            url: 'https://quicknest.org/ai-observability',
             snippet: 'Monitor AI Search Visibility and crawler directives across ChatGPT Search, Google AI Overviews, Claude, and Perplexity.',
             relevance: 94
           },
           {
             id: 3,
             title: 'QuickNest LLM Specification Standards',
-            url: 'https://quicknest.ai.studio/llms.txt',
+            url: 'https://quicknest.org/llms.txt',
             snippet: 'Standard Markdown specification for large language models and Generative Engine Optimization.',
             relevance: 89
           }
@@ -480,14 +489,14 @@ async function startServer() {
           {
             id: 1,
             title: 'QuickNest Safe URL Shortener',
-            url: 'https://quicknest.ai.studio/url-shortener',
+            url: 'https://quicknest.org/url-shortener',
             snippet: 'Privacy-focused URL shortener with automated malware scanning, SSRF protection, and zero user telemetry tracking.',
             relevance: 97
           },
           {
             id: 2,
             title: 'QuickNest Threat & Link Preview Inspector',
-            url: 'https://quicknest.ai.studio/preview/safety',
+            url: 'https://quicknest.org/preview/safety',
             snippet: 'Inspect destination links, HTTP security headers, and domain reputation before navigating to unknown sites.',
             relevance: 91
           }
@@ -499,14 +508,14 @@ async function startServer() {
           {
             id: 1,
             title: 'QuickNest Cryptographic Password Generator',
-            url: 'https://quicknest.ai.studio/password-generator',
+            url: 'https://quicknest.org/password-generator',
             snippet: 'Generate high-entropy passwords and memorable Diceware passphrases locally in the browser with zero server exposure.',
             relevance: 96
           },
           {
             id: 2,
             title: 'QuickNest System Architecture',
-            url: 'https://quicknest.ai.studio/architecture',
+            url: 'https://quicknest.org/architecture',
             snippet: 'Zero-knowledge browser primitives and Web Cryptography API implementation details.',
             relevance: 88
           }
@@ -518,14 +527,14 @@ async function startServer() {
           {
             id: 1,
             title: 'QuickNest - Free 3D Privacy Utilities & Developer Tools',
-            url: 'https://quicknest.ai.studio/',
+            url: 'https://quicknest.org/',
             snippet: 'High-speed, zero-retention online utilities featuring disposable email, safe link shortener, robots auditor, and QR generator.',
             relevance: 95
           },
           {
             id: 2,
             title: 'QuickNest AI Search Observability & GEO Suite',
-            url: 'https://quicknest.ai.studio/ai-observability',
+            url: 'https://quicknest.org/ai-observability',
             snippet: 'Audit and elevate domain visibility from baseline to 74+ across leading AI search engines and LLM crawlers.',
             relevance: 92
           }
@@ -609,33 +618,8 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.resolve(__dirname, 'dist'), {
-      setHeaders: (res, filePath) => {
-        if (filePath.includes(`${path.sep}assets${path.sep}`)) {
-          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-        } else if (filePath.endsWith('index.html')) {
-          res.setHeader('Cache-Control', 'no-cache');
-        }
-      }
-    }));
-
-    const publicPaths = new Set([
-      '/', '/temp-mail', '/url-shortener', '/security-checker', '/checker',
-      '/robots-audit', '/robots', '/robots-txt', '/ai-observability',
-      '/ai-search', '/geo', '/qr-code', '/password-generator', '/word-counter',
-      '/text-case', '/architecture', '/privacy', '/terms', '/contact'
-    ]);
-
-    app.get('*', (req, res) => {
-      const normalizedPath = req.path.replace(/\/+$/, '') || '/';
-      const isPreview = /^\/preview\/[A-Za-z0-9_-]+$/.test(normalizedPath);
-
-      if (!publicPaths.has(normalizedPath) && !isPreview) {
-        res.status(404).setHeader('Cache-Control', 'no-store');
-        return res.send(`<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Page Not Found | QuickNest</title></head><body style="font-family:system-ui;background:#020617;color:#f8fafc;display:grid;place-items:center;min-height:100vh;margin:0"><main style="padding:2rem;text-align:center"><h1>Page Not Found</h1><p>The requested page does not exist.</p><a style="color:#22d3ee" href="/">Return to QuickNest</a></main></body></html>`);
-      }
-
-      res.setHeader('Cache-Control', 'no-cache');
+    app.use(express.static(path.resolve(__dirname, 'dist')));
+    app.get('*', (_req, res) => {
       res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
     });
   }

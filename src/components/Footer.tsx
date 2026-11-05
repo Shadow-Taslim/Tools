@@ -46,6 +46,190 @@ export default function Footer({ onSelectTool }: FooterProps) {
           </div>
         </div>
 
+        {/* Comprehensive Crawlable Internal Link Directory */}
+        <div className="py-8 grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-slate-900 text-xs">
+          <div>
+            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Privacy Utilities</h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="/temp-mail"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('temp-mail'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  Disposable 10-Minute Temp Mail
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/url-shortener"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('url-shortener'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  Safe URL Shortener &amp; Phishing Shield
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/qr-code"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('qr-code'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  High-Density QR Code Generator
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/password-generator"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('password-generator'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  Cryptographic Password Suite
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">SEO &amp; Developer Tools</h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="/ai-observability"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('ai-observability'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                >
+                  AI Search Observability (74/100)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/robots-audit"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('robots-audit'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  Robots.txt &amp; SEO Validator
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/security-checker"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('security-checker'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  HTTP Security Headers Checker
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/word-counter"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('word-counter'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  Word &amp; Character Counter
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/text-case"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('text-case'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 transition-colors"
+                >
+                  Case Converter &amp; Formatter
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Architecture &amp; AI Standards</h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="/architecture"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('architecture'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-slate-200 transition-colors"
+                >
+                  Zero-Retention System Architecture
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/llms.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-400 transition-colors font-mono"
+                >
+                  /llms.txt (Standard AI Context)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/llms-full.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-400 transition-colors font-mono"
+                >
+                  /llms-full.txt (Technical Corpus)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/sitemap.xml"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-slate-200 transition-colors font-mono"
+                >
+                  /sitemap.xml (XML Index)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/robots.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-slate-200 transition-colors font-mono"
+                >
+                  /robots.txt (RFC 9309 Rules)
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Trust &amp; Legal</h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="/privacy"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('privacy'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-slate-200 transition-colors"
+                >
+                  Privacy Policy &amp; Data Eviction
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/terms"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('terms'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-slate-200 transition-colors"
+                >
+                  Terms of Service &amp; Acceptable Use
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('contact'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-rose-400 transition-colors"
+                >
+                  Abuse Reporting &amp; Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         {/* Footer Navigation & Copyright */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-2 text-slate-400">
@@ -55,70 +239,12 @@ export default function Footer({ onSelectTool }: FooterProps) {
             <span aria-hidden="true">·</span>
             <span className="font-mono text-cyan-400 text-[11px] flex items-center gap-1">
               <Terminal className="w-3 h-3" />
-              <span>Full-Stack WebGL</span>
+              <span>Full-Stack MERN + WebGL</span>
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 sm:gap-5 text-slate-400">
-            <button
-              onClick={() => {
-                onSelectTool('ai-observability');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="text-cyan-400 hover:text-cyan-300 font-semibold cursor-pointer"
-            >
-              {t('nav.aiObservability', 'AI Search (74)')}
-            </button>
-            <button
-              onClick={() => {
-                onSelectTool('robots-audit');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="hover:text-cyan-400 cursor-pointer"
-            >
-              {t('nav.robotsAudit', 'Robots & SEO')}
-            </button>
-            <button
-              onClick={() => {
-                onSelectTool('architecture');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="hover:text-slate-200 cursor-pointer"
-            >
-              {t('nav.architecture', 'Architecture')}
-            </button>
-            <button
-              onClick={() => {
-                onSelectTool('privacy');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="hover:text-slate-200 cursor-pointer"
-            >
-              {t('nav.privacy', 'Privacy Policy')}
-            </button>
-            <button
-              onClick={() => {
-                onSelectTool('terms');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="hover:text-slate-200 cursor-pointer"
-            >
-              {t('nav.terms', 'Terms of Use')}
-            </button>
-            <button
-              onClick={() => {
-                onSelectTool('contact');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="hover:text-rose-400 cursor-pointer"
-            >
-              {t('nav.contact', 'Contact')}
-            </button>
-
-            {/* Language dropdown in footer */}
-            <div className="pl-2 border-l border-slate-800">
-              <LanguageSelector variant="footer" />
-            </div>
+          <div className="flex items-center gap-4">
+            <LanguageSelector variant="footer" />
           </div>
         </div>
       </div>
