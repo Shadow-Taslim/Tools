@@ -35,12 +35,12 @@ async function runRobotsTests() {
   assert(robotsContent.includes('Disallow: /api/'), 'robots.txt protects private /api/ endpoints');
   assert(robotsContent.includes('Disallow: /s/'), 'robots.txt protects unvetted short redirect links');
   assert(robotsContent.includes('Disallow: /preview/'), 'robots.txt protects destination previews');
-  assert(robotsContent.includes('Sitemap: https://quicknest.org/sitemap.xml'), 'robots.txt declares canonical sitemap');
+  assert(robotsContent.includes('Sitemap: https://quicknest.ai.studio/sitemap.xml'), 'robots.txt declares canonical sitemap');
   assert(robotsContent.includes('User-agent: GPTBot'), 'robots.txt configures AI crawler policies');
 
   const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
   assert(sitemapContent.startsWith('<?xml'), 'sitemap.xml has XML declaration');
-  assert(sitemapContent.includes('<loc>https://quicknest.org/robots-audit</loc>'), 'sitemap.xml indexes /robots-audit');
+  assert(sitemapContent.includes('<loc>https://quicknest.ai.studio/robots-audit</loc>'), 'sitemap.xml indexes /robots-audit');
 
   // --- Test 2: Catastrophic Disallow: / Pitfall Detection ---
   console.log('\n--- 2. Indexing Pitfall Auditing ---');
@@ -80,7 +80,7 @@ async function runRobotsTests() {
 
   // --- Test 5: QuickNest Production Configuration Audit ---
   console.log('\n--- 3. QuickNest Production Configuration Audit ---');
-  const qnAudit = auditRobotsContent(robotsContent, 'https://quicknest.org/robots.txt');
+  const qnAudit = auditRobotsContent(robotsContent, 'https://quicknest.ai.studio/robots.txt');
   assert(qnAudit.isSiteBlocked === false, 'QuickNest public site is NOT blocked');
   assert(qnAudit.blocksAssets === false, 'QuickNest does NOT block CSS or JS assets');
   assert(qnAudit.hasSitemap === true, 'QuickNest has valid sitemap declared');

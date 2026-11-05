@@ -74,6 +74,12 @@ const TOOL_META_CONFIG: Record<ActiveTool, (previewCode?: string) => MetaData> =
     path: '/text-case',
     keywords: 'text case converter, uppercase converter, camelcase converter, snake_case, pascalcase, kebab-case'
   }),
+  'knowledge-hub': () => ({
+    title: 'Knowledge Hub & Technical Guides – SEO, GEO & Cryptography | QuickNest',
+    description: 'Explore in-depth engineering guides on RFC 9309 robots.txt standards, client-side WebCrypto, temporary email architecture, and Generative Engine Optimization.',
+    path: '/guides',
+    keywords: 'technical guides, rfc 9309, generative engine optimization, web cryptography, disposable email architecture, aeo, ai search'
+  }),
   preview: (code?: string) => ({
     title: code
       ? `Inspect Link "${code}" - Safe Destination Preview | QuickNest`

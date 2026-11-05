@@ -1,5 +1,5 @@
 import { ActiveTool } from '../types.ts';
-import { Shield, Lock, Clock, Terminal } from 'lucide-react';
+import { Shield, Lock, Clock, Terminal, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext.tsx';
 import LanguageSelector from './LanguageSelector.tsx';
 
@@ -46,8 +46,8 @@ export default function Footer({ onSelectTool }: FooterProps) {
           </div>
         </div>
 
-        {/* Comprehensive Crawlable Internal Link Directory */}
-        <div className="py-8 grid grid-cols-2 md:grid-cols-4 gap-8 border-b border-slate-900 text-xs">
+        {/* Comprehensive Crawlable Internal Link Directory & Standards */}
+        <div className="py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 border-b border-slate-900 text-xs">
           <div>
             <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Privacy Utilities</h3>
             <ul className="space-y-2">
@@ -155,6 +155,15 @@ export default function Footer({ onSelectTool }: FooterProps) {
               </li>
               <li>
                 <a
+                  href="/guides"
+                  onClick={(e) => { e.preventDefault(); onSelectTool('knowledge-hub'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="hover:text-cyan-400 text-cyan-300 font-semibold transition-colors"
+                >
+                  Knowledge Hub &amp; Technical Guides
+                </a>
+              </li>
+              <li>
+                <a
                   href="/llms.txt"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -191,6 +200,67 @@ export default function Footer({ onSelectTool }: FooterProps) {
                   className="hover:text-slate-200 transition-colors font-mono"
                 >
                   /robots.txt (RFC 9309 Rules)
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Open Standards</h3>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="https://datatracker.ietf.org/doc/html/rfc9309"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-400 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>IETF RFC 9309 Standard</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Cryptography_API"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-400 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>MDN Web Cryptography</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://safebrowsing.google.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-400 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>Google Safe Browsing</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://developers.google.com/search/docs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-400 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>Google Search Central</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.w3.org/TR/CSP3/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-cyan-400 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span>W3C Security CSP3</span>
+                  <ExternalLink className="w-3 h-3 text-slate-500" />
                 </a>
               </li>
             </ul>

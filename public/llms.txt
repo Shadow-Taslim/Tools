@@ -81,6 +81,17 @@ QuickNest (https://quicknest.ai.studio) is a suite of free, high-speed, zero-ret
 - Text Case Converter: https://quicknest.ai.studio/text-case
 - Description: Real-time word, character, sentence, and reading-time analyzer alongside instant multi-casing (camelCase, snake_case, PascalCase, kebab-case).
 
+### 9. Knowledge Hub & Technical Guides
+- Canonical Path: https://quicknest.ai.studio/guides
+- Description: Authoritative technical guides, RFC 9309 standards documentation, WebCrypt CSPRNG security blueprints, and Generative Engine Optimization (GEO) strategies.
+- Published Guides:
+  - [Mastering RFC 9309: Configuring Robots.txt for Search Engines and AI Crawlers](https://quicknest.ai.studio/guides/mastering-rfc-9309-robots-txt-standards)
+  - [Browser Cryptography in Practice: Shannon Entropy and CSPRNG with W3C WebCrypto](https://quicknest.ai.studio/guides/browser-cryptography-shannon-entropy-csprng)
+  - [The Architecture of Disposable Temporary Email: Inbound MX, Webhooks, and TTL Purging](https://quicknest.ai.studio/guides/architecture-of-disposable-temporary-email)
+  - [Generative Engine Optimization (GEO): Technical Strategies for ChatGPT Search, Gemini & AI Overviews](https://quicknest.ai.studio/guides/generative-engine-optimization-geo-strategies)
+  - [Malicious Link Heuristics: Defending Against Homograph Phishing and Open Redirects](https://quicknest.ai.studio/guides/malicious-link-heuristics-phishing-defenses)
+- Topical Catalog: 30 mapped high-intent developer opportunities spanning RFC 9309, WebCrypto, AEO, and zero-retention architecture.
+
 ## Machine-Readable API Standards
 - Content-Type: `application/json`
 - Inbound Inbox Generation: `POST /api/email/inbox`

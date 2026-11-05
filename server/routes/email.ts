@@ -153,6 +153,14 @@ router.get('/messages/:id', (req: Request, res: Response) => {
  * Parses incoming emails forwarded by Cloudflare Email Routing, Mailgun, SendGrid Inbound Parse, or Postmark.
  */
 router.post('/inbound-webhook', (req: Request, res: Response) => {
+  const configuredSecret = process.env.EMAIL_WEBHOOK_SECRET;
+  if (configuredSecret && configuredSecret !== 'your_inbound_webhook_secret_key_here') {
+    const providedSecret = (req.headers['x-webhook-secret'] as string) || (req.query.secret as string);
+    if (providedSecret !== configuredSecret) {
+      return res.status(401).json({ error: 'Unauthorized: Invalid webhook secret key.' });
+    }
+  }
+
   const payload = req.body || {};
 
   // Extract recipient (handling various provider payload schemas)

@@ -35,9 +35,9 @@ async function runAiObservabilityTests() {
   const llmsContent = fs.readFileSync(llmsPath, 'utf8');
   assert(llmsContent.includes('# QuickNest - LLM Context'), 'llms.txt includes standard title header');
   assert(llmsContent.includes('https://llmstxt.org'), 'llms.txt references official LLMs.txt specification');
-  assert(llmsContent.includes('https://quicknest.org/ai-observability'), 'llms.txt indexes AI Observability suite');
-  assert(llmsContent.includes('https://quicknest.org/temp-mail'), 'llms.txt indexes Disposable Temp Mail tool');
-  assert(llmsContent.includes('https://quicknest.org/robots-audit'), 'llms.txt indexes Robots Auditor');
+  assert(llmsContent.includes('https://quicknest.ai.studio/ai-observability'), 'llms.txt indexes AI Observability suite');
+  assert(llmsContent.includes('https://quicknest.ai.studio/temp-mail'), 'llms.txt indexes Disposable Temp Mail tool');
+  assert(llmsContent.includes('https://quicknest.ai.studio/robots-audit'), 'llms.txt indexes Robots Auditor');
   assert(llmsContent.includes('POST /api/ai-observability/simulate'), 'llms.txt documents machine API standards');
 
   // 2. Comprehensive llms-full.txt
@@ -84,7 +84,7 @@ async function runAiObservabilityTests() {
   console.log('\n--- 5. Sitemap XML Registration ---');
   const sitemapPath = path.resolve(projectRoot, 'public', 'sitemap.xml');
   const sitemapContent = fs.readFileSync(sitemapPath, 'utf8');
-  assert(sitemapContent.includes('https://quicknest.org/ai-observability'), 'sitemap.xml contains /ai-observability endpoint with priority 0.95');
+  assert(sitemapContent.includes('https://quicknest.ai.studio/ai-observability'), 'sitemap.xml contains /ai-observability endpoint with priority 0.95');
 
   console.log(`\n===========================================`);
   console.log(`AI Observability Test Results: ${passed} Passed, ${failed} Failed`);

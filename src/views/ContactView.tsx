@@ -118,7 +118,7 @@ export default function ContactView({ onShowToast }: ContactViewProps) {
                 <input
                   id="abuse-link-code"
                   type="text"
-                  placeholder="e.g. k92la or https://quicknest.org/s/k92la"
+                  placeholder="e.g. k92la or https://quicknest.ai.studio/s/k92la"
                   value={linkCode}
                   onChange={(e) => setLinkCode(e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white font-mono focus:outline-none focus:border-rose-500"

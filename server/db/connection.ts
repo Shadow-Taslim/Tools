@@ -6,8 +6,8 @@ let isConnecting = false;
 export async function connectMongoDB(): Promise<boolean> {
   const mongoUri = process.env.MONGODB_URI;
 
-  if (!mongoUri) {
-    console.log('ℹ️ [MongoDB] MONGODB_URI not set; running in resilient hybrid memory mode.');
+  if (!mongoUri || mongoUri.includes('user:password@cluster0.mongodb.net')) {
+    console.log('ℹ️ [MongoDB] MONGODB_URI not set or using template placeholder credentials; running in resilient hybrid memory mode.');
     return false;
   }
 

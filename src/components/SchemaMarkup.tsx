@@ -24,6 +24,7 @@ export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps)
       'password-generator': 'Cryptographic high-entropy password suite generating secure alphanumeric passwords and memorable Diceware passphrases locally via Web Cryptography API.',
       'word-counter': 'Real-time text analytics tool calculating word counts, character density, sentence counts, reading time, and keyword frequency.',
       'text-case': 'Instant multi-case text converter supporting UPPERCASE, lowercase, Title Case, camelCase, PascalCase, snake_case, kebab-case, and CONSTANT_CASE.',
+      'knowledge-hub': 'Authoritative engineering knowledge hub, RFC 9309 standards documentation, WebCrypt CSPRNG guides, and Generative Engine Optimization (GEO) blueprints.',
       'architecture': 'Complete production architecture specifications, PostgreSQL DDL schemas, Redis cache-aside topology, and DNS deployment documentation for QuickNest.'
     };
 
@@ -127,6 +128,56 @@ export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps)
       ]
     };
 
+    // 3. Organization & WebSite Schemas
+    const organizationSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      '@id': `${origin}/#organization`,
+      'name': 'QuickNest',
+      'url': origin,
+      'logo': `${origin}/favicon.svg`,
+      'description': 'Free zero-retention online developer and privacy utility suite.',
+      'sameAs': [
+        `${origin}/llms.txt`,
+        `${origin}/llms-full.txt`
+      ]
+    };
+
+    const webSiteSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': `${origin}/#website`,
+      'name': 'QuickNest',
+      'url': origin,
+      'potentialAction': {
+        '@type': 'SearchAction',
+        'target': `${origin}/guides?q={search_term_string}`,
+        'query-input': 'required name=search_term_string'
+      }
+    };
+
+    // 4. BreadcrumbList Schema
+    const breadcrumbSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': [
+        {
+          '@type': 'ListItem',
+          'position': 1,
+          'name': 'QuickNest',
+          'item': origin
+        },
+        ...(activeTool !== 'home' ? [
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': activeTool === 'knowledge-hub' ? 'Knowledge Hub' : activeTool.replace('-', ' ').toUpperCase(),
+            'item': currentUrl
+          }
+        ] : [])
+      ]
+    };
+
     // Helper to inject or update script in document.head
     const injectScript = (id: string, schema: object) => {
       let script = document.head.querySelector<HTMLScriptElement>(`#${id}`);
@@ -141,12 +192,15 @@ export default function SchemaMarkup({ activeTool = 'home' }: SchemaMarkupProps)
 
     injectScript('quicknest-schema-webapplication', webApplicationSchema);
     injectScript('quicknest-schema-faqpage', faqPageSchema);
+    injectScript('quicknest-schema-organization', organizationSchema);
+    injectScript('quicknest-schema-website', webSiteSchema);
+    injectScript('quicknest-schema-breadcrumbs', breadcrumbSchema);
 
     return () => {
-      const webAppScript = document.head.querySelector('#quicknest-schema-webapplication');
-      const faqScript = document.head.querySelector('#quicknest-schema-faqpage');
-      if (webAppScript) webAppScript.remove();
-      if (faqScript) faqScript.remove();
+      ['quicknest-schema-webapplication', 'quicknest-schema-faqpage', 'quicknest-schema-organization', 'quicknest-schema-website', 'quicknest-schema-breadcrumbs'].forEach(id => {
+        const el = document.head.querySelector(`#${id}`);
+        if (el) el.remove();
+      });
     };
   }, [activeTool]);
 

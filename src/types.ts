@@ -9,11 +9,62 @@ export type ActiveTool =
   | 'password-generator'
   | 'word-counter'
   | 'text-case'
+  | 'knowledge-hub'
   | 'preview'
   | 'architecture'
   | 'privacy'
   | 'terms'
   | 'contact';
+
+export interface KnowledgeArticle {
+  slug: string;
+  title: string;
+  subtitle: string;
+  category: 'Search & AI Crawlers' | 'Cryptography & Security' | 'Privacy Engineering' | 'Web Standards';
+  readTimeMinutes: number;
+  publishDate: string;
+  author: {
+    name: string;
+    role: string;
+  };
+  summary: string;
+  keyTakeaways: string[];
+  sections: {
+    heading: string;
+    subheading?: string;
+    content: string;
+    codeSnippet?: {
+      language: string;
+      code: string;
+      caption?: string;
+    };
+    callout?: {
+      type: 'tip' | 'warning' | 'info';
+      text: string;
+    };
+  }[];
+  faqs: {
+    question: string;
+    answer: string;
+  }[];
+  relatedToolId: ActiveTool;
+  relatedToolName: string;
+  targetKeyword: string;
+  schemaType: 'Article' | 'TechArticle';
+}
+
+export interface TopicalOpportunity {
+  id: number;
+  title: string;
+  intent: 'Informational' | 'Technical' | 'Commercial' | 'Educational' | 'Architecture';
+  targetAudience: string;
+  mainKeyword: string;
+  relatedKeywords: string[];
+  questionsAnswered: string[];
+  relevantTool: ActiveTool;
+  toolName: string;
+  internalLinking: string[];
+}
 
 export interface AiSearchEngineMetric {
   id: string;

@@ -6,6 +6,7 @@ import {
   ChevronRight, ExternalLink, RefreshCw, Terminal, Layers, Bot
 } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext.tsx';
+import AdSenseBanner from '../components/AdSenseBanner.tsx';
 
 interface HomeViewProps {
   onSelectTool: (tool: ActiveTool) => void;
@@ -260,6 +261,15 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
         </div>
       </section>
 
+      {/* Google AdSense Placement 1: Below Hero Action Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -my-6">
+        <AdSenseBanner
+          adSlot="8192039481"
+          adFormat="horizontal"
+          className="my-0"
+        />
+      </section>
+
       {/* Complete Tools Showcase Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="space-y-4 mb-8">
@@ -315,6 +325,58 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
               </div>
             );
           })}
+        </div>
+      </section>
+
+      {/* Standards & External Authority Badges */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl border border-slate-800/80 bg-slate-900/40 p-6 flex flex-col md:flex-row items-center justify-between gap-4 backdrop-blur-sm">
+          <div className="space-y-1 text-center md:text-left">
+            <h3 className="text-xs uppercase tracking-wider font-mono text-cyan-400 font-semibold">
+              Open Web Specifications &amp; External Authority
+            </h3>
+            <p className="text-xs text-slate-400">
+              Built on recognized Internet Engineering Task Force (IETF) and W3C open standards.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <a
+              href="https://datatracker.ietf.org/doc/html/rfc9309"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+            >
+              <span>IETF RFC 9309</span>
+              <ExternalLink className="w-3 h-3 text-slate-500" />
+            </a>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Cryptography_API"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+            >
+              <span>W3C WebCrypto</span>
+              <ExternalLink className="w-3 h-3 text-slate-500" />
+            </a>
+            <a
+              href="https://safebrowsing.google.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+            >
+              <span>Google Safe Browsing</span>
+              <ExternalLink className="w-3 h-3 text-slate-500" />
+            </a>
+            <a
+              href="https://developers.google.com/search/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+            >
+              <span>Google Search Central</span>
+              <ExternalLink className="w-3 h-3 text-slate-500" />
+            </a>
+          </div>
         </div>
       </section>
 

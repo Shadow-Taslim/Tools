@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ActiveTool } from '../types.ts';
-import { Mail, Link2, QrCode, KeyRound, FileText, Menu, X, ShieldCheck, Bot, Sparkles } from 'lucide-react';
+import { Mail, Link2, QrCode, KeyRound, FileText, Menu, X, ShieldCheck, Bot, Sparkles, BookOpen } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext.tsx';
 import LanguageSelector from './LanguageSelector.tsx';
 
@@ -20,8 +20,8 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
     { id: 'security-checker', label: t('nav.securityChecker', 'Security Checker'), icon: ShieldCheck },
     { id: 'ai-observability', label: t('nav.aiObservability', 'AI Search (74)'), icon: Sparkles },
     { id: 'robots-audit', label: t('nav.robotsAudit', 'Robots & SEO'), icon: Bot },
-    { id: 'qr-code', label: t('nav.qrCode', 'QR Generator'), icon: QrCode },
-    { id: 'password-generator', label: t('nav.passwords', 'Passwords'), icon: KeyRound }
+    { id: 'knowledge-hub', label: 'Guides & Hub', icon: BookOpen },
+    { id: 'qr-code', label: t('nav.qrCode', 'QR Generator'), icon: QrCode }
   ];
 
   return (

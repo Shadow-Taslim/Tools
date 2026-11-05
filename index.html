@@ -9,6 +9,9 @@
     <link rel="canonical" href="https://quicknest.ai.studio/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Google AdSense Official Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=%VITE_ADSENSE_CLIENT_ID%" crossorigin="anonymous"></script>
+
     <meta property="og:title" content="Free Privacy &amp; Developer Tools | QuickNest" />
     <meta property="og:description" content="Free privacy-first tools for temporary email, secure URL shortening, QR codes, passwords, word counting, and text conversion." />
     <meta property="og:type" content="website" />
@@ -39,11 +42,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        try {
+          if (typeof window !== 'undefined' && window.location) {
+            var host = window.location.hostname;
+            var proto = window.location.protocol;
+            var isWww = host.indexOf('www.') === 0;
+            var isHttp = proto === 'http:' && host !== 'localhost' && host !== '127.0.0.1';
+            var isLegacy = host === 'quicknest.org' || host === 'www.quicknest.org';
+            if (isWww || isHttp || isLegacy) {
+              var cleanHost = isLegacy ? 'quicknest.ai.studio' : host.replace(/^www\./i, '');
+              window.location.replace('https://' + cleanHost + window.location.pathname + window.location.search + window.location.hash);
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
     <style>
       .seo-fallback { max-width: 52rem; margin: 0 auto; padding: 4rem 1.5rem; font-family: "Plus Jakarta Sans", sans-serif; line-height: 1.65; }
       .seo-fallback h1, .seo-fallback h2 { line-height: 1.2; }
       .seo-fallback nav ul { columns: 2; padding-left: 1.25rem; }
       .seo-fallback a { color: #67e8f9; }
+      .seo-fallback .ext-links { padding-left: 1.25rem; }
     </style>
   </head>
   <body class="bg-slate-950 text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
@@ -67,6 +88,28 @@
         </nav>
         <h2>Private, Fast, and Easy to Use</h2>
         <p>Every tool is free to use and designed around data minimization. Password and text tools run locally in your browser, while temporary inboxes automatically expire.</p>
+        <section aria-label="QuickNest technical guides and knowledge hub">
+          <h2>Technical Guides &amp; Knowledge Hub</h2>
+          <p>Authoritative engineering documentation and research guides for web developers, cybersecurity professionals, and SEO specialists:</p>
+          <ul>
+            <li><a href="/guides/mastering-rfc-9309-robots-txt-standards">Mastering RFC 9309: Configuring Robots.txt for Search Engines and AI Crawlers</a></li>
+            <li><a href="/guides/browser-cryptography-shannon-entropy-csprng">Browser Cryptography in Practice: Shannon Entropy and CSPRNG with W3C WebCrypto</a></li>
+            <li><a href="/guides/architecture-of-disposable-temporary-email">The Architecture of Disposable Temporary Email: Inbound MX and TTL Purging</a></li>
+            <li><a href="/guides/generative-engine-optimization-geo-strategies">Generative Engine Optimization (GEO): Technical Strategies for ChatGPT and Gemini</a></li>
+            <li><a href="/guides/malicious-link-heuristics-phishing-defenses">Malicious Link Heuristics: Defending Against Homograph Phishing Attacks</a></li>
+          </ul>
+        </section>
+        <section aria-label="Open standards and external references">
+          <h2>Open Web Standards &amp; External References</h2>
+          <p>QuickNest applications adhere to industry web standards, cryptographic specifications, and search guidelines:</p>
+          <ul class="ext-links">
+            <li><a href="https://datatracker.ietf.org/doc/html/rfc9309" target="_blank" rel="noopener noreferrer">IETF RFC 9309 (Robots Exclusion Protocol Standard)</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Cryptography_API" target="_blank" rel="noopener noreferrer">MDN Web Cryptography API (CSPRNG)</a></li>
+            <li><a href="https://safebrowsing.google.com/" target="_blank" rel="noopener noreferrer">Google Safe Browsing Advisory Protection</a></li>
+            <li><a href="https://developers.google.com/search/docs" target="_blank" rel="noopener noreferrer">Google Search Central Webmaster Documentation</a></li>
+            <li><a href="https://www.w3.org/TR/CSP3/" target="_blank" rel="noopener noreferrer">W3C Content Security Policy Level 3</a></li>
+          </ul>
+        </section>
       </main>
     </div>
     <script type="module" src="/src/main.tsx"></script>

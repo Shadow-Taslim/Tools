@@ -81,7 +81,7 @@ Disallow: /api/
 Disallow: /s/
 Disallow: /preview/
 
-Sitemap: https://quicknest.org/sitemap.xml
+Sitemap: https://quicknest.ai.studio/sitemap.xml
 `
   },
   nextjs: {
@@ -167,7 +167,7 @@ Disallow: /
 };
 
 const POPULAR_TEST_DOMAINS = [
-  'quicknest.org (Local)',
+  'quicknest.ai.studio (Local)',
   'github.com',
   'cloudflare.com',
   'wikipedia.org'
@@ -417,7 +417,7 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
                 <button
                   key={domain}
                   onClick={() => {
-                    if (domain.includes('quicknest.org')) {
+                    if (domain.includes('quicknest.ai.studio')) {
                       runAudit(TEMPLATES.quicknest.code);
                     } else {
                       setUrlInput(domain);
@@ -880,19 +880,19 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
               <pre className="p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-emerald-300 leading-relaxed overflow-x-auto max-h-80">
 {`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://quicknest.org/</loc><priority>1.0</priority></url>
-  <url><loc>https://quicknest.org/temp-mail</loc><priority>0.9</priority></url>
-  <url><loc>https://quicknest.org/url-shortener</loc><priority>0.9</priority></url>
-  <url><loc>https://quicknest.org/security-checker</loc><priority>0.9</priority></url>
-  <url><loc>https://quicknest.org/robots-audit</loc><priority>0.9</priority></url>
-  <url><loc>https://quicknest.org/qr-code</loc><priority>0.8</priority></url>
-  <url><loc>https://quicknest.org/password-generator</loc><priority>0.8</priority></url>
-  <url><loc>https://quicknest.org/word-counter</loc><priority>0.7</priority></url>
-  <url><loc>https://quicknest.org/text-case</loc><priority>0.7</priority></url>
-  <url><loc>https://quicknest.org/architecture</loc><priority>0.6</priority></url>
-  <url><loc>https://quicknest.org/privacy</loc><priority>0.5</priority></url>
-  <url><loc>https://quicknest.org/terms</loc><priority>0.5</priority></url>
-  <url><loc>https://quicknest.org/contact</loc><priority>0.5</priority></url>
+  <url><loc>https://quicknest.ai.studio/</loc><priority>1.0</priority></url>
+  <url><loc>https://quicknest.ai.studio/temp-mail</loc><priority>0.9</priority></url>
+  <url><loc>https://quicknest.ai.studio/url-shortener</loc><priority>0.9</priority></url>
+  <url><loc>https://quicknest.ai.studio/security-checker</loc><priority>0.9</priority></url>
+  <url><loc>https://quicknest.ai.studio/robots-audit</loc><priority>0.9</priority></url>
+  <url><loc>https://quicknest.ai.studio/qr-code</loc><priority>0.8</priority></url>
+  <url><loc>https://quicknest.ai.studio/password-generator</loc><priority>0.8</priority></url>
+  <url><loc>https://quicknest.ai.studio/word-counter</loc><priority>0.7</priority></url>
+  <url><loc>https://quicknest.ai.studio/text-case</loc><priority>0.7</priority></url>
+  <url><loc>https://quicknest.ai.studio/architecture</loc><priority>0.6</priority></url>
+  <url><loc>https://quicknest.ai.studio/privacy</loc><priority>0.5</priority></url>
+  <url><loc>https://quicknest.ai.studio/terms</loc><priority>0.5</priority></url>
+  <url><loc>https://quicknest.ai.studio/contact</loc><priority>0.5</priority></url>
 </urlset>`}
               </pre>
             </div>

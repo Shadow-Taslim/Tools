@@ -310,13 +310,22 @@ Short-link Visitor ──► /s/:code ──► [Safety Heuristic Check] ──�
             <div className="space-y-2">
               <span className="font-semibold text-slate-300">1. Required Environment Variables</span>
               <pre className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-cyan-300 font-mono">
-{`PORT=3000
-NODE_ENV=production
-APP_URL="https://quicknest.org"
+{`# Google AdSense Configuration
+VITE_ADSENSE_CLIENT_ID="ca-pub-1234567890123456"
+
+# MongoDB Database URI (MERN Stack)
+MONGODB_URI="mongodb+srv://user:password@cluster0.mongodb.net/quicknest?retryWrites=true&w=majority"
+
+# Temporary Email Routing
 EMAIL_INBOUND_DOMAIN="temp.quicknest.org"
-EMAIL_WEBHOOK_SECRET="quicknest_sec_random_string"
-DATABASE_URL="postgres://user:pass@ep-host.pooler.supabase.com:5432/quicknest"
-REDIS_URL="redis://default:token@redis-server:6379"`}
+EMAIL_WEBHOOK_SECRET="your_inbound_webhook_secret_key_here"
+
+# Security & Google Safe Browsing
+SAFE_BROWSING_API_KEY="your_google_safe_browsing_api_key_here"
+
+# Server Configuration
+PORT=3000
+NODE_ENV=production`}
               </pre>
             </div>
 

@@ -1,6 +1,6 @@
 {
-  "name": "QuickNest - Free 3D Privacy Utilities",
-  "description": "QuickNest provides free zero-retention online utilities: disposable 10-minute temp mail, safe URL shortener with phishing scan, QR generator, and password tools.",
+  "name": "Free Privacy & Developer Tools | QuickNest",
+  "description": "Free privacy-first tools for temporary email, secure URL shortening, QR codes, passwords, word counting, and text conversion.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

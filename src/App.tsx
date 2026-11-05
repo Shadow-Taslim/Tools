@@ -11,6 +11,7 @@ import Footer from './components/Footer.tsx';
 import Toast, { ToastMessage } from './components/Toast.tsx';
 import SchemaMarkup from './components/SchemaMarkup.tsx';
 import SEOManager from './components/SEOManager.tsx';
+import AdSenseBanner from './components/AdSenseBanner.tsx';
 
 import { LanguageProvider } from './i18n/LanguageContext.tsx';
 
@@ -29,11 +30,13 @@ import TermsView from './views/TermsView.tsx';
 import ContactView from './views/ContactView.tsx';
 import RobotsAuditView from './views/RobotsAuditView.tsx';
 import AiObservabilityView from './views/AiObservabilityView.tsx';
+import KnowledgeHubView from './views/KnowledgeHubView.tsx';
 
 
 function AppContent() {
   const [activeTool, setActiveTool] = useState<ActiveTool>('home');
   const [previewCode, setPreviewCode] = useState<string>('');
+  const [articleSlug, setArticleSlug] = useState<string | null>(null);
   const [currentInbox, setCurrentInbox] = useState<TempInbox | null>(null);
   const [toast, setToast] = useState<ToastMessage | null>(null);
 
@@ -55,6 +58,10 @@ function AppContent() {
         setActiveTool('robots-audit');
       } else if (path === '/ai-observability' || path === '/ai-search' || path === '/geo') {
         setActiveTool('ai-observability');
+      } else if (path === '/knowledge-hub' || path === '/guides' || path.startsWith('/guides/')) {
+        const slug = path.startsWith('/guides/') ? path.replace('/guides/', '').trim() : null;
+        setArticleSlug(slug);
+        setActiveTool('knowledge-hub');
       } else if (path === '/qr-code') {
         setActiveTool('qr-code');
       } else if (path === '/password-generator') {
@@ -87,6 +94,9 @@ function AppContent() {
     if (tool === 'preview' && code) {
       setPreviewCode(code);
       targetPath = `/preview/${code}`;
+    } else if (tool === 'knowledge-hub') {
+      targetPath = '/guides';
+      setArticleSlug(null);
     } else if (tool !== 'home') {
       targetPath = `/${tool}`;
     }
@@ -219,10 +229,40 @@ function AppContent() {
         {activeTool === 'contact' && (
           <ContactView onShowToast={showToast} />
         )}
+
+        {activeTool === 'knowledge-hub' && (
+          <KnowledgeHubView 
+            onSelectTool={navigateTo} 
+            onShowToast={showToast} 
+            initialArticleSlug={articleSlug || undefined} 
+          />
+        )}
+
+        {/* Google AdSense Placement 2: Centered below the main utility tool container (Privacy & Bot Shield Active) */}
+        {activeTool !== 'home' && activeTool !== 'preview' && (
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 pt-4">
+            <AdSenseBanner
+              adSlot="5829104921"
+              adFormat="auto"
+              className="my-0"
+            />
+          </div>
+        )}
       </main>
 
       {/* Global Toast Notification */}
       <Toast toast={toast} onClose={() => setToast(null)} />
+
+      {/* Google AdSense Placement 3: Non-Intrusive Banner Above Footer */}
+      {activeTool !== 'preview' && (
+        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+          <AdSenseBanner
+            adSlot="9201948271"
+            adFormat="horizontal"
+            className="my-0"
+          />
+        </section>
+      )}
 
       {/* Universal Footer */}
       <Footer onSelectTool={navigateTo} />

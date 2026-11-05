@@ -17,7 +17,7 @@ export default function QrCodeView({ onShowToast }: QrCodeViewProps) {
   const [mode, setMode] = useState<QrMode>('url');
   
   // Inputs
-  const [urlInput, setUrlInput] = useState('https://quicknest.org');
+  const [urlInput, setUrlInput] = useState('https://quicknest.ai.studio');
   const [textInput, setTextInput] = useState('Secure, ephemeral utility suite');
   const [wifiSsid, setWifiSsid] = useState('');
   const [wifiPassword, setWifiPassword] = useState('');
@@ -46,7 +46,7 @@ export default function QrCodeView({ onShowToast }: QrCodeViewProps) {
   const getPayload = () => {
     switch (mode) {
       case 'url':
-        return urlInput.trim() || 'https://quicknest.org';
+        return urlInput.trim() || 'https://quicknest.ai.studio';
       case 'text':
         return textInput.trim() || 'Text content';
       case 'wifi':
@@ -56,7 +56,7 @@ export default function QrCodeView({ onShowToast }: QrCodeViewProps) {
       case 'email':
         return `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}`;
       default:
-        return 'https://quicknest.org';
+        return 'https://quicknest.ai.studio';
     }
   };
 
