@@ -50,17 +50,12 @@ export default function AdSenseBanner({
   // Retrieve configurable publisher client ID
   const clientId = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_ADSENSE_CLIENT_ID) 
     ? String(import.meta.env.VITE_ADSENSE_CLIENT_ID).trim() 
-    : 'ca-pub-1234567890123456';
+    : 'ca-pub-5504658976683050';
 
   const isPlaceholderClient = !clientId || clientId.includes('1234567890') || clientId.includes('XXXX');
-  const isDevelopment = typeof import.meta !== 'undefined' && import.meta.env?.DEV;
 
   useEffect(() => {
-    if (suppress) return;
-    if (isPlaceholderClient || isDevelopment) {
-      // In development or when using placeholder ID, skip live script push to avoid AdSense 400 errors
-      return;
-    }
+    if (suppress || isPlaceholderClient) return;
 
     if (adRef.current && !isPushedRef.current) {
       // Check if adsbygoogle already processed this element
@@ -77,7 +72,7 @@ export default function AdSenseBanner({
         }
       }
     }
-  }, [suppress, isPlaceholderClient, isDevelopment, adSlot]);
+  }, [suppress, isPlaceholderClient, adSlot]);
 
   // Privacy Shield: Never render on suppressed/private paths
   if (suppress) {
@@ -122,8 +117,8 @@ export default function AdSenseBanner({
         className={`relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-2 shadow-sm ${getReservedHeightClass()}`}
         style={{ contentVisibility: 'auto', containIntrinsicSize: '120px' }}
       >
-        {/* Development Placeholder State (When live ca-pub ID is pending or in local dev) */}
-        {(isPlaceholderClient || isDevelopment || adError) ? (
+        {/* Fallback Placeholder State (Only when placeholder ID is used or ad blocked) */}
+        {(isPlaceholderClient || adError) ? (
           <div className="w-full h-full min-h-[90px] rounded-xl border border-dashed border-slate-800/90 bg-slate-950/40 flex flex-col sm:flex-row items-center justify-between px-6 py-4 gap-3 text-center sm:text-left">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 font-bold text-xs shrink-0">
@@ -144,7 +139,7 @@ export default function AdSenseBanner({
                 CLS Protected
               </span>
               <span className="text-[11px] text-slate-500 hidden md:inline">
-                {isDevelopment ? 'Preview Mode Active' : 'Pending Live Publisher Key'}
+                {adError ? 'Ad Blocker Detected' : 'Pending Publisher Configuration'}
               </span>
             </div>
           </div>

@@ -25,10 +25,71 @@ async function startServer() {
   app.disable('x-powered-by');
   app.use((_req, res, next) => {
     res.removeHeader('X-Powered-By');
+    res.removeHeader('x-powered-by');
+    const originalSetHeader = res.setHeader;
+    res.setHeader = function (name: string, value: any) {
+      if (name && name.toLowerCase() === 'x-powered-by') {
+        return this;
+      }
+      return originalSetHeader.apply(this, [name, value]);
+    };
     next();
   });
 
-  // 1. Enable HTTP Content Compression (Gzip & Deflate) for all HTML/JSON/Assets
+  // 1. 301 Canonical & Subdomain Normalization (redirect www to non-www, HTTP to HTTPS, and legacy domains)
+  app.use((req, res, next) => {
+    const hostHeader = (req.headers.host || '').split(':')[0].trim().toLowerCase();
+    const forwardedHostHeader = ((req.headers['x-forwarded-host'] as string) || '').split(',')[0].split(':')[0].trim().toLowerCase();
+    const hostname = (req.hostname || '').split(':')[0].trim().toLowerCase();
+
+    // AI Studio dev/preview environments, Cloud Run runners, and local hosts must NEVER be redirected
+    const isAiStudioOrLocal =
+      hostHeader === 'localhost' ||
+      hostHeader === '127.0.0.1' ||
+      hostHeader.endsWith('.local') ||
+      hostHeader.endsWith('.run.app') ||
+      hostHeader.includes('.run.app') ||
+      hostHeader.endsWith('.google.com') ||
+      hostHeader.endsWith('.googleusercontent.com') ||
+      forwardedHostHeader.includes('.run.app') ||
+      forwardedHostHeader.endsWith('.google.com') ||
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname.includes('.run.app');
+
+    if (!isAiStudioOrLocal) {
+      const isWww = /^www\./i.test(hostHeader) || /^www\./i.test(forwardedHostHeader) || /^www\./i.test(hostname);
+
+      const forwardedProto = ((req.headers['x-forwarded-proto'] as string) || '').split(',')[0].trim().toLowerCase();
+      const isHttp = forwardedProto === 'http';
+
+      const allHosts = [hostHeader, forwardedHostHeader, hostname].join(' ');
+      const isLegacyDomain =
+        allHosts.includes('quicknest.org') ||
+        allHosts.includes('vortex-tools') ||
+        allHosts.includes('vortextools');
+
+      if (isLegacyDomain) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        return res.redirect(301, `https://quicknest.ai.studio${req.originalUrl}`);
+      }
+
+      if (isWww) {
+        const cleanHost = hostHeader.replace(/^www\./i, '') || 'quicknest.ai.studio';
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        return res.redirect(301, `https://${cleanHost}${req.originalUrl}`);
+      }
+
+      if (hostHeader === 'quicknest.ai.studio' && isHttp) {
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        return res.redirect(301, `https://quicknest.ai.studio${req.originalUrl}`);
+      }
+    }
+
+    next();
+  });
+
+  // 2. Enable HTTP Content Compression (Gzip & Deflate) for all HTML/JSON/Assets
   app.use(compression({
     level: 6,
     threshold: 0,
@@ -37,45 +98,6 @@ async function startServer() {
       return compression.filter(req, res);
     }
   }));
-
-  // 2. 301 Canonical & Subdomain Normalization (redirect www to non-www, HTTP to HTTPS, and legacy domains)
-  app.use((req, res, next) => {
-    res.removeHeader('X-Powered-By');
-
-    const forwardedHost = (req.headers['x-forwarded-host'] as string) || '';
-    const rawHostHeader = forwardedHost ? forwardedHost.split(',')[0].trim() : (req.headers.host || req.hostname || '');
-    const [hostnameOnly, port] = rawHostHeader.split(':');
-    const isWww = /^www\./i.test(hostnameOnly);
-
-    const forwardedProto = (req.headers['x-forwarded-proto'] as string) || '';
-    const rawProto = forwardedProto ? forwardedProto.split(',')[0].trim() : (req.protocol || 'http');
-    const isHttp = rawProto === 'http';
-
-    const isLocal = hostnameOnly === 'localhost' || hostnameOnly === '127.0.0.1' || hostnameOnly.endsWith('.local');
-
-    // Handle legacy domains or external domain aliases
-    const lowerHost = hostnameOnly.toLowerCase();
-    const isLegacyDomain = lowerHost === 'quicknest.org' || 
-                           lowerHost === 'www.quicknest.org' || 
-                           lowerHost.includes('vortex-tools') || 
-                           lowerHost.includes('vortextools');
-
-    if (isLegacyDomain) {
-      res.setHeader('Cache-Control', 'public, max-age=31536000');
-      return res.redirect(301, `https://quicknest.ai.studio${req.originalUrl}`);
-    }
-
-    if (isWww || (!isLocal && isHttp)) {
-      const cleanHost = hostnameOnly.replace(/^www\./i, '');
-      const targetPort = port && !['80', '443'].includes(port) ? `:${port}` : '';
-      const targetProto = isLocal ? rawProto : 'https';
-      
-      res.setHeader('Cache-Control', 'public, max-age=31536000');
-      return res.redirect(301, `${targetProto}://${cleanHost}${targetPort}${req.originalUrl}`);
-    }
-
-    next();
-  });
   
   // Dev server must run on port 3000 (container nginx reverse proxy listens on 8080 and forwards to 3000)
   const portArgIndex = process.argv.indexOf('--port');
