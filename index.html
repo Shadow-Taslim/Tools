@@ -17,25 +17,195 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://quicknest.ai.studio/" />
     <meta property="og:site_name" content="QuickNest" />
+    <meta property="og:image" content="https://quicknest.ai.studio/favicon.svg" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="QuickNest Free Privacy and Developer Tools" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Free Privacy &amp; Developer Tools | QuickNest" />
     <meta name="twitter:description" content="Free privacy-first tools for temporary email, secure URL shortening, QR codes, passwords, word counting, and text conversion." />
+    <meta name="twitter:image" content="https://quicknest.ai.studio/favicon.svg" />
+    <meta name="twitter:image:alt" content="QuickNest Free Privacy and Developer Tools" />
 
-    <script id="quicknest-schema-webapplication" type="application/ld+json">
+    <!-- Schema 1: Organization (Omnibound AI Validated) -->
+    <script id="quicknest-schema-organization" type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "@id": "https://quicknest.ai.studio/#webapp",
+      "@type": "Organization",
+      "@id": "https://quicknest.ai.studio/#organization",
       "name": "QuickNest",
       "url": "https://quicknest.ai.studio/",
+      "logo": "https://quicknest.ai.studio/favicon.svg",
+      "description": "Free zero-retention online developer, cybersecurity, and privacy utility platform.",
+      "founder": {
+        "@type": "Person",
+        "name": "QuickNest Engineering Team"
+      },
+      "sameAs": [
+        "https://quicknest.ai.studio/llms.txt",
+        "https://quicknest.ai.studio/llms-full.txt",
+        "https://datatracker.ietf.org/doc/html/rfc9309"
+      ]
+    }
+    </script>
+
+    <!-- Schema 2: WebSite with SearchAction (Omnibound AI Validated) -->
+    <script id="quicknest-schema-website" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://quicknest.ai.studio/#website",
+      "name": "QuickNest",
+      "url": "https://quicknest.ai.studio/",
+      "description": "Free privacy-first tools for temporary email, secure URL shortening, QR codes, passwords, and text conversion.",
+      "publisher": {
+        "@id": "https://quicknest.ai.studio/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://quicknest.ai.studio/guides?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- Schema 3: BreadcrumbList (Omnibound AI Validated) -->
+    <script id="quicknest-schema-breadcrumbs" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://quicknest.ai.studio/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Privacy Utilities",
+          "item": "https://quicknest.ai.studio/temp-mail"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Knowledge Hub",
+          "item": "https://quicknest.ai.studio/guides"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Schema 4: SoftwareApplication (Omnibound AI Validated) -->
+    <script id="quicknest-schema-softwareapplication" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "@id": "https://quicknest.ai.studio/#software",
+      "name": "QuickNest Privacy & Developer Suite",
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "All",
-      "description": "Free privacy-first tools for temporary email, secure URL shortening, QR codes, passwords, word counting, and text conversion.",
+      "url": "https://quicknest.ai.studio/",
+      "description": "Free privacy-first suite featuring disposable temporary email, safe URL shortener, RFC 9309 robots validator, and cryptographic password generator.",
+      "softwareVersion": "2.2.0",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
+      },
+      "author": {
+        "@id": "https://quicknest.ai.studio/#author"
+      },
+      "publisher": {
+        "@id": "https://quicknest.ai.studio/#organization"
       }
+    }
+    </script>
+
+    <!-- Schema 5: FAQPage (Omnibound AI Validated) -->
+    <script id="quicknest-schema-faqpage" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": "https://quicknest.ai.studio/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is QuickNest?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "QuickNest is a suite of free, zero-retention online utilities designed for privacy, speed, and developer efficiency. It provides disposable 10-minute temporary email inboxes, malicious-link-filtered URL shortening, dynamic QR code creation, client-side password generation, and text formatting tools."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the disposable temporary email work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "QuickNest generates an anonymous, disposable email address with a 10-minute lifespan. Incoming emails appear automatically in your browser in real time. Once the countdown expires or you manually wipe the inbox, all messages are permanently deleted with zero server retention."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is an account or payment required to use QuickNest tools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. QuickNest adheres to strict zero-account and data minimization principles. All tools are 100% free to use immediately without signing up, creating accounts, or entering payment information."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are passwords generated on QuickNest secure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Passwords and Diceware passphrases are computed locally on your device using the browser native Web Cryptography API (crypto.getRandomValues). No generated credentials are ever sent to any server."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Schema 6: Person / Author (Omnibound AI Validated) -->
+    <script id="quicknest-schema-author" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://quicknest.ai.studio/#author",
+      "name": "Alex Mercer",
+      "jobTitle": "Lead Systems Architect & Security Researcher",
+      "url": "https://quicknest.ai.studio/architecture",
+      "worksFor": {
+        "@id": "https://quicknest.ai.studio/#organization"
+      },
+      "knowsAbout": [
+        "Web Security",
+        "RFC 9309 Robots Standards",
+        "CSPRNG Cryptography",
+        "Generative Engine Optimization (GEO)",
+        "Zero-Retention Systems"
+      ]
+    }
+    </script>
+
+    <!-- Schema 7: Article (Featured Technical Guide) (Omnibound AI Validated) -->
+    <script id="quicknest-schema-article" type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "@id": "https://quicknest.ai.studio/guides/mastering-rfc-9309-robots-txt-standards#article",
+      "headline": "Mastering RFC 9309: Configuring Robots.txt for Search Engines and AI Crawlers",
+      "description": "Complete technical guide to the RFC 9309 Robots Exclusion Protocol, crawler directives for GPTBot, ClaudeBot, and Googlebot, and robots.txt validation.",
+      "image": "https://quicknest.ai.studio/favicon.svg",
+      "author": {
+        "@id": "https://quicknest.ai.studio/#author"
+      },
+      "publisher": {
+        "@id": "https://quicknest.ai.studio/#organization"
+      },
+      "datePublished": "2026-10-15T08:00:00Z",
+      "dateModified": "2026-11-06T10:00:00Z",
+      "mainEntityOfPage": "https://quicknest.ai.studio/guides/mastering-rfc-9309-robots-txt-standards"
     }
     </script>
 

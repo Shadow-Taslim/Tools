@@ -16,6 +16,16 @@ export default function ThreeCanvas({ activeTool, interactive = true }: ThreeCan
     const container = mountRef.current;
     if (!container) return;
 
+    // Mobile PageSpeed & Core Web Vitals Optimization: Skip heavy WebGL pipeline on mobile and low-concurrency devices
+    if (typeof window !== 'undefined') {
+      const isMobile = window.innerWidth < 768;
+      const nav = navigator as unknown as { hardwareConcurrency?: number; deviceMemory?: number };
+      const isLowPower = (nav.hardwareConcurrency && nav.hardwareConcurrency < 4) || (nav.deviceMemory && nav.deviceMemory < 4);
+      if (isMobile || isLowPower) {
+        return;
+      }
+    }
+
     // Check WebGL availability
     let renderer: THREE.WebGLRenderer;
     try {

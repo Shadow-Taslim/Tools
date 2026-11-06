@@ -94,7 +94,7 @@ export default function ContactView({ onShowToast }: ContactViewProps) {
           submitted ? (
             <div className="text-center py-10 space-y-4">
               <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-              <h3 className="text-lg font-bold text-white">Report Successfully Submitted</h3>
+              <h2 className="text-lg font-bold text-white">Report Successfully Submitted</h2>
               <p className="text-xs text-slate-400 max-w-md mx-auto">
                 Thank you for contributing to web safety. The link code has been registered in our threat database and quarantined if multiple reports have accumulated.
               </p>
@@ -111,6 +111,9 @@ export default function ContactView({ onShowToast }: ContactViewProps) {
             </div>
           ) : (
             <form onSubmit={handleAbuseSubmit} className="space-y-4">
+              <h2 className="text-sm font-semibold text-slate-200 mb-2">
+                Report Malicious Link or Security Incident
+              </h2>
               <div className="space-y-1">
                 <label htmlFor="abuse-link-code" className="text-xs font-semibold text-slate-300">
                   Target Link Code or URL
@@ -170,6 +173,9 @@ export default function ContactView({ onShowToast }: ContactViewProps) {
           )
         ) : (
           <form onSubmit={handleGeneralSubmit} className="space-y-4">
+            <h2 className="text-sm font-semibold text-slate-200 mb-2">
+              General Inquiry &amp; Feedback
+            </h2>
             <div className="space-y-1">
               <label htmlFor="contact-email-input" className="text-xs font-semibold text-slate-300">
                 Your Email Address (Optional for reply)

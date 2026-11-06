@@ -125,6 +125,10 @@ export default function QrCodeView({ onShowToast }: QrCodeViewProps) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Controls Column */}
         <div className="lg:col-span-7 rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 space-y-6">
+          <div className="space-y-1">
+            <h2 className="text-sm font-semibold text-slate-200">QR Code Payload &amp; Style Controls</h2>
+            <p className="text-xs text-slate-400">Configure destination data, palette, and error correction levels</p>
+          </div>
           
           {/* Format Tabs */}
           <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800">
@@ -365,7 +369,7 @@ export default function QrCodeView({ onShowToast }: QrCodeViewProps) {
         {/* Live Canvas & Export Column */}
         <div className="lg:col-span-5 rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 flex flex-col items-center justify-between gap-6">
           <div className="space-y-1 text-center">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Live Render Output</span>
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-400">Live Render Output</h2>
             <p className="text-xs text-slate-500">Scan directly or export in high resolution</p>
           </div>
 

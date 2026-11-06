@@ -49,7 +49,7 @@ export default function Footer({ onSelectTool }: FooterProps) {
         {/* Comprehensive Crawlable Internal Link Directory & Standards */}
         <div className="py-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 border-b border-slate-900 text-xs">
           <div>
-            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Privacy Utilities</h3>
+            <p className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Privacy Utilities</p>
             <ul className="space-y-2">
               <li>
                 <a
@@ -91,7 +91,7 @@ export default function Footer({ onSelectTool }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">SEO &amp; Developer Tools</h3>
+            <p className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">SEO &amp; Developer Tools</p>
             <ul className="space-y-2">
               <li>
                 <a
@@ -142,7 +142,7 @@ export default function Footer({ onSelectTool }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Architecture &amp; AI Standards</h3>
+            <p className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Architecture &amp; AI Standards</p>
             <ul className="space-y-2">
               <li>
                 <a
@@ -206,7 +206,7 @@ export default function Footer({ onSelectTool }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Open Standards</h3>
+            <p className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Open Standards</p>
             <ul className="space-y-2">
               <li>
                 <a
@@ -267,7 +267,7 @@ export default function Footer({ onSelectTool }: FooterProps) {
           </div>
 
           <div>
-            <h3 className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Trust &amp; Legal</h3>
+            <p className="font-bold text-slate-200 uppercase tracking-wider text-[11px] mb-3">Trust &amp; Legal</p>
             <ul className="space-y-2">
               <li>
                 <a

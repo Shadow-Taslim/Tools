@@ -98,7 +98,7 @@ export default function TextCaseView({ onShowToast }: TextCaseViewProps) {
       {/* Input buffer */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 space-y-3">
         <div className="flex items-center justify-between text-xs text-slate-400">
-          <label htmlFor="source-text-buffer" className="font-semibold text-slate-300">Source Text Buffer</label>
+          <h2 className="font-semibold text-slate-300">Source Text Buffer</h2>
           <span className="font-mono">{input.length} characters</span>
         </div>
         <textarea
@@ -112,7 +112,9 @@ export default function TextCaseView({ onShowToast }: TextCaseViewProps) {
       </div>
 
       {/* Conversion Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="space-y-3">
+        <h2 className="text-sm font-semibold text-slate-200">Formatted Output Variations</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {conversions.map((conv) => {
           const isCopied = copiedKey === conv.id;
           return (
@@ -147,6 +149,7 @@ export default function TextCaseView({ onShowToast }: TextCaseViewProps) {
             </div>
           );
         })}
+        </div>
       </div>
     </div>
   );

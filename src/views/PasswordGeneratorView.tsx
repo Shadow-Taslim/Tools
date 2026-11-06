@@ -177,7 +177,7 @@ export default function PasswordGeneratorView({ onShowToast }: PasswordGenerator
       {/* Main Password Output Hero */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 sm:p-8 space-y-6 shadow-2xl shadow-cyan-950/20">
         <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
-          <span>Active Generated Key</span>
+          <h2 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Active Generated Key</h2>
           <span className="font-mono text-cyan-400 tabular-nums">{entropy} bits entropy</span>
         </div>
 
@@ -369,10 +369,10 @@ export default function PasswordGeneratorView({ onShowToast }: PasswordGenerator
       <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
               <Layers className="w-4 h-4 text-cyan-400" />
               <span>Alternative Password Pool ({batchList.length})</span>
-            </h3>
+            </h2>
             <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800 text-[11px]">
               {[5, 10, 20, 50].map((count) => (
                 <button

@@ -902,36 +902,36 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
 
       {/* SEO Education & Knowledge Banner */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
-        <h3 className="text-base font-bold text-white flex items-center gap-2">
+        <h2 className="text-base font-bold text-white flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-cyan-400" />
           <span>SEO Best Practices: robots.txt vs noindex vs Authentication</span>
-        </h3>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-300 leading-relaxed">
           <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1.5">
-            <h4 className="font-bold text-white flex items-center gap-1.5">
+            <h3 className="font-bold text-white flex items-center gap-1.5">
               <CheckSquare className="w-4 h-4 text-cyan-400" />
               <span>1. Robots.txt Controls Crawling, Not Security</span>
-            </h4>
+            </h3>
             <p className="text-slate-400">
               Robots.txt tells polite search engine bots which URLs they can crawl. It does <em>not</em> prevent malicious scrapers or users from visiting URLs. Never hide sensitive admin pages in robots.txt without password authentication.
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1.5">
-            <h4 className="font-bold text-white flex items-center gap-1.5">
+            <h3 className="font-bold text-white flex items-center gap-1.5">
               <CheckSquare className="w-4 h-4 text-emerald-400" />
               <span>2. Use &apos;noindex&apos; to Remove from Google</span>
-            </h4>
+            </h3>
             <p className="text-slate-400">
               If an unwanted page is already indexed by Google, adding <code>Disallow</code> in robots.txt prevents Googlebot from crawling it to see the <code>noindex</code> tag! Let Googlebot crawl the page with a <code>&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;</code> tag to drop it from search results.
             </p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 space-y-1.5">
-            <h4 className="font-bold text-white flex items-center gap-1.5">
+            <h3 className="font-bold text-white flex items-center gap-1.5">
               <CheckSquare className="w-4 h-4 text-violet-400" />
               <span>3. Never Disallow CSS or JS Assets</span>
-            </h4>
+            </h3>
             <p className="text-slate-400">
               Google uses a full headless browser to render web pages. Disallowing your CSS, JavaScript bundles, or web fonts causes Google to fail mobile-friendliness checks and downgrades your search rank.
             </p>

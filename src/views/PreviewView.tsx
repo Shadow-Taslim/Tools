@@ -55,7 +55,7 @@ export default function PreviewView({ code, onShowToast, onBack }: PreviewViewPr
         <div className="w-12 h-12 rounded-full bg-rose-950/50 border border-rose-800 text-rose-400 mx-auto flex items-center justify-center">
           <AlertTriangle className="w-6 h-6" />
         </div>
-        <h2 className="text-xl font-bold text-white">Link Unavailable</h2>
+        <h1 className="text-xl font-bold text-white">Link Unavailable</h1>
         <p className="text-slate-400 text-sm">{error || 'This link does not exist.'}</p>
         <button
           onClick={onBack}

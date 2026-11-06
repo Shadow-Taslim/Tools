@@ -36,51 +36,59 @@ async function startServer() {
     next();
   });
 
+  // Strict-Transport-Security (HSTS) & Security Headers (Fixes Sitechecker HSTS warning)
+  app.use((_req, res, next) => {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    next();
+  });
+
   // 1. 301 Canonical & Subdomain Normalization (redirect www to non-www, HTTP to HTTPS, and legacy domains)
   app.use((req, res, next) => {
-    const hostHeader = (req.headers.host || '').split(':')[0].trim().toLowerCase();
-    const forwardedHostHeader = ((req.headers['x-forwarded-host'] as string) || '').split(',')[0].split(':')[0].trim().toLowerCase();
+    const rawHost = (req.headers.host || '').split(':')[0].trim().toLowerCase();
+    const forwardedHost = ((req.headers['x-forwarded-host'] as string) || '').split(',')[0].split(':')[0].trim().toLowerCase();
+    const originalHost = ((req.headers['x-original-host'] as string) || '').split(',')[0].split(':')[0].trim().toLowerCase();
     const hostname = (req.hostname || '').split(':')[0].trim().toLowerCase();
 
-    // AI Studio dev/preview environments, Cloud Run runners, and local hosts must NEVER be redirected
-    const isAiStudioOrLocal =
-      hostHeader === 'localhost' ||
-      hostHeader === '127.0.0.1' ||
-      hostHeader.endsWith('.local') ||
-      hostHeader.endsWith('.run.app') ||
-      hostHeader.includes('.run.app') ||
-      hostHeader.endsWith('.google.com') ||
-      hostHeader.endsWith('.googleusercontent.com') ||
-      forwardedHostHeader.includes('.run.app') ||
-      forwardedHostHeader.endsWith('.google.com') ||
-      hostname === 'localhost' ||
-      hostname === '127.0.0.1' ||
-      hostname.includes('.run.app');
+    // Check if the request is targeting any www subdomain (e.g. www.quicknest.ai.studio, www.quicknest.org)
+    const isWww =
+      rawHost.startsWith('www.') ||
+      forwardedHost.startsWith('www.') ||
+      originalHost.startsWith('www.') ||
+      hostname.startsWith('www.');
 
-    if (!isAiStudioOrLocal) {
-      const isWww = /^www\./i.test(hostHeader) || /^www\./i.test(forwardedHostHeader) || /^www\./i.test(hostname);
+    if (isWww) {
+      let targetDomain = 'quicknest.ai.studio';
+      if (rawHost.startsWith('www.')) {
+        targetDomain = rawHost.replace(/^www\./, '');
+      } else if (forwardedHost.startsWith('www.')) {
+        targetDomain = forwardedHost.replace(/^www\./, '');
+      }
+      res.setHeader('Cache-Control', 'public, max-age=31536000');
+      return res.redirect(301, `https://${targetDomain}${req.originalUrl}`);
+    }
 
+    // Check for legacy domain redirects
+    const allHosts = [rawHost, forwardedHost, originalHost, hostname].join(' ');
+    if (
+      allHosts.includes('quicknest.org') ||
+      allHosts.includes('vortex-tools') ||
+      allHosts.includes('vortextools')
+    ) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000');
+      return res.redirect(301, `https://quicknest.ai.studio${req.originalUrl}`);
+    }
+
+    // Check HTTP -> HTTPS redirect for production domain
+    const isProdDomain =
+      rawHost === 'quicknest.ai.studio' ||
+      forwardedHost === 'quicknest.ai.studio' ||
+      originalHost === 'quicknest.ai.studio';
+
+    if (isProdDomain) {
       const forwardedProto = ((req.headers['x-forwarded-proto'] as string) || '').split(',')[0].trim().toLowerCase();
-      const isHttp = forwardedProto === 'http';
-
-      const allHosts = [hostHeader, forwardedHostHeader, hostname].join(' ');
-      const isLegacyDomain =
-        allHosts.includes('quicknest.org') ||
-        allHosts.includes('vortex-tools') ||
-        allHosts.includes('vortextools');
-
-      if (isLegacyDomain) {
-        res.setHeader('Cache-Control', 'public, max-age=31536000');
-        return res.redirect(301, `https://quicknest.ai.studio${req.originalUrl}`);
-      }
-
-      if (isWww) {
-        const cleanHost = hostHeader.replace(/^www\./i, '') || 'quicknest.ai.studio';
-        res.setHeader('Cache-Control', 'public, max-age=31536000');
-        return res.redirect(301, `https://${cleanHost}${req.originalUrl}`);
-      }
-
-      if (hostHeader === 'quicknest.ai.studio' && isHttp) {
+      if (forwardedProto === 'http') {
         res.setHeader('Cache-Control', 'public, max-age=31536000');
         return res.redirect(301, `https://quicknest.ai.studio${req.originalUrl}`);
       }
@@ -137,75 +145,73 @@ async function startServer() {
 
   // Robots.txt Handler (RFC 9309 compliance with strict text/plain Content-Type)
   app.get('/robots.txt', (_req, res) => {
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     try {
       const robotsPath = path.resolve(__dirname, 'public', 'robots.txt');
       if (fs.existsSync(robotsPath)) {
         const content = fs.readFileSync(robotsPath, 'utf8');
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-        res.setHeader('Cache-Control', 'public, max-age=86400');
         return res.send(content);
       }
     } catch {
       // Fallback below
     }
 
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=86400');
     res.send(`User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /s/\nDisallow: /preview/\nSitemap: https://quicknest.ai.studio/sitemap.xml\n`);
   });
 
   // Sitemap.xml Handler
   app.get('/sitemap.xml', (_req, res) => {
+    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     try {
       const sitemapPath = path.resolve(__dirname, 'public', 'sitemap.xml');
       if (fs.existsSync(sitemapPath)) {
         const content = fs.readFileSync(sitemapPath, 'utf8');
-        res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-        res.setHeader('Cache-Control', 'public, max-age=86400');
         return res.send(content);
       }
     } catch {
       // Fallback
     }
 
-    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=86400');
     res.send(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://quicknest.ai.studio/</loc></url></urlset>`);
   });
 
   // llms.txt Handler (Machine-readable AI Context Specification)
   app.get('/llms.txt', (_req, res) => {
+    res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     try {
       const llmsPath = path.resolve(__dirname, 'public', 'llms.txt');
       if (fs.existsSync(llmsPath)) {
         const content = fs.readFileSync(llmsPath, 'utf8');
-        res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
-        res.setHeader('Cache-Control', 'public, max-age=86400');
         return res.send(content);
       }
     } catch {
       // Fallback
     }
 
-    res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
     res.send(`# QuickNest\nZero-retention online utilities.\nhttps://quicknest.ai.studio\n`);
   });
 
   // llms-full.txt Handler (Comprehensive Technical Context for LLMs)
   app.get('/llms-full.txt', (_req, res) => {
+    res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=86400');
+    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     try {
       const fullPath = path.resolve(__dirname, 'public', 'llms-full.txt');
       if (fs.existsSync(fullPath)) {
         const content = fs.readFileSync(fullPath, 'utf8');
-        res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
-        res.setHeader('Cache-Control', 'public, max-age=86400');
         return res.send(content);
       }
     } catch {
       // Fallback
     }
 
-    res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
     res.send(`# QuickNest Comprehensive Context\nhttps://quicknest.ai.studio\n`);
   });
 
@@ -684,16 +690,145 @@ async function startServer() {
     });
   });
 
+  // Known Valid Client Routes for QuickNest (All indexable pages and tools)
+  const VALID_CLIENT_ROUTES = new Set([
+    '/',
+    '/temp-mail',
+    '/url-shortener',
+    '/security-checker',
+    '/checker',
+    '/robots-audit',
+    '/robots',
+    '/robots-txt',
+    '/ai-observability',
+    '/ai-search',
+    '/geo',
+    '/qr-code',
+    '/password-generator',
+    '/word-counter',
+    '/text-case',
+    '/architecture',
+    '/guides',
+    '/guides/mastering-rfc-9309-robots-txt-standards',
+    '/guides/browser-cryptography-shannon-entropy-csprng',
+    '/guides/architecture-of-disposable-temporary-email',
+    '/guides/generative-engine-optimization-geo-strategies',
+    '/guides/malicious-link-heuristics-phishing-defenses',
+    '/privacy',
+    '/terms',
+    '/contact'
+  ]);
+
+  const isValidClientRoute = (pathname: string): boolean => {
+    const clean = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+    if (VALID_CLIENT_ROUTES.has(clean)) return true;
+    if (clean.startsWith('/preview/')) return true;
+    if (clean.startsWith('/s/')) return true;
+    if (clean.startsWith('/guides/')) return true;
+    return false;
+  };
+
+  // Helper to render HTML with dynamic canonical URL matching XML sitemaps
+  const renderAppHtml = async (req: express.Request, res: express.Response, viteInstance?: any) => {
+    try {
+      const cleanPath = req.path === '/' ? '/' : req.path.replace(/\/$/, '');
+      const canonicalUrl = `https://quicknest.ai.studio${cleanPath}`;
+
+      const targetIndexPath = isProd
+        ? path.resolve(__dirname, 'dist', 'index.html')
+        : path.resolve(__dirname, 'index.html');
+
+      let html = fs.readFileSync(targetIndexPath, 'utf8');
+
+      // Dynamically replace canonical link to match the exact sitemap and page URL
+      html = html.replace(
+        /<link rel="canonical" href="[^"]*" \/>/,
+        `<link rel="canonical" href="${canonicalUrl}" />`
+      );
+
+      // In dev mode, apply Vite index.html transforms
+      if (viteInstance) {
+        html = await viteInstance.transformIndexHtml(req.originalUrl, html);
+      }
+
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.send(html);
+    } catch (err: any) {
+      console.error('Render error:', err);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+
+  // 404 Route Validator for Unknown URLs (Fixes Sitechecker 404 page critical error)
+  app.use((req, res, next) => {
+    // Pass through API routes, assets, Vite internals, and spec files
+    if (
+      req.path.startsWith('/api/') ||
+      req.path.startsWith('/src/') ||
+      req.path.startsWith('/@') ||
+      req.path.startsWith('/node_modules/') ||
+      req.path === '/robots.txt' ||
+      req.path === '/sitemap.xml' ||
+      req.path === '/llms.txt' ||
+      req.path === '/llms-full.txt' ||
+      req.path === '/favicon.svg' ||
+      /\.[a-zA-Z0-9]+$/.test(req.path)
+    ) {
+      return next();
+    }
+
+    if (isValidClientRoute(req.path)) {
+      return next();
+    }
+
+    // Return strict HTTP 404 status code with noindex directive
+    res.status(404);
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('X-Robots-Tag', 'noindex, follow');
+    return res.send(`<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Page Not Found | QuickNest</title>
+  <meta name="robots" content="noindex, follow" />
+  <style>
+    body { background: #020617; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 24px; box-sizing: border-box; }
+    .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 40px; max-width: 480px; text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+    .code { font-size: 64px; font-weight: 800; color: #06b6d4; line-height: 1; margin-bottom: 12px; }
+    h1 { font-size: 20px; font-weight: 700; color: #f1f5f9; margin: 0 0 12px; }
+    p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 24px; }
+    a { display: inline-flex; align-items: center; justify-content: center; background: #06b6d4; color: #020617; text-decoration: none; font-weight: 600; font-size: 14px; padding: 10px 24px; border-radius: 8px; transition: opacity 0.2s; }
+    a:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="code">404</div>
+    <h1>Page Not Found</h1>
+    <p>The page you requested (<code>${req.path.replace(/</g, '&lt;')}</code>) does not exist on QuickNest or has been moved.</p>
+    <a href="/">Return to QuickNest Home</a>
+  </div>
+</body>
+</html>`);
+  });
+
   if (!isProd) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
-      appType: 'spa'
+      appType: 'custom'
     });
     app.use(vite.middlewares);
+    app.get('*', async (req, res, next) => {
+      if (req.path.startsWith('/api/') || req.path.startsWith('/@') || req.path.startsWith('/src/')) {
+        return next();
+      }
+      await renderAppHtml(req, res, vite);
+    });
   } else {
     app.use(express.static(path.resolve(__dirname, 'dist')));
-    app.get('*', (_req, res) => {
-      res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+    app.get('*', async (req, res) => {
+      await renderAppHtml(req, res);
     });
   }
 

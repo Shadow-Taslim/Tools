@@ -264,10 +264,10 @@ ${genDesc}
 
               {/* Header Label Pill */}
               <div className="flex items-center justify-between mb-6">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                <h2 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
                   <Sparkles className="w-3.5 h-3.5" />
-                  AI Search
-                </span>
+                  <span>AI Search Observability</span>
+                </h2>
                 <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1 bg-emerald-950/50 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
                   <TrendingUp className="w-3 h-3" />
                   +60 pts Score Boost
@@ -384,10 +384,10 @@ ${genDesc}
             <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 p-6 shadow-2xl backdrop-blur-md flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-6">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                  <h2 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30">
                     <Globe className="w-3.5 h-3.5" />
-                    SEO Authority
-                  </span>
+                    <span>SEO Authority</span>
+                  </h2>
                   <span className="text-xs text-slate-400">Desktop · Worldwide</span>
                 </div>
 

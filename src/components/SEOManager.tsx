@@ -159,11 +159,17 @@ export default function SEOManager({ activeTool, previewCode }: SEOManagerProps)
     setMetaTag('property', 'og:url', canonicalUrl);
     setMetaTag('property', 'og:type', 'website');
     setMetaTag('property', 'og:site_name', 'QuickNest');
+    setMetaTag('property', 'og:image', `${origin}/favicon.svg`);
+    setMetaTag('property', 'og:image:width', '512');
+    setMetaTag('property', 'og:image:height', '512');
+    setMetaTag('property', 'og:image:alt', `${meta.title} - QuickNest Free Online Privacy Tools`);
 
     // 4. Twitter Cards
     setMetaTag('name', 'twitter:title', meta.title);
     setMetaTag('name', 'twitter:description', meta.description);
     setMetaTag('name', 'twitter:card', 'summary_large_image');
+    setMetaTag('name', 'twitter:image', `${origin}/favicon.svg`);
+    setMetaTag('name', 'twitter:image:alt', `${meta.title} - QuickNest Free Online Privacy Tools`);
 
     // 5. Canonical Link
     setLinkTag('canonical', canonicalUrl);

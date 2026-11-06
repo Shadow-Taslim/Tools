@@ -148,6 +148,10 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
 
       {/* Main Shortener Form */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 sm:p-8 shadow-2xl shadow-cyan-950/20">
+        <h2 className="text-sm font-semibold text-slate-200 mb-6 flex items-center gap-2">
+          <Link2 className="w-4 h-4 text-cyan-400" />
+          <span>{t('shortener.createLinkHeading', 'Create Safe Short Link')}</span>
+        </h2>
         <form onSubmit={handleShorten} className="space-y-6">
           <div className="space-y-2">
             <label htmlFor="long-url-input" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -308,10 +312,10 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
                   />
                 </div>
                 <div className="space-y-2 text-center sm:text-left">
-                  <h4 className="text-sm font-semibold text-slate-200 flex items-center gap-2 justify-center sm:justify-start">
+                  <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-2 justify-center sm:justify-start">
                     <QrCode className="w-4 h-4 text-cyan-400" />
                     <span>Mobile QR Scan Ready</span>
-                  </h4>
+                  </h3>
                   <p className="text-xs text-slate-400">
                     Scan with any smartphone camera to visit the shortened destination immediately.
                   </p>
@@ -333,10 +337,10 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="md:col-span-2 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
               <Clock className="w-4 h-4 text-cyan-400" />
               <span>Session Short Links</span>
-            </h3>
+            </h2>
             <span className="text-xs text-slate-500 font-mono">Zero server logging</span>
           </div>
 
@@ -407,10 +411,10 @@ export default function ShortenerView({ onShowToast, onNavigateToPreview }: Shor
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full space-y-4 shadow-2xl">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <h2 className="text-base font-bold text-white flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5 text-rose-400" />
                 <span>Report Malicious Short Link</span>
-              </h3>
+              </h2>
               <button
                 onClick={() => setShowReportModal(false)}
                 className="text-slate-400 hover:text-white text-xs"

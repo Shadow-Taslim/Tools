@@ -172,7 +172,7 @@ export default function WordCounterView({ onShowToast }: WordCounterViewProps) {
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2 text-slate-400">
             <AlignLeft className="w-4 h-4 text-cyan-400" />
-            <span>Live Analysis Buffer</span>
+            <h2 className="text-xs font-semibold text-slate-300">Live Analysis Buffer</h2>
           </div>
 
           <div className="flex items-center gap-2">
@@ -221,10 +221,10 @@ export default function WordCounterView({ onShowToast }: WordCounterViewProps) {
       {/* Keyword Density Breakdown */}
       {topKeywords.length > 0 && (
         <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4">
-          <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
+          <h2 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
             <BarChart className="w-4 h-4 text-cyan-400" />
             <span>Keyword Frequency Distribution</span>
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {topKeywords.map(([kw, count]) => {

@@ -135,10 +135,10 @@ CREATE TABLE link_reports (
       {activeTab === 'diagram' && (
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 sm:p-8 space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Layers className="w-5 h-5 text-cyan-400" />
               <span>Full-Stack Architecture Pipeline</span>
-            </h3>
+            </h2>
             <span className="text-xs font-mono text-cyan-400 bg-cyan-950/40 px-2.5 py-1 rounded-md border border-cyan-500/20">
               Interactive Blueprint
             </span>
@@ -217,10 +217,10 @@ Short-link Visitor ──► /s/:code ──► [Safety Heuristic Check] ──�
       {activeTab === 'sql' && (
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+            <h2 className="text-sm font-bold text-white flex items-center gap-2">
               <FileCode2 className="w-4 h-4 text-cyan-400" />
               <span>Production PostgreSQL Tables & Indexes</span>
-            </h3>
+            </h2>
             <button
               onClick={() => copySnippet('sql', sqlSchema)}
               className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg flex items-center gap-1.5 cursor-pointer"
@@ -239,10 +239,10 @@ Short-link Visitor ──► /s/:code ──► [Safety Heuristic Check] ──�
       {activeTab === 'dns' && (
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 space-y-6">
           <div className="space-y-1">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Mail className="w-5 h-5 text-cyan-400" />
               <span>Production Disposable Domain DNS Configuration</span>
-            </h3>
+            </h2>
             <p className="text-xs text-slate-400">
               To accept inbound email for <code className="text-cyan-300">@temp.yourdomain.org</code> in production, configure the following DNS records with your registrar or Cloudflare:
             </p>
@@ -297,10 +297,10 @@ Short-link Visitor ──► /s/:code ──► [Safety Heuristic Check] ──�
       {activeTab === 'production' && (
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 space-y-6">
           <div className="space-y-1">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
               <Server className="w-5 h-5 text-cyan-400" />
               <span>Production Environment & Deployment Steps</span>
-            </h3>
+            </h2>
             <p className="text-xs text-slate-400">
               Deploy to Google Cloud Run, Fly.io, Railway, or AWS ECS with standard containerization.
             </p>

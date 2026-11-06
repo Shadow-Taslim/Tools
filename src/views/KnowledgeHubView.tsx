@@ -228,10 +228,10 @@ export default function KnowledgeHubView({ onSelectTool, onShowToast, initialArt
 
           {/* Structured FAQs Accordion (Schema.org FAQPage eligible) */}
           <div className="space-y-4 rounded-2xl bg-slate-900/60 border border-slate-800 p-6 sm:p-8">
-            <div className="flex items-center gap-2 text-white font-bold text-lg mb-2">
+            <h2 className="flex items-center gap-2 text-white font-bold text-lg mb-2">
               <HelpCircle className="w-5 h-5 text-cyan-400" />
               <span>Frequently Asked Questions</span>
-            </div>
+            </h2>
             <div className="space-y-3">
               {currentArticle.faqs.map((faq, idx) => {
                 const isOpen = openFaqIndex === idx;
@@ -423,7 +423,7 @@ export default function KnowledgeHubView({ onSelectTool, onShowToast, initialArt
             <div className="space-y-6">
               <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between gap-4 text-xs">
                 <div>
-                  <span className="font-bold text-white block">Topical Authority Architecture</span>
+                  <h2 className="font-bold text-white block text-sm">Topical Authority Architecture</h2>
                   <span className="text-slate-400">
                     Showing {filteredOpportunities.length} of 30 mapped high-intent article blueprints across security, SEO, and developer tools.
                   </span>

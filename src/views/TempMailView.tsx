@@ -266,7 +266,7 @@ export default function TempMailView({ currentInbox, onInboxCreated, onShowToast
           {/* Address and Actions */}
           <div className="w-full lg:w-2/3 space-y-4">
             <div className="flex items-center justify-between text-xs text-slate-400 font-medium">
-              <span>{t('tempMail.activeAddress', 'Your Active Temporary Address')}</span>
+              <h2 className="text-xs uppercase tracking-wider text-slate-300 font-semibold">{t('tempMail.activeAddress', 'Your Active Temporary Address')}</h2>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                 <span className="text-emerald-400">{t('tempMail.listening', 'Listening for incoming mail')}</span>
