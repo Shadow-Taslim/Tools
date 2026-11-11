@@ -166,7 +166,8 @@ export default function Footer({ onSelectTool }: FooterProps) {
                 <a
                   href="/llms.txt"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow noopener noreferrer"
+                  type="text/plain"
                   className="hover:text-cyan-400 transition-colors font-mono"
                 >
                   /llms.txt (Standard AI Context)
@@ -176,7 +177,8 @@ export default function Footer({ onSelectTool }: FooterProps) {
                 <a
                   href="/llms-full.txt"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow noopener noreferrer"
+                  type="text/plain"
                   className="hover:text-cyan-400 transition-colors font-mono"
                 >
                   /llms-full.txt (Technical Corpus)
@@ -186,7 +188,8 @@ export default function Footer({ onSelectTool }: FooterProps) {
                 <a
                   href="/sitemap.xml"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow noopener noreferrer"
+                  type="application/xml"
                   className="hover:text-slate-200 transition-colors font-mono"
                 >
                   /sitemap.xml (XML Index)
@@ -196,7 +199,8 @@ export default function Footer({ onSelectTool }: FooterProps) {
                 <a
                   href="/robots.txt"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow noopener noreferrer"
+                  type="text/plain"
                   className="hover:text-slate-200 transition-colors font-mono"
                 >
                   /robots.txt (RFC 9309 Rules)

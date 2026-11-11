@@ -36,11 +36,23 @@ async function startServer() {
     next();
   });
 
-  // Strict-Transport-Security (HSTS) & Security Headers (Fixes Sitechecker HSTS warning)
-  app.use((_req, res, next) => {
+  // Strict-Transport-Security (HSTS), Security Headers & Clickjacking Defense (Fixes Sitechecker warning)
+  app.use((req, res, next) => {
     res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+    const host = (req.headers.host || '').toLowerCase();
+    const forwardedHost = ((req.headers['x-forwarded-host'] as string) || '').toLowerCase();
+    const isAiStudioPreview = host.includes('run.app') || forwardedHost.includes('run.app');
+
+    // For production domain (quicknest.ai.studio) and standard web traffic, set X-Frame-Options: SAMEORIGIN
+    if (!isAiStudioPreview) {
+      res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    }
+    // Set modern CSP frame-ancestors allowing self and AI Studio preview containers
+    res.setHeader('Content-Security-Policy', "frame-ancestors 'self' https://aistudio.google.com https://*.google.com;");
+
     next();
   });
 
@@ -146,8 +158,8 @@ async function startServer() {
   // Robots.txt Handler (RFC 9309 compliance with strict text/plain Content-Type)
   app.get('/robots.txt', (_req, res) => {
     res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Cache-Control', 'public, max-age=86400');
-    res.setHeader('X-Robots-Tag', 'noindex, nofollow');
     try {
       const robotsPath = path.resolve(__dirname, 'public', 'robots.txt');
       if (fs.existsSync(robotsPath)) {
@@ -728,7 +740,137 @@ async function startServer() {
     return false;
   };
 
-  // Helper to render HTML with dynamic canonical URL matching XML sitemaps
+  interface RouteSeoMeta {
+    title: string;
+    description: string;
+    h1: string;
+    h2: string;
+  }
+
+  const ROUTE_SEO_MAP: Record<string, RouteSeoMeta> = {
+    '/': {
+      title: 'Free Privacy & Developer Tools | QuickNest',
+      description: 'Free privacy-first tools for temporary email, secure URL shortening, QR codes, passwords, word counting, and text conversion.',
+      h1: 'Free Privacy & Developer Tools',
+      h2: 'Online Privacy and Developer Utilities'
+    },
+    '/temp-mail': {
+      title: 'Temp Mail - Free Disposable 10-Minute Temporary Email | QuickNest',
+      description: 'Generate anonymous, disposable 10-minute temporary email inboxes with real-time inbound delivery. Protect your personal inbox from spam with zero data retention.',
+      h1: 'Disposable 10-Minute Temporary Email',
+      h2: 'Your Active Temporary Address & Inbound Messages'
+    },
+    '/url-shortener': {
+      title: 'Secure URL Shortener - Malware & Phishing Protected Links | QuickNest',
+      description: 'Shorten long URLs with automated malware detection, phishing heuristics, click analytics, and optional destination preview inspection screens.',
+      h1: 'Secure URL Shortener',
+      h2: 'Create Safe Short Link & Prevent Phishing'
+    },
+    '/security-checker': {
+      title: 'Website Health & Security Checker - Headers & SSL Audit | QuickNest',
+      description: 'Inspect website HTTP security headers (HSTS, CSP, X-Frame-Options), SSL/TLS certificates, and response latency with Next.js & Cloudflare remediation.',
+      h1: 'Website Health & Security Checker',
+      h2: 'Core HTTP Security Headers Audited'
+    },
+    '/checker': {
+      title: 'Website Health & Security Checker - Headers & SSL Audit | QuickNest',
+      description: 'Inspect website HTTP security headers (HSTS, CSP, X-Frame-Options), SSL/TLS certificates, and response latency with Next.js & Cloudflare remediation.',
+      h1: 'Website Health & Security Checker',
+      h2: 'Core HTTP Security Headers Audited'
+    },
+    '/robots-audit': {
+      title: 'Robots.txt & SEO Auditor - Syntax Validator & Path Simulator | QuickNest',
+      description: 'Validate robots.txt configuration for indexing pitfalls, catastrophic Disallow: / blocks, asset blockage, exposed routes, and test URL access across Googlebot and AI bots.',
+      h1: 'Robots.txt & SEO Auditor',
+      h2: 'robots.txt Direct Buffer & Editor'
+    },
+    '/robots': {
+      title: 'Robots.txt & SEO Auditor - Syntax Validator & Path Simulator | QuickNest',
+      description: 'Validate robots.txt configuration for indexing pitfalls, catastrophic Disallow: / blocks, asset blockage, exposed routes, and test URL access across Googlebot and AI bots.',
+      h1: 'Robots.txt & SEO Auditor',
+      h2: 'robots.txt Direct Buffer & Editor'
+    },
+    '/robots-txt': {
+      title: 'Robots.txt & SEO Auditor - Syntax Validator & Path Simulator | QuickNest',
+      description: 'Validate robots.txt configuration for indexing pitfalls, catastrophic Disallow: / blocks, asset blockage, exposed routes, and test URL access across Googlebot and AI bots.',
+      h1: 'Robots.txt & SEO Auditor',
+      h2: 'robots.txt Direct Buffer & Editor'
+    },
+    '/ai-observability': {
+      title: 'AI Search Observability & GEO Suite - Track Citations & Bot Indexing | QuickNest',
+      description: 'Monitor AI Search Visibility (74/100), brand mentions, cited pages, and bot accessibility across ChatGPT, Google AI Overview, Gemini, Perplexity, and Claude.',
+      h1: 'AI Search Observability & GEO Suite',
+      h2: 'AI Search Observability Score Drivers'
+    },
+    '/ai-search': {
+      title: 'AI Search Observability & GEO Suite - Track Citations & Bot Indexing | QuickNest',
+      description: 'Monitor AI Search Visibility (74/100), brand mentions, cited pages, and bot accessibility across ChatGPT, Google AI Overview, Gemini, Perplexity, and Claude.',
+      h1: 'AI Search Observability & GEO Suite',
+      h2: 'AI Search Observability Score Drivers'
+    },
+    '/geo': {
+      title: 'AI Search Observability & GEO Suite - Track Citations & Bot Indexing | QuickNest',
+      description: 'Monitor AI Search Visibility (74/100), brand mentions, cited pages, and bot accessibility across ChatGPT, Google AI Overview, Gemini, Perplexity, and Claude.',
+      h1: 'AI Search Observability & GEO Suite',
+      h2: 'AI Search Observability Score Drivers'
+    },
+    '/qr-code': {
+      title: 'QR Code Generator - Custom URL, WiFi, vCard & Text Codes | QuickNest',
+      description: 'Generate high-density, custom QR codes for websites, WiFi networks, contact cards, emails, and plain text. Download crisp high-resolution PNGs instantly.',
+      h1: 'High-Density QR Code Generator',
+      h2: 'QR Code Payload & Style Controls'
+    },
+    '/password-generator': {
+      title: 'Password Generator - Cryptographic High-Entropy Passwords | QuickNest',
+      description: 'Generate cryptographically secure passwords and memorable Diceware passphrases locally in your browser using the Web Cryptography API. Zero network exposure.',
+      h1: 'Cryptographic Password Generator',
+      h2: 'Active Generated Key & Security Entropy'
+    },
+    '/word-counter': {
+      title: 'Word Counter - Real-Time Text Statistics & Reading Time | QuickNest',
+      description: 'Count words, characters, sentences, paragraphs, and estimated reading time in real time. Inspect detailed character density and keyword metrics.',
+      h1: 'Real-Time Word & Character Counter',
+      h2: 'Live Analysis Buffer & Metrics'
+    },
+    '/text-case': {
+      title: 'Text Case Converter - UPPERCASE, lowercase, camelCase & More | QuickNest',
+      description: 'Convert text instantly between UPPERCASE, lowercase, Title Case, camelCase, PascalCase, snake_case, kebab-case, and CONSTANT_CASE with one-click export.',
+      h1: 'Instant Text Case Converter',
+      h2: 'Source Text Buffer & Formatted Output Variations'
+    },
+    '/architecture': {
+      title: 'System Architecture & Engineering Specifications | QuickNest',
+      description: 'Explore QuickNest\'s production architecture: PostgreSQL schemas, Redis cache-aside redirect layers, and zero-retention temporary email infrastructure.',
+      h1: 'System Architecture & Technical Specifications',
+      h2: 'Visual Topology Diagram & Infrastructure'
+    },
+    '/guides': {
+      title: 'Knowledge Hub & Technical Guides – SEO, GEO & Cryptography | QuickNest',
+      description: 'Explore in-depth engineering guides on RFC 9309 robots.txt standards, client-side WebCrypto, temporary email architecture, and Generative Engine Optimization.',
+      h1: 'Knowledge Hub & Technical Guides',
+      h2: 'Published Technical Guides & Topical Authority'
+    },
+    '/privacy': {
+      title: 'Privacy Policy - Zero-Account & Zero-Retention Guarantee | QuickNest',
+      description: 'Read the QuickNest privacy commitment: complete anonymity, no user registration, no telemetry tracking, and automated deletion of temporary data.',
+      h1: 'Privacy Policy - Zero-Retention Guarantee',
+      h2: '1. Zero Account Requirement & Data Minimization'
+    },
+    '/terms': {
+      title: 'Terms of Service - Acceptable Use & Fair Access | QuickNest',
+      description: 'Review terms and conditions for utilizing QuickNest\'s free online utilities, anti-abuse policies, and acceptable use guidelines.',
+      h1: 'Terms of Service',
+      h2: '1. Acceptance of Terms'
+    },
+    '/contact': {
+      title: 'Contact Us & Abuse Reporting Center | QuickNest',
+      description: 'Report malicious short links, submit feedback, or contact the QuickNest security operations team for swift review and takedown.',
+      h1: 'Contact & Takedown Desk',
+      h2: 'Report Malicious Link or Security Incident'
+    }
+  };
+
+  // Helper to render HTML with dynamic canonical URL, matching titles and semantic H1/H2 markup
   const renderAppHtml = async (req: express.Request, res: express.Response, viteInstance?: any) => {
     try {
       const cleanPath = req.path === '/' ? '/' : req.path.replace(/\/$/, '');
@@ -745,6 +887,44 @@ async function startServer() {
         /<link rel="canonical" href="[^"]*" \/>/,
         `<link rel="canonical" href="${canonicalUrl}" />`
       );
+
+      // Inject route-specific meta tags and pre-rendered semantic H1/H2 markup
+      const meta = ROUTE_SEO_MAP[cleanPath] || ROUTE_SEO_MAP['/'];
+      if (meta) {
+        html = html.replace(/<title>[^<]*<\/title>/, `<title>${meta.title.replace(/&/g, '&amp;')}</title>`);
+        html = html.replace(/<meta name="description" content="[^"]*" \/>/, `<meta name="description" content="${meta.description.replace(/"/g, '&quot;')}" />`);
+        html = html.replace(/<meta property="og:title" content="[^"]*" \/>/, `<meta property="og:title" content="${meta.title.replace(/"/g, '&quot;')}" />`);
+        html = html.replace(/<meta property="og:description" content="[^"]*" \/>/, `<meta property="og:description" content="${meta.description.replace(/"/g, '&quot;')}" />`);
+        html = html.replace(/<meta property="og:url" content="[^"]*" \/>/, `<meta property="og:url" content="${canonicalUrl}" />`);
+        html = html.replace(/<meta name="twitter:title" content="[^"]*" \/>/, `<meta name="twitter:title" content="${meta.title.replace(/"/g, '&quot;')}" />`);
+        html = html.replace(/<meta name="twitter:description" content="[^"]*" \/>/, `<meta name="twitter:description" content="${meta.description.replace(/"/g, '&quot;')}" />`);
+
+        if (cleanPath !== '/' && cleanPath !== '') {
+          const routeFallback = `<main class="seo-fallback">
+        <p><strong>QuickNest</strong></p>
+        <h1>${meta.h1}</h1>
+        <p>${meta.description}</p>
+        <section aria-label="${meta.h1} Specification">
+          <h2>${meta.h2}</h2>
+          <p>Privacy-first zero-retention utilities engineered for security, speed, and developer productivity.</p>
+        </section>
+        <nav aria-label="QuickNest tools">
+          <h2>Explore All Privacy and Developer Utilities</h2>
+          <ul>
+            <li><a href="/temp-mail">Disposable 10-minute temporary email</a></li>
+            <li><a href="/url-shortener">Secure URL shortener</a></li>
+            <li><a href="/security-checker">Website health and security checker</a></li>
+            <li><a href="/robots-audit">Robots.txt and SEO auditor</a></li>
+            <li><a href="/qr-code">QR code generator</a></li>
+            <li><a href="/password-generator">Cryptographic password generator</a></li>
+            <li><a href="/word-counter">Word and character counter</a></li>
+            <li><a href="/text-case">Text case converter</a></li>
+          </ul>
+        </nav>
+      </main>`;
+          html = html.replace(/<main class="seo-fallback">[\s\S]*?<\/main>/, routeFallback);
+        }
+      }
 
       // In dev mode, apply Vite index.html transforms
       if (viteInstance) {

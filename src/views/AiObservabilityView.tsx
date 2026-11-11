@@ -717,7 +717,8 @@ ${genDesc}
               <a
                 href="/robots.txt"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="nofollow noopener noreferrer"
+                type="text/plain"
                 className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800"
               >
                 <span>View /robots.txt</span>

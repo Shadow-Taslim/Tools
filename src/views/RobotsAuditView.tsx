@@ -524,10 +524,10 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
             {/* Left: Code Editor */}
             <div className="lg:col-span-6 rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
+                <h2 className="flex items-center gap-2 text-xs font-semibold text-slate-200">
                   <Code2 className="w-4 h-4 text-cyan-400" />
-                  <span className="text-xs font-semibold text-slate-200">robots.txt Direct Buffer</span>
-                </div>
+                  <span>robots.txt Direct Buffer &amp; Editor</span>
+                </h2>
                 <button
                   onClick={() => runAudit(content)}
                   disabled={isLoading}
@@ -557,12 +557,12 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
             {/* Right: Audit Findings & Issues */}
             <div className="lg:col-span-6 rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-4">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-                <div className="flex items-center gap-2">
+                <h2 className="flex items-center gap-2 text-xs font-semibold text-slate-200">
                   <Terminal className="w-4 h-4 text-cyan-400" />
-                  <span className="text-xs font-semibold text-slate-200">
+                  <span>
                     Diagnostic Findings ({filteredIssues.length})
                   </span>
-                </div>
+                </h2>
 
                 <div className="flex items-center gap-1 text-[11px]">
                   <button
@@ -843,7 +843,8 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
               <a
                 href="/robots.txt"
                 target="_blank"
-                rel="noreferrer"
+                rel="nofollow noopener noreferrer"
+                type="text/plain"
                 className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -852,7 +853,8 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
               <a
                 href="/sitemap.xml"
                 target="_blank"
-                rel="noreferrer"
+                rel="nofollow noopener noreferrer"
+                type="application/xml"
                 className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
               >
                 <ExternalLink className="w-3.5 h-3.5" />

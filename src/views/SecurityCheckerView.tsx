@@ -104,6 +104,10 @@ export default function SecurityCheckerView({ onShowToast }: SecurityCheckerView
 
       {/* Main Scan Form Card */}
       <div className="rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-xl p-6 sm:p-8 shadow-2xl shadow-cyan-950/20 space-y-6">
+        <h2 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
+          <Globe className="w-4 h-4 text-cyan-400" />
+          <span>{t('checker.scanHeading', 'Scan Target Domain or Website URL')}</span>
+        </h2>
         <form onSubmit={(e) => { e.preventDefault(); handleScan(); }} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="security-url-input" className="block text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -215,6 +219,47 @@ export async function POST(req: Request) {
           </div>
         )}
       </div>
+
+      {/* Educational Baseline when no scan result yet */}
+      {!result && !isLoading && (
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-xl p-6 sm:p-8 space-y-6">
+          <div className="border-b border-slate-800 pb-4">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-cyan-400" />
+              <span>Core HTTP Security Headers Audited</span>
+            </h2>
+            <p className="text-xs text-slate-400 mt-1">
+              QuickNest scans 6 critical defense-in-depth headers recommended by OWASP, Google Search, and W3C.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+              <span className="font-mono text-xs text-cyan-400 font-bold block">Strict-Transport-Security</span>
+              <p className="text-xs text-slate-400">Forces HTTPS and prevents SSL-stripping and man-in-the-middle attacks.</p>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+              <span className="font-mono text-xs text-cyan-400 font-bold block">Content-Security-Policy</span>
+              <p className="text-xs text-slate-400">Restricts script execution sources to neutralize cross-site scripting (XSS).</p>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+              <span className="font-mono text-xs text-cyan-400 font-bold block">X-Frame-Options</span>
+              <p className="text-xs text-slate-400">Defends users against UI redressing, iframe overlays, and clickjacking exploits.</p>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+              <span className="font-mono text-xs text-cyan-400 font-bold block">X-Content-Type-Options</span>
+              <p className="text-xs text-slate-400">Prevents MIME-type sniffing from turning benign uploads into executable scripts.</p>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+              <span className="font-mono text-xs text-cyan-400 font-bold block">Referrer-Policy</span>
+              <p className="text-xs text-slate-400">Protects user privacy by restricting destination tracking in HTTP referer headers.</p>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5">
+              <span className="font-mono text-xs text-cyan-400 font-bold block">Permissions-Policy</span>
+              <p className="text-xs text-slate-400">Restricts browser hardware features (camera, microphone, geolocation).</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Audit Results Dashboard */}
       {result && (
