@@ -70,12 +70,11 @@ export interface AiSearchEngineMetric {
   id: string;
   name: string;
   icon: string;
-  mentions: number;
-  citedPages: number;
-  visibilityScore: number;
-  shareOfVoice: number;
-  status: 'active' | 'crawling' | 'high-intent';
+  status: 'authorized' | 'restricted' | 'blocked';
   primaryUserAgent: string;
+  isAuthorized: boolean;
+  llmsAccessible: boolean;
+  ruleSummary: string;
 }
 
 export interface AiCrawlerAuditItem {
@@ -91,16 +90,17 @@ export interface AiCrawlerAuditItem {
 
 export interface AiObservabilityStats {
   domain: string;
-  aiVisibilityScore: number;
-  previousVisibilityScore: number;
-  totalMentions: number;
-  previousMentions: number;
-  totalCitedPages: number;
-  previousCitedPages: number;
-  authorityScore: number;
-  organicKeywords: number;
+  aiReadinessScore: number;
+  authorizedBotsCount: number;
+  totalBotsAudited: number;
   llmsTxtStatus: 'valid' | 'missing' | 'error';
+  llmsTxtLines: number;
+  llmsTxtBytes: number;
   llmsFullTxtStatus: 'valid' | 'missing' | 'error';
+  llmsFullTxtBytes: number;
+  sitemapStatus: 'valid' | 'missing';
+  sitemapEndpointsCount: number;
+  schemaEntitiesCount: number;
   crawlers: AiCrawlerAuditItem[];
   engines: AiSearchEngineMetric[];
   geoFactors: {

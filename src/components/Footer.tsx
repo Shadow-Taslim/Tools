@@ -99,7 +99,7 @@ export default function Footer({ onSelectTool }: FooterProps) {
                   onClick={(e) => { e.preventDefault(); onSelectTool('ai-observability'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                   className="text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
                 >
-                  AI Search Observability (74/100)
+                  AI Search Observability
                 </a>
               </li>
               <li>

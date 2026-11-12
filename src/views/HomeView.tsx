@@ -82,7 +82,7 @@ export default function HomeView({ onSelectTool, onQuickInbox, currentInbox, onS
     },
     {
       id: 'ai-observability' as ActiveTool,
-      title: 'AI Search Observability (74/100)',
+      title: 'AI Search Observability',
       description: 'Generative Engine Optimization (GEO) dashboard tracking visibility, citations, and crawler permissions across ChatGPT, Gemini, Perplexity, and Google AI Overviews.',
       icon: Sparkles,
       accent: 'text-purple-400',

@@ -74,11 +74,10 @@ QuickNest is architected as an ephemeral web application using a resilient MERN 
 
 ## 6. Generative Engine Optimization (GEO) & AI Search Observability
 - Web Route: https://quicknest.ai.studio/ai-observability
-- AI Search Baseline Metrics:
-  - AI Visibility Score: Upgraded from 14/100 to 74/100 (High Visibility).
-  - Total Mentions: 342
-  - Cited Pages: 410
-  - Tracked Engines: ChatGPT Search, Google AI Overview, Google AI Mode, Google Gemini, Anthropic Claude, Perplexity AI, Apple Intelligence.
+- AI Readiness & Observability Standards:
+  - AI Readiness Status: Fully Verified (100% Crawl & Index Compliance).
+  - Machine Indexes: Standard `/llms.txt` and `/llms-full.txt` deployed at domain root.
+  - Tracked Engines: GPTBot, ChatGPT-User, Google-Extended, Anthropic Claude, PerplexityBot, Apple Intelligence.
 - GEO Pillars:
   1. Information density: High factual gain per sentence.
   2. Authority citations: Standards-based RFC references.

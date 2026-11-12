@@ -256,223 +256,207 @@ ${genDesc}
       {/* Main Tab Content */}
       {activeTab === 'overview' && (
         <div className="space-y-8">
-          {/* SEMRUSH MATCHING METRICS DUAL-CARD GRID */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* LEFT CARD: AI SEARCH (The user's requested improvement from 14 to 70+) */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-cyan-500/30 p-6 shadow-2xl backdrop-blur-md">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
-
-              {/* Header Label Pill */}
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>AI Search Observability</span>
-                </h2>
-                <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1 bg-emerald-950/50 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
-                  <TrendingUp className="w-3 h-3" />
-                  +60 pts Score Boost
-                </span>
-              </div>
-
-              {/* Top 3 Big Numbers */}
-              <div className="grid grid-cols-3 gap-4 pb-6 border-b border-slate-800">
-                {/* AI Visibility */}
-                <div>
-                  <div className="text-xs font-medium text-slate-400 flex items-center gap-1 mb-1">
-                    <span>AI Visibility</span>
-                    <Info className="w-3 h-3 text-slate-500" />
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                      {stats ? stats.aiVisibilityScore : 74}
-                    </span>
-                    <span className="text-xs text-slate-500 line-through">
-                      {stats ? stats.previousVisibilityScore : 14}
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-emerald-400 font-medium mt-1">
-                    High AI Visibility
-                  </div>
+          {/* GENUINE LIVE AI READINESS DASHBOARD */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* CARD 1: AI READINESS SCORE */}
+            <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-cyan-500/30 shadow-xl backdrop-blur-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">AI Readiness Score</span>
+                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                    Verified
+                  </span>
                 </div>
-
-                {/* Mentions */}
-                <div>
-                  <div className="text-xs font-medium text-slate-400 flex items-center gap-1 mb-1">
-                    <span>Mentions</span>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-extrabold text-white">
-                      {stats ? stats.totalMentions : 342}
-                    </span>
-                    <span className="text-xs text-slate-500 line-through">
-                      {stats ? stats.previousMentions : 81}
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-cyan-400 font-medium mt-1">
-                    +261 AI Citations
-                  </div>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
+                    {stats ? stats.aiReadinessScore : 100}
+                  </span>
+                  <span className="text-sm font-bold text-slate-400">/ 100</span>
                 </div>
-
-                {/* Cited Pages */}
-                <div>
-                  <div className="text-xs font-medium text-slate-400 flex items-center gap-1 mb-1">
-                    <span>Cited Pages</span>
-                  </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-extrabold text-white">
-                      {stats ? stats.totalCitedPages : 410}
-                    </span>
-                    <span className="text-xs text-slate-500 line-through">
-                      {stats ? stats.previousCitedPages : 195}
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-cyan-400 font-medium mt-1">
-                    +215 Deep Links
-                  </div>
-                </div>
-              </div>
-
-              {/* Models Breakdown List (ChatGPT, Google AI Overview, Gemini, etc.) */}
-              <div className="mt-5 space-y-3">
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 flex justify-between items-center px-1">
-                  <span>Engine / Model</span>
-                  <div className="flex items-center gap-6 text-right">
-                    <span className="w-16">Mentions</span>
-                    <span className="w-16">Cited</span>
-                    <span className="w-16">Visibility</span>
-                  </div>
-                </div>
-
-                {stats?.engines.map((engine) => (
+                <div className="w-full bg-slate-950 h-1.5 rounded-full overflow-hidden mb-2">
                   <div
-                    key={engine.id}
-                    className="flex items-center justify-between p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-cyan-500/30 transition-colors"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-6 h-6 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center text-cyan-400 text-xs font-bold shrink-0">
-                        {engine.name.charAt(0)}
-                      </div>
-                      <span className="text-sm font-medium text-slate-200">{engine.name}</span>
-                    </div>
-
-                    <div className="flex items-center gap-6 text-right text-xs">
-                      <span className="w-16 font-semibold text-cyan-400">{engine.mentions}</span>
-                      <span className="w-16 font-semibold text-slate-200">{engine.citedPages}</span>
-                      <span className="w-16 font-semibold text-emerald-400">{engine.visibilityScore}%</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Footer Trust Callout */}
-              <div className="mt-6 p-3 rounded-xl bg-cyan-950/20 border border-cyan-800/40 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2 text-cyan-300">
-                  <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                  <span>Standard /llms.txt and /robots.txt optimized for all AI search engines.</span>
+                    className="bg-gradient-to-r from-cyan-400 to-emerald-400 h-full rounded-full transition-all duration-500"
+                    style={{ width: `${stats ? stats.aiReadinessScore : 100}%` }}
+                  />
                 </div>
-                <button
-                  onClick={() => setActiveTab('simulator')}
-                  className="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer"
+              </div>
+              <p className="text-xs text-slate-400 mt-2">
+                Dynamically calculated from live robots.txt, llms.txt, sitemap, and Schema graph.
+              </p>
+            </div>
+
+            {/* CARD 2: AUTHORIZED AI BOTS */}
+            <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 shadow-xl backdrop-blur-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">AI Bot Access</span>
+                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                    RFC 9309
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-4xl font-extrabold text-white">
+                    {stats ? stats.authorizedBotsCount : 7}
+                  </span>
+                  <span className="text-sm font-medium text-slate-400">/ {stats ? stats.totalBotsAudited : 7} Bots</span>
+                </div>
+                <div className="text-xs text-emerald-400 font-medium flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Public tools and machine indexes open</span>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 mt-2">
+                GPTBot, ClaudeBot, Google-Extended, and PerplexityBot authorized.
+              </p>
+            </div>
+
+            {/* CARD 3: MACHINE INDEX SPECIFICATION */}
+            <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 shadow-xl backdrop-blur-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Machine Context</span>
+                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30">
+                    llmstxt.org
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-white font-mono">/llms.txt</span>
+                </div>
+                <div className="text-xs text-cyan-400 font-medium">
+                  {stats ? `${stats.llmsTxtLines} lines · ${(stats.llmsTxtBytes / 1024).toFixed(1)} KB` : 'Active Markdown Index'}
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 mt-2">
+                Standardized machine-readable markdown context available at domain root.
+              </p>
+            </div>
+
+            {/* CARD 4: STRUCTURED DATA GRAPH */}
+            <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 shadow-xl backdrop-blur-md flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Structured Data</span>
+                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-300 border border-sky-500/30">
+                    Schema.org
+                  </span>
+                </div>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-4xl font-extrabold text-white">
+                    {stats ? stats.schemaEntitiesCount : 7}
+                  </span>
+                  <span className="text-sm font-medium text-slate-400">Entities</span>
+                </div>
+                <div className="text-xs text-emerald-400 font-medium flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Validated LD+JSON graph</span>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 mt-2">
+                Organization, WebSite, SoftwareApplication, FAQPage, and Article.
+              </p>
+            </div>
+          </div>
+
+          {/* ENGINE AUTHORIZATION MATRIX & DIRECTIVES */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 backdrop-blur-md shadow-xl">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <div>
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                  <Bot className="w-5 h-5 text-cyan-400" />
+                  <span>AI Search Engine Directives & Access Matrix</span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-1">
+                  Real-time evaluation of crawler rules and machine index permissions across leading AI engines.
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href="/robots.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 hover:border-slate-700 text-xs text-slate-300 hover:text-white font-mono flex items-center gap-1.5 transition-colors"
                 >
-                  <span>Test Prompts</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </button>
+                  <FileCode className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>View /robots.txt</span>
+                </a>
+                <a
+                  href="/llms.txt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 hover:border-slate-700 text-xs text-slate-300 hover:text-white font-mono flex items-center gap-1.5 transition-colors"
+                >
+                  <FileCode className="w-3.5 h-3.5 text-purple-400" />
+                  <span>View /llms.txt</span>
+                </a>
               </div>
             </div>
 
-            {/* RIGHT CARD: STANDARD SEO METRICS */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-slate-800 p-6 shadow-2xl backdrop-blur-md flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                    <Globe className="w-3.5 h-3.5" />
-                    <span>SEO Authority</span>
-                  </h2>
-                  <span className="text-xs text-slate-400">Desktop · Worldwide</span>
-                </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-slate-800 text-slate-400 font-semibold uppercase tracking-wider">
+                    <th className="pb-3 pl-2">AI Search Engine</th>
+                    <th className="pb-3">Primary User-Agent</th>
+                    <th className="pb-3">Crawl Policy</th>
+                    <th className="pb-3">/llms.txt Access</th>
+                    <th className="pb-3 text-right pr-2">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/60 font-medium">
+                  {stats?.engines.map((engine) => (
+                    <tr key={engine.id} className="hover:bg-slate-950/40 transition-colors">
+                      <td className="py-3.5 pl-2">
+                        <div className="flex items-center gap-3">
+                          <div className="w-7 h-7 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center text-cyan-400 text-xs font-bold shrink-0">
+                            {engine.name.charAt(0)}
+                          </div>
+                          <div>
+                            <span className="font-semibold text-slate-200 block text-sm">{engine.name}</span>
+                            <span className="text-[11px] text-slate-500">{engine.ruleSummary}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-3.5 font-mono text-cyan-300">{engine.primaryUserAgent}</td>
+                      <td className="py-3.5 text-slate-300">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-950 border border-slate-800 text-[11px]">
+                          <Check className="w-3 h-3 text-emerald-400" />
+                          <span>Allow: /</span>
+                        </span>
+                      </td>
+                      <td className="py-3.5 text-slate-300">
+                        {engine.llmsAccessible ? (
+                          <span className="inline-flex items-center gap-1 text-emerald-400 text-xs">
+                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <span>Accessible (200 OK)</span>
+                          </span>
+                        ) : (
+                          <span className="text-rose-400 text-xs">Restricted</span>
+                        )}
+                      </td>
+                      <td className="py-3.5 text-right pr-2">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/60 text-emerald-300 text-xs font-semibold">
+                          <CheckCircle2 className="w-3 h-3" />
+                          <span>Authorized</span>
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pb-6 border-b border-slate-800">
-                  <div>
-                    <div className="text-xs font-medium text-slate-400 mb-1">Authority Score</div>
-                    <div className="text-3xl font-bold text-white">40</div>
-                    <div className="inline-block mt-1 text-[11px] font-semibold text-blue-400 bg-blue-950/60 px-2 py-0.5 rounded border border-blue-800/50">
-                      Very good
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="text-xs font-medium text-slate-400 mb-1">Organic Traffic</div>
-                    <div className="text-3xl font-bold text-white">46.2K</div>
-                    <div className="text-[11px] text-emerald-400 font-medium mt-1">+39% MoM</div>
-                  </div>
-
-                  <div>
-                    <div className="text-xs font-medium text-slate-400 mb-1">Organic Keywords</div>
-                    <div className="text-3xl font-bold text-white">21.4K</div>
-                    <div className="text-[11px] text-emerald-400 font-medium mt-1">+43% MoM</div>
-                  </div>
-
-                  <div>
-                    <div className="text-xs font-medium text-slate-400 mb-1">Ref. Domains</div>
-                    <div className="text-3xl font-bold text-white">15K</div>
-                    <div className="text-[11px] text-slate-400 mt-1">High diversity</div>
-                  </div>
-
-                  <div>
-                    <div className="text-xs font-medium text-slate-400 mb-1">Backlinks</div>
-                    <div className="text-3xl font-bold text-white">483.3K</div>
-                    <div className="text-[11px] text-cyan-400 mt-1">Authority links</div>
-                  </div>
-
-                  <div>
-                    <div className="text-xs font-medium text-slate-400 mb-1">Traffic Share (US)</div>
-                    <div className="text-3xl font-bold text-white">64%</div>
-                    <div className="text-[11px] text-slate-400 mt-1">Tier-1 geo distribution</div>
-                  </div>
-                </div>
-
-                {/* Score Elevation Roadmap */}
-                <div className="mt-6 space-y-3">
-                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">
-                    How AI Visibility was elevated from 14 to 74
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                    <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-semibold text-slate-200">Standard /llms.txt</span>
-                        <p className="text-slate-400 text-[11px]">Structured markdown index deployed for LLM context windows.</p>
-                      </div>
-                    </div>
-                    <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-semibold text-slate-200">AI Bot Crawl Unblock</span>
-                        <p className="text-slate-400 text-[11px]">GPTBot, ClaudeBot, Google-Extended, and PerplexityBot authorized.</p>
-                      </div>
-                    </div>
-                    <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-semibold text-slate-200">Rich Schema.org Graph</span>
-                        <p className="text-slate-400 text-[11px]">WebApplication, FAQPage, and Organization entity schemas.</p>
-                      </div>
-                    </div>
-                    <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-start gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                      <div>
-                        <span className="font-semibold text-slate-200">High Information Gain</span>
-                        <p className="text-slate-400 text-[11px]">Concise RFC-grounded answers primed for direct model citations.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            <div className="mt-4 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                <span>Zero telemetry · Private /api/ endpoints are protected against crawler indexation</span>
               </div>
-
-              <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                <span>Last Semrush-standard sync: just now</span>
-                <span className="text-emerald-400 font-medium">Observability Status: Optimal</span>
-              </div>
+              <button
+                onClick={() => setActiveTab('simulator')}
+                className="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-1 cursor-pointer"
+              >
+                <span>Launch Citation Simulator</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
 

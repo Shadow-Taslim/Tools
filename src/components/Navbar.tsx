@@ -18,7 +18,7 @@ export default function Navbar({ activeTool, onSelectTool, onQuickInbox }: Navba
     { id: 'temp-mail', label: t('nav.tempMail', 'Temp Mail'), icon: Mail },
     { id: 'url-shortener', label: t('nav.urlShortener', 'URL Shortener'), icon: Link2 },
     { id: 'security-checker', label: t('nav.securityChecker', 'Security Checker'), icon: ShieldCheck },
-    { id: 'ai-observability', label: t('nav.aiObservability', 'AI Search (74)'), icon: Sparkles },
+    { id: 'ai-observability', label: t('nav.aiObservability', 'AI Search'), icon: Sparkles },
     { id: 'robots-audit', label: t('nav.robotsAudit', 'Robots & SEO'), icon: Bot },
     { id: 'knowledge-hub', label: 'Guides & Hub', icon: BookOpen },
     { id: 'qr-code', label: t('nav.qrCode', 'QR Generator'), icon: QrCode }

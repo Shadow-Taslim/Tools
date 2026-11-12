@@ -46,7 +46,7 @@ const TOOL_META_CONFIG: Record<ActiveTool, (previewCode?: string) => MetaData> =
   }),
   'ai-observability': () => ({
     title: 'AI Search Observability & GEO Suite - Track Citations & Bot Indexing | QuickNest',
-    description: 'Monitor AI Search Visibility (74/100), brand mentions, cited pages, and bot accessibility across ChatGPT, Google AI Overview, Gemini, Perplexity, and Claude.',
+    description: 'Monitor AI Search Readiness, brand discovery, and bot accessibility across ChatGPT, Google AI Overview, Gemini, Perplexity, and Claude.',
     path: '/ai-observability',
     keywords: 'ai search observability, generative engine optimization, geo, chatgpt search citations, google ai overview, gemini citations, perplexitybot, llms.txt'
   }),

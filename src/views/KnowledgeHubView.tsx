@@ -104,7 +104,7 @@ export default function KnowledgeHubView({ onSelectTool, onShowToast, initialArt
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-950/60 border border-cyan-800/60 text-xs font-mono text-cyan-300 hover:bg-cyan-900/60 transition-colors cursor-pointer"
             >
               <Bot className="w-3.5 h-3.5" />
-              <span>AI Observability (74/100)</span>
+              <span>AI Search Observability</span>
             </button>
             <a
               href="/llms.txt"

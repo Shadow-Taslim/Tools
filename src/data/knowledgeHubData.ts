@@ -320,8 +320,8 @@ router.post('/inbound-webhook', (req: Request, res: Response) => {
         }
       },
       {
-        heading: '4. Measuring AI Visibility (The 74/100 Benchmark)',
-        content: 'Unlike traditional search rankings where you track rank #1–10 on SERPs, GEO success is measured by Mention Frequency, Direct Citation Count, and Share of Voice across generative queries. Using QuickNest’s AI Search Observability suite, webmasters can test simulated queries and monitor crawler accessibility in real-time.'
+        heading: '4. Measuring AI Visibility & Engine Observability',
+        content: 'Unlike traditional search rankings where you track rank #1–10 on SERPs, GEO success is measured by crawler accessibility, direct citation fidelity, and semantic indexation across generative queries. Using QuickNest’s AI Search Observability suite, webmasters can test simulated queries and monitor crawler accessibility in real-time.'
       }
     ],
     faqs: [
@@ -803,7 +803,7 @@ QuickNest is designed around one core engineering principle: Verifiable Zero Ret
 - 10-Minute Temporary Mail: Inboxes with automatic background memory eviction.
 - Phishing-Protected Shortener: Instant homograph attack and malware destination detection.
 - RFC 9309 Robots.txt Auditor: Real-time simulator testing paths against Googlebot, GPTBot, and ClaudeBot.
-- AI Search Observability: A 74/100 benchmark dashboard monitoring site visibility across ChatGPT, Gemini, and AI Overviews.
+- AI Search Observability: Real-time dashboard monitoring bot accessibility and crawler permissions across ChatGPT, Gemini, and AI Overviews.
 - Cryptographic Password Generator: Built on the W3C Web Cryptography API with Shannon entropy metrics. Zero server transmission.
 
 No accounts, no paywalls, and no trackers. We'd love your feedback!`
@@ -868,7 +868,7 @@ export const AI_TESTING_FRAMEWORK = {
     }
   ],
   monthlyTrackingMetrics: [
-    { metric: 'AI Visibility Score', target: '74+/100', engine: 'Composite' },
+    { metric: 'AI Readiness Score', target: '100% Crawl Compliance', engine: 'Composite' },
     { metric: 'ChatGPT Search Mentions', target: 'Weekly indexation in conversational queries', engine: 'OpenAI' },
     { metric: 'Google AI Overview Citations', target: 'Direct inclusion for RFC 9309 and entropy queries', engine: 'Google' },
     { metric: 'Perplexity Search Sources', target: 'Cited in top 3 source pills for technical guides', engine: 'Perplexity' },

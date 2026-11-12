@@ -166,25 +166,18 @@ Disallow: /
   }
 };
 
-const POPULAR_TEST_DOMAINS = [
-  'quicknest.ai.studio (Local)',
-  'github.com',
-  'cloudflare.com',
-  'wikipedia.org'
-];
-
 export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
   const { t } = useLanguage();
 
   const [activeTab, setActiveTab] = useState<'audit' | 'simulator' | 'templates' | 'live'>('audit');
-  const [content, setContent] = useState<string>(TEMPLATES.quicknest.code);
+  const [content, setContent] = useState<string>('');
   const [urlInput, setUrlInput] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [auditResult, setAuditResult] = useState<RobotsAuditResult | null>(null);
   const [filterSeverity, setFilterSeverity] = useState<'all' | 'critical' | 'warning' | 'good'>('all');
 
   // Simulator state
-  const [testPath, setTestPath] = useState<string>('/api/email/inbox');
+  const [testPath, setTestPath] = useState<string>('/');
   const [testAgent, setTestAgent] = useState<string>('*');
   const [simResult, setSimResult] = useState<PathTestResult | null>(null);
   const [isSimulating, setIsSimulating] = useState<boolean>(false);
@@ -192,9 +185,17 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
   // Copied state
   const [copied, setCopied] = useState<boolean>(false);
 
-  // Initial audit of default content on mount
+  // Initial audit: fetch real live /robots.txt from the server
   useEffect(() => {
-    runAudit(TEMPLATES.quicknest.code);
+    fetch('/robots.txt')
+      .then(res => res.text())
+      .then(liveText => {
+        setContent(liveText);
+        runAudit(liveText);
+      })
+      .catch(() => {
+        runAudit(TEMPLATES.quicknest.code);
+      });
   }, []);
 
   const runAudit = async (customContent?: string, targetUrl?: string) => {
@@ -412,23 +413,23 @@ export default function RobotsAuditView({ onShowToast }: RobotsAuditViewProps) {
 
             {/* Presets */}
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-400">
-              <span className="text-slate-500">Quick Test:</span>
-              {POPULAR_TEST_DOMAINS.map((domain) => (
-                <button
-                  key={domain}
-                  onClick={() => {
-                    if (domain.includes('quicknest.ai.studio')) {
-                      runAudit(TEMPLATES.quicknest.code);
-                    } else {
-                      setUrlInput(domain);
-                      runAudit(undefined, domain);
-                    }
-                  }}
-                  className="px-2.5 py-1 rounded-md bg-slate-800/80 hover:bg-slate-700 hover:text-white border border-slate-700/60 font-mono text-[11px] transition-colors cursor-pointer"
-                >
-                  {domain}
-                </button>
-              ))}
+              <span className="text-slate-500">Live Source:</span>
+              <button
+                onClick={() => {
+                  setUrlInput('');
+                  fetch('/robots.txt')
+                    .then(res => res.text())
+                    .then(liveText => {
+                      setContent(liveText);
+                      runAudit(liveText);
+                      onShowToast('Fetched latest live /robots.txt from server', 'info');
+                    });
+                }}
+                className="px-2.5 py-1 rounded-md bg-cyan-950/60 hover:bg-cyan-900/60 text-cyan-300 border border-cyan-800/60 font-mono text-[11px] transition-colors cursor-pointer flex items-center gap-1.5"
+              >
+                <RefreshCw className="w-3 h-3" />
+                <span>Fetch Current /robots.txt</span>
+              </button>
             </div>
           </div>
 

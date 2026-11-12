@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, '..');
 
 async function runAiObservabilityTests() {
-  console.log('🧪 Starting QuickNest AI Search Observability (14 to 74) Verification Suite...\n');
+  console.log('🧪 Starting QuickNest AI Search Observability Verification Suite...\n');
   let passed = 0;
   let failed = 0;
 
@@ -48,7 +48,7 @@ async function runAiObservabilityTests() {
   const fullContent = fs.readFileSync(llmsFullPath, 'utf8');
   assert(fullContent.includes('RFC 9309 Robots.txt & AI Crawler Discovery'), 'llms-full.txt documents RFC 9309 AI crawler access');
   assert(fullContent.includes('Generative Engine Optimization (GEO)'), 'llms-full.txt covers GEO optimization pillars');
-  assert(fullContent.includes('AI Visibility Score: Upgraded from 14/100 to 74/100'), 'llms-full.txt documents 14 to 74 visibility upgrade');
+  assert(fullContent.includes('AI Readiness & Observability Standards'), 'llms-full.txt documents AI Readiness standards');
 
   // 3. Robots.txt AI Bot Crawl Policies
   console.log('\n--- 3. Robots.txt AI Bot Directives ---');
